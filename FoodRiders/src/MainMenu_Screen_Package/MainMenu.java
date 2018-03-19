@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JSeparator;
+import java.awt.SystemColor;
 
 public class MainMenu {
 
@@ -50,6 +51,8 @@ public class MainMenu {
 	 */
 	private void initialize() {
 		frmFoodRiders = new JFrame();
+		frmFoodRiders.getContentPane().setBackground(SystemColor.textHighlight);
+		frmFoodRiders.setBackground(SystemColor.textHighlight);
 		frmFoodRiders.setResizable(false);
 		frmFoodRiders.setTitle("Food Riders");
 		frmFoodRiders.setBounds(100, 100, 690, 461);
