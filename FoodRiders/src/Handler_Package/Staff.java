@@ -4,10 +4,13 @@ public class Staff {
 	
 	private int id;
 	private String name;
+	private String position;
+	private int age;
+	private String recruitmentDate;
 	
 	
 	
-	public Staff(int anId, String aName) {
+	public Staff(int anId, String aName, String position, int age, String recruitmentDate) {
 	
 		id = anId;
 		name = aName;
