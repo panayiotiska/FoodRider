@@ -15,6 +15,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JSeparator;
@@ -129,8 +130,9 @@ public class MainMenu {
 		JButton btnYpalliloi = new JButton("\u039B\u03AF\u03C3\u03C4\u03B1 \u03A5\u03C0\u03B1\u03BB\u03BB\u03AE\u03BB\u03C9\u03BD");
 		btnYpalliloi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Staff_Screen ge = new Staff_Screen();
-				ge.EmployeesScreen();
+				frmFoodRiders.dispose();
+				Staff_Screen staffScreen = new Staff_Screen();
+				staffScreen.EmployeesScreen();
 			}
 		});
 		GridBagConstraints gbc_btnYpalliloi = new GridBagConstraints();
@@ -159,14 +161,21 @@ public class MainMenu {
 		btnAposindesi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmFoodRiders.dispose();
-				Login_Screen loginScreen = new Login_Screen();
+				Login_Screen loginScreen;
 				try {
-					loginScreen.showLoginScreen();
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-						| UnsupportedLookAndFeelException e) {
+					loginScreen = new Login_Screen();
+					try {
+						loginScreen.showLoginScreen();
+					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+							| UnsupportedLookAndFeelException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (MalformedURLException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
+
 				
 				
 			}

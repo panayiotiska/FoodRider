@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.swing.*;
 
 import MainMenu_Screen_Package.MainMenu;
@@ -35,15 +38,17 @@ public class Login_Screen{
 
 	/**
 	 * Create the application.
+	 * @throws MalformedURLException 
 	 */
-	public Login_Screen() {
+	public Login_Screen() throws MalformedURLException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws MalformedURLException 
 	 */
-	private void initialize() {
+	private void initialize() throws MalformedURLException {
 		
 		
 		
@@ -55,28 +60,28 @@ public class Login_Screen{
 		
 		JLabel title_label = new JLabel("FoodRiders");
 		title_label.setFont(new Font("SimSun", Font.ITALIC, 30));
-		title_label.setBounds(139, 40, 173, 40);
+		title_label.setBounds(109, 44, 173, 40);
 		frame.getContentPane().add(title_label);
 		
 		JLabel username_label = new JLabel("Username : ");
 		username_label.setForeground(Color.WHITE);
 		username_label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		username_label.setBounds(179, 115, 88, 29);
+		username_label.setBounds(146, 115, 88, 29);
 		frame.getContentPane().add(username_label);
 		
 		username_textField = new JTextField();
-		username_textField.setBounds(152, 155, 130, 20);
+		username_textField.setBounds(126, 154, 130, 20);
 		frame.getContentPane().add(username_textField);
 		username_textField.setColumns(10);
 		
 		JLabel password_label = new JLabel("Password :");
 		password_label.setForeground(Color.WHITE);
 		password_label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		password_label.setBounds(178, 196, 78, 29);
+		password_label.setBounds(156, 192, 78, 29);
 		frame.getContentPane().add(password_label);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(152, 232, 130, 20);
+		passwordField.setBounds(126, 232, 130, 20);
 		frame.getContentPane().add(passwordField);
 		
 		JLabel message_label = new JLabel("");
@@ -85,8 +90,16 @@ public class Login_Screen{
 		frame.getContentPane().add(message_label);
 		
 		JButton login_btn = new JButton("Login");
-		login_btn.setBounds(178, 319, 89, 23);
+		login_btn.setBounds(145, 319, 89, 23);
 		frame.getContentPane().add(login_btn);
+		
+		
+		URL url = this.getClass().getResource("ghostRider.gif");
+        Icon icon = new ImageIcon(url);
+        JLabel label = new JLabel(icon);
+		
+		label.setBounds(-30, 132, 456, 355);
+		frame.getContentPane().add(label);
 		
 		//ActionListeners 
 		
@@ -154,9 +167,7 @@ public class Login_Screen{
 		
 	
 		
-		frame.setBounds(100, 100, 450, 450);
+		frame.setBounds(100, 100, 403, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
-	
 }

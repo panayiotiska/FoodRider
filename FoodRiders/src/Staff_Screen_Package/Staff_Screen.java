@@ -6,7 +6,11 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+
+import MainMenu_Screen_Package.MainMenu;
+
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
@@ -45,8 +49,9 @@ public class Staff_Screen {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
-		frame.setBounds(100, 100, 1075, 328);
+		frame.setBounds(100, 100, 1075, 359);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -72,10 +77,11 @@ public class Staff_Screen {
 				return columnTypes[columnIndex];
 			}
 		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(130);
-		table.getColumnModel().getColumn(1).setPreferredWidth(130);
-		table.getColumnModel().getColumn(2).setPreferredWidth(130);
-		table.getColumnModel().getColumn(4).setPreferredWidth(145);
+		table.getColumnModel().getColumn(0).setMaxWidth(100);
+		table.getColumnModel().getColumn(1).setMaxWidth(100);
+		table.getColumnModel().getColumn(2).setMaxWidth(100);
+		table.getColumnModel().getColumn(3).setMaxWidth(100);
+		table.getColumnModel().getColumn(4).setMaxWidth(100);
 		scrollPane.setViewportView(table);
 		
 		JButton btnProsthiki = new JButton("Π�?οσθήκη Υπαλλήλου");
@@ -91,11 +97,18 @@ public class Staff_Screen {
 		frame.getContentPane().add(btnEpeksergasia);
 		
 		JButton button = new JButton("");
+		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
+		button.setIcon(menuImg);
+		frame.getContentPane().add(button);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				MainMenu mainMenu = new MainMenu();
+				mainMenu.showMainMenu();
+				
 			}
 		});
-		button.setBounds(42, 256, 89, 23);
-		frame.getContentPane().add(button);
+		button.setBounds(42, 256, 64, 60);
+		
 	}
 }

@@ -128,7 +128,7 @@ public class Restaurants_Screen {
 				
 			}
 		});
-		btnMainMenu.setBounds(189, 386, 98, 23);
+		btnMainMenu.setBounds(192, 367, 64, 60);
 		frame.getContentPane().add(btnMainMenu);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
