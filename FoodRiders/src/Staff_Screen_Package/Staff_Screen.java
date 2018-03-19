@@ -9,7 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-public class GuiEmployees {
+public class Staff_Screen {
 
 	private JFrame frame;
 	private JTable table;
@@ -21,7 +21,7 @@ public class GuiEmployees {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GuiEmployees window = new GuiEmployees();
+					Staff_Screen window = new Staff_Screen();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +33,7 @@ public class GuiEmployees {
 	/**
 	 * Create the application.
 	 */
-	public GuiEmployees() {
+	public Staff_Screen() {
 		initialize();
 	}
 
@@ -74,15 +74,15 @@ public class GuiEmployees {
 		table.getColumnModel().getColumn(4).setPreferredWidth(145);
 		scrollPane.setViewportView(table);
 		
-		JButton btnProsthiki = new JButton("Π�?οσθήκη Υπαλλήλου");
+		JButton btnProsthiki = new JButton("Π�?οσθήκη Υπαλλήλου");
 		btnProsthiki.setBounds(10, 207, 153, 25);
 		frame.getContentPane().add(btnProsthiki);
 		
-		JButton btnDiagrafi = new JButton("Διαγ�?αφή Υπαλλήλου");
+		JButton btnDiagrafi = new JButton("Διαγ�?αφή Υπαλλήλου");
 		btnDiagrafi.setBounds(175, 207, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		
-		JButton btnEpeksergasia = new JButton("Επξε�?γασία Υπαλλήλου");
+		JButton btnEpeksergasia = new JButton("Επξε�?γασία Υπαλλήλου");
 		btnEpeksergasia.setBounds(340, 207, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
 	}

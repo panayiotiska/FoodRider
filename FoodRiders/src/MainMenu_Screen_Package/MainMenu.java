@@ -4,8 +4,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.UnsupportedLookAndFeelException;
 
-import Staff_Screen_Package.GuiEmployees;
+import Restaurants_Screen_Package.Restaurants_Screen;
+import Staff_Screen_Package.Staff_Screen;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -16,7 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JSeparator;
 
-public class GuiMenu {
+public class MainMenu {
 
 	private JFrame frmFoodRiders;
 
@@ -27,7 +29,7 @@ public class GuiMenu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GuiMenu window = new GuiMenu();
+					MainMenu window = new MainMenu();
 					window.frmFoodRiders.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +41,7 @@ public class GuiMenu {
 	/**
 	 * Create the application.
 	 */
-	public GuiMenu() {
+	public MainMenu() {
 		initialize();
 	}
 
@@ -89,6 +91,22 @@ public class GuiMenu {
 		frmFoodRiders.getContentPane().add(btnTrexousa, gbc_btnTrexousa);
 		
 		JButton btnEstiatoria = new JButton("\u0395\u03C3\u03C4\u03B9\u03B1\u03C4\u03CC\u03C1\u03B9\u03B1");
+		btnEstiatoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmFoodRiders.dispose();
+				Restaurants_Screen restaurants = new Restaurants_Screen();
+				try {
+					restaurants.toRestaurantScreen();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+			}
+		});
 		GridBagConstraints gbc_btnEstiatoria = new GridBagConstraints();
 		gbc_btnEstiatoria.insets = new Insets(0, 0, 5, 0);
 		gbc_btnEstiatoria.fill = GridBagConstraints.BOTH;
@@ -107,7 +125,7 @@ public class GuiMenu {
 		JButton btnYpalliloi = new JButton("\u039B\u03AF\u03C3\u03C4\u03B1 \u03A5\u03C0\u03B1\u03BB\u03BB\u03AE\u03BB\u03C9\u03BD");
 		btnYpalliloi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GuiEmployees ge = new GuiEmployees();
+				Staff_Screen ge = new Staff_Screen();
 				ge.EmployeesScreen();
 			}
 		});

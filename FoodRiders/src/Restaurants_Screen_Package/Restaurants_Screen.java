@@ -19,6 +19,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
+import Main.Main;
+import MainMenu_Screen_Package.MainMenu;
+
 public class Restaurants_Screen { 
 
 	private JFrame frame;
@@ -119,6 +122,10 @@ public class Restaurants_Screen {
 		btnMainMenu.setIcon(menuImg);*/
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				MainMenu mainMenu = new MainMenu();
+				mainMenu.showMainMenu();
+				
 			}
 		});
 		btnMainMenu.setBounds(189, 386, 98, 23);

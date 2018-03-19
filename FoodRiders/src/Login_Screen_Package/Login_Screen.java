@@ -7,7 +7,7 @@ import java.awt.SystemColor;
 import java.awt.event.*;
 import javax.swing.*;
 
-import MainMenu_Screen_Package.GuiMenu;
+import MainMenu_Screen_Package.MainMenu;
 import Restaurants_Screen_Package.Restaurants_Screen;
 
 public class Login_Screen{
@@ -121,7 +121,7 @@ public class Login_Screen{
 						login_btn.setVisible(false);
 						message_label.setForeground(Color.black);*/
 						frame.dispose();
-						GuiMenu mainMenu = new GuiMenu();
+						MainMenu mainMenu = new MainMenu();
 						mainMenu.showMainMenu();
 						
 				
