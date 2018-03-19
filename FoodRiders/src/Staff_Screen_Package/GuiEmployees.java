@@ -1,4 +1,4 @@
-package guiEmployees_Package;
+package Staff_Screen_Package;
 
 import java.awt.EventQueue;
 
@@ -74,15 +74,15 @@ public class GuiEmployees {
 		table.getColumnModel().getColumn(4).setPreferredWidth(145);
 		scrollPane.setViewportView(table);
 		
-		JButton btnProsthiki = new JButton("Προσθήκη Υπαλλήλου");
+		JButton btnProsthiki = new JButton("Π�?οσθήκη Υπαλλήλου");
 		btnProsthiki.setBounds(10, 207, 153, 25);
 		frame.getContentPane().add(btnProsthiki);
 		
-		JButton btnDiagrafi = new JButton("Διαγραφή Υπαλλήλου");
+		JButton btnDiagrafi = new JButton("Διαγ�?αφή Υπαλλήλου");
 		btnDiagrafi.setBounds(175, 207, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		
-		JButton btnEpeksergasia = new JButton("Επξεργασία Υπαλλήλου");
+		JButton btnEpeksergasia = new JButton("Επξε�?γασία Υπαλλήλου");
 		btnEpeksergasia.setBounds(340, 207, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
 	}

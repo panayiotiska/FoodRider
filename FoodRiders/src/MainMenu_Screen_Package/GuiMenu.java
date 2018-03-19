@@ -1,11 +1,11 @@
-package guiMenu_Package;
+package MainMenu_Screen_Package;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import guiEmployees_Package.GuiEmployees;
+import Staff_Screen_Package.GuiEmployees;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -23,7 +23,7 @@ public class GuiMenu {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void showMainMenu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

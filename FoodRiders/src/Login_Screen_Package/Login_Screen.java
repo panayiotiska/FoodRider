@@ -7,6 +7,7 @@ import java.awt.SystemColor;
 import java.awt.event.*;
 import javax.swing.*;
 
+import MainMenu_Screen_Package.GuiMenu;
 import Restaurants_Screen_Package.Restaurants_Screen;
 
 public class Login_Screen{
@@ -120,14 +121,9 @@ public class Login_Screen{
 						login_btn.setVisible(false);
 						message_label.setForeground(Color.black);*/
 						frame.dispose();
-						Restaurants_Screen restScreen = new Restaurants_Screen();
-						try {
-							restScreen.toRestaurantScreen();
-						} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-								| UnsupportedLookAndFeelException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} 
+						GuiMenu mainMenu = new GuiMenu();
+						mainMenu.showMainMenu();
+						
 				
 				
 				}else {
