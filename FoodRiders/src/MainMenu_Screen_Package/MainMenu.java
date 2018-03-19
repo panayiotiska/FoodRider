@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import Login_Screen_Package.Login_Screen;
 import Restaurants_Screen_Package.Restaurants_Screen;
 import Staff_Screen_Package.Staff_Screen;
 
@@ -155,6 +156,21 @@ public class MainMenu {
 		frmFoodRiders.getContentPane().add(separator_1, gbc_separator_1);
 		
 		JButton btnAposindesi = new JButton("\u0391\u03C0\u03BF\u03C3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7");
+		btnAposindesi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmFoodRiders.dispose();
+				Login_Screen loginScreen = new Login_Screen();
+				try {
+					loginScreen.showLoginScreen();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+		});
 		GridBagConstraints gbc_btnAposindesi = new GridBagConstraints();
 		gbc_btnAposindesi.fill = GridBagConstraints.VERTICAL;
 		gbc_btnAposindesi.gridx = 0;

@@ -53,9 +53,9 @@ public class Login_Screen{
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel title_label = new JLabel("UberEats");
+		JLabel title_label = new JLabel("FoodRiders");
 		title_label.setFont(new Font("SimSun", Font.ITALIC, 30));
-		title_label.setBounds(160, 32, 136, 40);
+		title_label.setBounds(139, 40, 173, 40);
 		frame.getContentPane().add(title_label);
 		
 		JLabel username_label = new JLabel("Username : ");

@@ -117,9 +117,9 @@ public class Restaurants_Screen {
 		table.getColumnModel().getColumn(3).setPreferredWidth(92);
 		scrollPane.setViewportView(table);
 		
-		JButton btnMainMenu = new JButton("Main Menu");
-		/*ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
-		btnMainMenu.setIcon(menuImg);*/
+		JButton btnMainMenu = new JButton("");
+		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
+		btnMainMenu.setIcon(menuImg);
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();

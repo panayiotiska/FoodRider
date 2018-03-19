@@ -8,6 +8,9 @@ import javax.swing.JTable;
 import javax.swing.BoxLayout;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Staff_Screen {
 
@@ -42,12 +45,13 @@ public class Staff_Screen {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1075, 292);
+		frame.getContentPane().setBackground(SystemColor.textHighlight);
+		frame.setBounds(100, 100, 1075, 328);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 1057, 206);
+		scrollPane.setBounds(0, 0, 1057, 164);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -75,15 +79,23 @@ public class Staff_Screen {
 		scrollPane.setViewportView(table);
 		
 		JButton btnProsthiki = new JButton("Π�?οσθήκη Υπαλλήλου");
-		btnProsthiki.setBounds(10, 207, 153, 25);
+		btnProsthiki.setBounds(12, 195, 153, 25);
 		frame.getContentPane().add(btnProsthiki);
 		
 		JButton btnDiagrafi = new JButton("Διαγ�?αφή Υπαλλήλου");
-		btnDiagrafi.setBounds(175, 207, 153, 25);
+		btnDiagrafi.setBounds(177, 195, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		
 		JButton btnEpeksergasia = new JButton("Επξε�?γασία Υπαλλήλου");
-		btnEpeksergasia.setBounds(340, 207, 161, 25);
+		btnEpeksergasia.setBounds(344, 195, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
+		
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button.setBounds(42, 256, 89, 23);
+		frame.getContentPane().add(button);
 	}
 }
