@@ -6,19 +6,30 @@ import java.util.Queue;
 
 public class Handler {
 
-	private ArrayList<Restaurant> restaurantsList = new ArrayList<>();
-	private ArrayList<Staff> staffList = new ArrayList<>();
-	private ArrayList<Vehicle> vehicles = new ArrayList<>();
+	private ArrayList<Restaurant> restaurantsList;
+	private ArrayList<Staff> staffList;
+	private ArrayList<Vehicle> vehicles;
 	
-	private Queue<Staff> staffAvailable = new LinkedList<>();
-	private Queue<Staff> staffUnavailable = new LinkedList<>();
+	private Queue<Staff> staffAvailable;
+	private Queue<Staff> staffUnavailable ;
 	
-	private Queue<Vehicle> vehiclesAvailable = new LinkedList<>();
-	private Queue<Vehicle> vehiclesUnavailable = new LinkedList<>();
+	private Queue<Vehicle> vehiclesAvailable;
+	private Queue<Vehicle> vehiclesUnavailable ;
 	
-	private Queue<Order> runningOrders = new LinkedList<>();
-	private Queue<Order> ordersInQueue = new LinkedList<>();
+	private Queue<Order> runningOrders ;
+	private Queue<Order> ordersInQueue ;
 	
+	
+	public Handler() {
+		restaurantsList = new ArrayList<>();
+		staffList = new ArrayList<>();
+		vehicles = new ArrayList<>();
+		staffAvailable = (Queue)staffList;
+		vehiclesAvailable = (Queue)vehicles;
+		runningOrders = new LinkedList<>();
+		ordersInQueue = new LinkedList<>();
+		
+	}
 	
 	
 	
