@@ -10,7 +10,7 @@ public class Main {
 		
 		
 		Login_Screen window = new Login_Screen();
-		window.startApplication();
+		window.showLoginScreen();
 
 	}
 
