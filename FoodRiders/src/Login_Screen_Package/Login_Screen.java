@@ -88,7 +88,7 @@ public class Login_Screen{
 		
 		JLabel message_label = new JLabel("");
 		message_label.setForeground(new Color(0, 0, 0));
-		message_label.setBounds(28, 263, 384, 45);
+		message_label.setBounds(10, 263, 367, 45);
 		frame.getContentPane().add(message_label);
 		
 		JButton login_btn = new JButton("Login");
@@ -151,7 +151,7 @@ public class Login_Screen{
 				
 				}else {
 					message_label.setForeground(Color.red);
-					message_label.setText("Incorrect username or password. Account cannot be found!");
+					message_label.setText("Incorrect username or password.Please check your details and try again!");
 				}
 				
 				
