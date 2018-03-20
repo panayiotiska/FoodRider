@@ -16,6 +16,30 @@ public class Staff {
 		name = aName;
 	}
 
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getRecruitmentDate() {
+		return recruitmentDate;
+	}
+
+	public void setRecruitmentDate(String recruitmentDate) {
+		this.recruitmentDate = recruitmentDate;
+	}
+
 	public int getId() {
 		return id;
 	}

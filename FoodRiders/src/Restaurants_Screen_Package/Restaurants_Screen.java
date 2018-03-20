@@ -19,6 +19,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
+import Main.Main;
+import MainMenu_Screen_Package.MainMenu;
+
 public class Restaurants_Screen { 
 
 	private JFrame frame;
@@ -114,14 +117,18 @@ public class Restaurants_Screen {
 		table.getColumnModel().getColumn(3).setPreferredWidth(92);
 		scrollPane.setViewportView(table);
 		
-		JButton btnMainMenu = new JButton("Main Menu");
-		/*ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
-		btnMainMenu.setIcon(menuImg);*/
+		JButton btnMainMenu = new JButton("");
+		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
+		btnMainMenu.setIcon(menuImg);
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				MainMenu mainMenu = new MainMenu();
+				mainMenu.showMainMenu();
+				
 			}
 		});
-		btnMainMenu.setBounds(189, 386, 98, 23);
+		btnMainMenu.setBounds(192, 367, 64, 60);
 		frame.getContentPane().add(btnMainMenu);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {

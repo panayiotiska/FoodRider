@@ -1,12 +1,18 @@
 package Login_Screen_Package;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.swing.*;
 
+import MainMenu_Screen_Package.MainMenu;
 import Restaurants_Screen_Package.Restaurants_Screen;
 
 public class Login_Screen{
@@ -18,7 +24,7 @@ public class Login_Screen{
 	/**
 	 * Launch the application.
 	 */
-	public void startApplication() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+	public void showLoginScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -34,15 +40,17 @@ public class Login_Screen{
 
 	/**
 	 * Create the application.
+	 * @throws MalformedURLException 
 	 */
-	public Login_Screen() {
+	public Login_Screen() throws MalformedURLException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws MalformedURLException 
 	 */
-	private void initialize() {
+	private void initialize() throws MalformedURLException {
 		
 		
 		
@@ -52,30 +60,30 @@ public class Login_Screen{
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel title_label = new JLabel("UberEats");
+		JLabel title_label = new JLabel("FoodRiders");
 		title_label.setFont(new Font("SimSun", Font.ITALIC, 30));
-		title_label.setBounds(160, 32, 136, 40);
+		title_label.setBounds(109, 44, 173, 40);
 		frame.getContentPane().add(title_label);
 		
 		JLabel username_label = new JLabel("Username : ");
 		username_label.setForeground(Color.WHITE);
 		username_label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		username_label.setBounds(179, 115, 88, 29);
+		username_label.setBounds(146, 115, 88, 29);
 		frame.getContentPane().add(username_label);
 		
 		username_textField = new JTextField();
-		username_textField.setBounds(152, 155, 130, 20);
+		username_textField.setBounds(126, 154, 130, 20);
 		frame.getContentPane().add(username_textField);
 		username_textField.setColumns(10);
 		
 		JLabel password_label = new JLabel("Password :");
 		password_label.setForeground(Color.WHITE);
 		password_label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		password_label.setBounds(178, 196, 78, 29);
+		password_label.setBounds(156, 192, 78, 29);
 		frame.getContentPane().add(password_label);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(152, 232, 130, 20);
+		passwordField.setBounds(126, 232, 130, 20);
 		frame.getContentPane().add(passwordField);
 		
 		JLabel message_label = new JLabel("");
@@ -84,8 +92,16 @@ public class Login_Screen{
 		frame.getContentPane().add(message_label);
 		
 		JButton login_btn = new JButton("Login");
-		login_btn.setBounds(178, 319, 89, 23);
+		login_btn.setBounds(145, 319, 89, 23);
 		frame.getContentPane().add(login_btn);
+		
+		
+		URL url = this.getClass().getResource("ghostRider.gif");
+        Icon icon = new ImageIcon(url);
+        JLabel label = new JLabel(icon);
+		
+		label.setBounds(-30, 132, 456, 355);
+		frame.getContentPane().add(label);
 		
 		//ActionListeners 
 		
@@ -105,7 +121,7 @@ public class Login_Screen{
 				
 				if(username.isEmpty() || password.isEmpty()) {
 					message_label.setForeground(Color.red);
-					message_label.setText("You must fill all the details to proceed! ");
+					message_label.setText("You must fill all the blanks in order to proceed! ");
 					if(username.isEmpty())
 						username_textField.setBackground(Color.red);
 					if(password.isEmpty())
@@ -120,19 +136,18 @@ public class Login_Screen{
 						login_btn.setVisible(false);
 						message_label.setForeground(Color.black);*/
 						frame.dispose();
-						Restaurants_Screen restScreen = new Restaurants_Screen();
-						try {
-							restScreen.toRestaurantScreen();
-						} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-								| UnsupportedLookAndFeelException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} 
+						MainMenu mainMenu = new MainMenu();
+						URL url = getClass().getResource("/Login_Screen_Package/SkypeLogInSound.wav");
+						AudioClip clip = Applet.newAudioClip(url);
+						clip.play();
+						mainMenu.showMainMenu();
+						
+						
 				
 				
 				}else {
 					message_label.setForeground(Color.red);
-					message_label.setText("! Incorrect username or password. Account cannot be found!");
+					message_label.setText("Incorrect username or password. Account cannot be found!");
 				}
 				
 				
@@ -158,9 +173,7 @@ public class Login_Screen{
 		
 	
 		
-		frame.setBounds(100, 100, 450, 450);
+		frame.setBounds(100, 100, 403, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
-	
 }

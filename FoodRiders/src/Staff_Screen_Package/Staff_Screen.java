@@ -1,4 +1,4 @@
-package guiEmployees_Package;
+package Staff_Screen_Package;
 
 import java.awt.EventQueue;
 
@@ -6,10 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
 
-public class GuiEmployees {
+import MainMenu_Screen_Package.MainMenu;
+
+import javax.swing.JButton;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Staff_Screen {
 
 	private JFrame frame;
 	private JTable table;
@@ -21,7 +28,7 @@ public class GuiEmployees {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GuiEmployees window = new GuiEmployees();
+					Staff_Screen window = new Staff_Screen();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +40,7 @@ public class GuiEmployees {
 	/**
 	 * Create the application.
 	 */
-	public GuiEmployees() {
+	public Staff_Screen() {
 		initialize();
 	}
 
@@ -42,12 +49,14 @@ public class GuiEmployees {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1075, 292);
+		frame.setResizable(false);
+		frame.getContentPane().setBackground(SystemColor.textHighlight);
+		frame.setBounds(100, 100, 559, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 1057, 206);
+		scrollPane.setBounds(25, 11, 505, 164);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -68,22 +77,38 @@ public class GuiEmployees {
 				return columnTypes[columnIndex];
 			}
 		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(130);
-		table.getColumnModel().getColumn(1).setPreferredWidth(130);
-		table.getColumnModel().getColumn(2).setPreferredWidth(130);
-		table.getColumnModel().getColumn(4).setPreferredWidth(145);
+		table.getColumnModel().getColumn(0).setMaxWidth(100);
+		table.getColumnModel().getColumn(1).setMaxWidth(100);
+		table.getColumnModel().getColumn(2).setMaxWidth(100);
+		table.getColumnModel().getColumn(3).setMaxWidth(100);
+		table.getColumnModel().getColumn(4).setMaxWidth(100);
 		scrollPane.setViewportView(table);
 		
-		JButton btnProsthiki = new JButton("Προσθήκη Υπαλλήλου");
-		btnProsthiki.setBounds(10, 207, 153, 25);
+		JButton btnProsthiki = new JButton("Π�?οσθήκη Υπαλλήλου");
+		btnProsthiki.setBounds(25, 195, 153, 25);
 		frame.getContentPane().add(btnProsthiki);
 		
-		JButton btnDiagrafi = new JButton("Διαγραφή Υπαλλήλου");
-		btnDiagrafi.setBounds(175, 207, 153, 25);
+		JButton btnDiagrafi = new JButton("Διαγ�?αφή Υπαλλήλου");
+		btnDiagrafi.setBounds(199, 195, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		
-		JButton btnEpeksergasia = new JButton("Επξεργασία Υπαλλήλου");
-		btnEpeksergasia.setBounds(340, 207, 161, 25);
+		JButton btnEpeksergasia = new JButton("Επξε�?γασία Υπαλλήλου");
+		btnEpeksergasia.setBounds(369, 195, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
+		
+		JButton button = new JButton("");
+		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
+		button.setIcon(menuImg);
+		frame.getContentPane().add(button);
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				MainMenu mainMenu = new MainMenu();
+				mainMenu.showMainMenu();
+				
+			}
+		});
+		button.setBounds(243, 251, 64, 60);
+		
 	}
 }
