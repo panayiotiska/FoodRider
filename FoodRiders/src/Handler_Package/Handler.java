@@ -28,7 +28,6 @@ public class Handler {
 		vehiclesAvailable = (Queue)vehicles;
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
-		
 	}
 	
 	
