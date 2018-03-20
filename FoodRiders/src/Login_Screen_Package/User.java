@@ -7,7 +7,6 @@ public class User {
 	private String subscriptionDate;
 	
 	public User(String aName, String aPassword, String aSubscriptionDate) {
-
 		name = aName;
 		password = aPassword;
 		subscriptionDate = aSubscriptionDate;

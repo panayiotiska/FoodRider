@@ -28,7 +28,6 @@ public class Handler {
 		vehiclesAvailable = (Queue)vehicles;
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
-		
 	}
 	
 	
@@ -62,6 +61,5 @@ public class Handler {
 	public ArrayList<Staff> getStaffList() {
 		return staffList;
 	}
-	
-	
+		
 }

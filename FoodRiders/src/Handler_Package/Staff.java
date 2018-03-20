@@ -56,6 +56,4 @@ public class Staff {
 		this.name = name;
 	}
 
-
-	
 }

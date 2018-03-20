@@ -131,19 +131,16 @@ public class Login_Screen{
 						
 				
 				}else if(db.checkData(username, password)) {
-						/*username_label.setVisible(false);
-						password_label.setVisible(false);
-						username_textField.setVisible(false);
-						passwordField.setVisible(false);
-						login_btn.setVisible(false);
-						message_label.setForeground(Color.black);*/
+						
+					
+					if(db.getLoginType()==1) {
 						frame.dispose();
 						MainMenu mainMenu = new MainMenu();
 						URL url = getClass().getResource("/Login_Screen_Package/SkypeLogInSound.wav");
 						AudioClip clip = Applet.newAudioClip(url);
 						clip.play();
 						mainMenu.showMainMenu();
-						
+					}
 						
 				
 				
@@ -178,5 +175,4 @@ public class Login_Screen{
 		frame.setBounds(100, 100, 403, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
 }
