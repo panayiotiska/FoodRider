@@ -1,4 +1,6 @@
 package MainMenu_Screen_Package;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JSeparator;
@@ -165,6 +168,9 @@ public class MainMenu {
 				try {
 					loginScreen = new Login_Screen();
 					try {
+						URL url = getClass().getResource("/MainMenu_Screen_Package/skypeLogOutSound.wav");
+						AudioClip clip = Applet.newAudioClip(url);
+						clip.play();
 						loginScreen.showLoginScreen();
 					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 							| UnsupportedLookAndFeelException e) {

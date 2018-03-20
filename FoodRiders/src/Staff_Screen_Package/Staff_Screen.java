@@ -51,12 +51,12 @@ public class Staff_Screen {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
-		frame.setBounds(100, 100, 1075, 359);
+		frame.setBounds(100, 100, 559, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 1057, 164);
+		scrollPane.setBounds(25, 11, 505, 164);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -85,15 +85,15 @@ public class Staff_Screen {
 		scrollPane.setViewportView(table);
 		
 		JButton btnProsthiki = new JButton("Π�?οσθήκη Υπαλλήλου");
-		btnProsthiki.setBounds(12, 195, 153, 25);
+		btnProsthiki.setBounds(25, 195, 153, 25);
 		frame.getContentPane().add(btnProsthiki);
 		
 		JButton btnDiagrafi = new JButton("Διαγ�?αφή Υπαλλήλου");
-		btnDiagrafi.setBounds(177, 195, 153, 25);
+		btnDiagrafi.setBounds(199, 195, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		
 		JButton btnEpeksergasia = new JButton("Επξε�?γασία Υπαλλήλου");
-		btnEpeksergasia.setBounds(344, 195, 161, 25);
+		btnEpeksergasia.setBounds(369, 195, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
 		
 		JButton button = new JButton("");
@@ -108,7 +108,7 @@ public class Staff_Screen {
 				
 			}
 		});
-		button.setBounds(42, 256, 64, 60);
+		button.setBounds(243, 251, 64, 60);
 		
 	}
 }

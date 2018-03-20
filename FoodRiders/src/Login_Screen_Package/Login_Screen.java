@@ -1,5 +1,7 @@
 package Login_Screen_Package;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -119,7 +121,7 @@ public class Login_Screen{
 				
 				if(username.isEmpty() || password.isEmpty()) {
 					message_label.setForeground(Color.red);
-					message_label.setText("You must fill all the details to proceed! ");
+					message_label.setText("You must fill all the blanks in order to proceed! ");
 					if(username.isEmpty())
 						username_textField.setBackground(Color.red);
 					if(password.isEmpty())
@@ -135,13 +137,17 @@ public class Login_Screen{
 						message_label.setForeground(Color.black);*/
 						frame.dispose();
 						MainMenu mainMenu = new MainMenu();
+						URL url = getClass().getResource("/Login_Screen_Package/SkypeLogInSound.wav");
+						AudioClip clip = Applet.newAudioClip(url);
+						clip.play();
 						mainMenu.showMainMenu();
+						
 						
 				
 				
 				}else {
 					message_label.setForeground(Color.red);
-					message_label.setText("! Incorrect username or password. Account cannot be found!");
+					message_label.setText("Incorrect username or password. Account cannot be found!");
 				}
 				
 				
