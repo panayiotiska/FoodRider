@@ -140,6 +140,13 @@ public class Login_Screen{
 						AudioClip clip = Applet.newAudioClip(url);
 						clip.play();
 						mainMenu.showMainMenu();
+					}else if(db.getLoginType()==2) {
+						frame.dispose();
+						URL url = getClass().getResource("/Login_Screen_Package/SkypeLogInSound.wav");
+						AudioClip clip = Applet.newAudioClip(url);
+						clip.play();
+					}else {
+						message_label.setText("An error has been occurred with your account. Please contact us for more information. ");
 					}
 						
 				
