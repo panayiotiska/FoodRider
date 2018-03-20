@@ -16,19 +16,13 @@ public class Database {
 		User user1 = new User("Vaggos", "vaggos", "15/2/14");
 		User user2 = new User("Vicky", "vicky", "25/4/15");  
 		User user3 = new User("Tasos", "tasos", "31/5/17");
-		User user4 = new User("panos", "panos", "1/1/11");
-		
-<<<<<<< HEAD
-		users.add(user1);
-		users.add(user2);
-		users.add(user3);
-		users.add(user4);
-=======
+		User user4 = new User("Panos", "panos", "1/1/11");
+
 		administrators.add(user1);
 		administrators.add(user2);
-		
 		clients.add(user3);
->>>>>>> refs/remotes/origin/master
+		clients.add(user4);
+		//commit done 
 		
 	}
 

@@ -3,7 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="App_icons_and_images"/>
-	<classpathentry kind="lib" path="C:/Users/Vaggelis/git/FoodRider/FoodRiders/Project rest files/External Jars/JTattoo-1.6.11.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vaggelis/git/FoodRider/FoodRiders/Project rest files/External Jars/miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Panos/git/FoodRider/FoodRiders/Project rest files/External Jars/JTattoo-1.6.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Panos/git/FoodRider/FoodRiders/Project rest files/External Jars/miglayout15-swing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
