@@ -18,23 +18,6 @@ public class StatisticsGUI extends JFrame {
 	private JPanel contentPane;
 	private JLabel image;	
 	private JTextPane statsd;
-	
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StatisticsGUI frame = new StatisticsGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
