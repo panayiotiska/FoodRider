@@ -24,7 +24,7 @@ public class StatisticsGUI extends JFrame {
 	 * @throws IOException 
 	 */
 	public StatisticsGUI() throws IOException {
-		setTitle("\u03A3\u03C4\u03B1\u03C4\u03B9\u03C3\u03C4\u03B9\u03BA\u03AC");
+		setTitle("Statistics");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		contentPane = new JPanel();
@@ -40,14 +40,14 @@ public class StatisticsGUI extends JFrame {
 		contentPane.add(image, BorderLayout.CENTER);
 		image.setIcon(stats.getBarplot());
 		
-		JLabel statisticsTitle = new JLabel("\u03A3\u03C4\u03B1\u03C4\u03B9\u03C3\u03C4\u03B9\u03BA\u03AC");
+		JLabel statisticsTitle = new JLabel("Statistics");
 		statisticsTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		statisticsTitle.setFont(new Font("Arial", Font.PLAIN, 32));
 		contentPane.add(statisticsTitle, BorderLayout.NORTH);
 		
 		statsd = new JTextPane();
 		statsd.setEditable(false);
-		statsd.setText("Αριθμός Παραγγελιών: "+stats.getN()+System.lineSeparator()+"Σημερινός μέσος όρος παραγγελιών: "+String.format("%.3g", stats.getMean()));
+		statsd.setText("Total Number of Orders: "+stats.getN()+System.lineSeparator()+"Orders' Mean: "+String.format("%.3g", stats.getMean()));
 		contentPane.add(statsd, BorderLayout.SOUTH);
 		
 	}

@@ -5,5 +5,6 @@
 	<classpathentry kind="src" path="App_icons_and_images"/>
 	<classpathentry kind="lib" path="C:/Users/Panos/git/FoodRider/FoodRiders/Project rest files/External Jars/JTattoo-1.6.11.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Panos/git/FoodRider/FoodRiders/Project rest files/External Jars/miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="D:/Dimitris/Downloads/RCaller-3.1-SNAPSHOT-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

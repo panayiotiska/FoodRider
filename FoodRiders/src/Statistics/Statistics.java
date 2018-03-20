@@ -17,9 +17,9 @@ public class Statistics {
 	
 	private ImageIcon barplot;
 	
-	private ArrayList<Integer> freq; // Temp, θα περνάει ως όρισμα στην κλάση
+	private ArrayList<Integer> freq; // Temp, ΞΈΞ± ΟΞ΅ΟΞ½Ξ¬Ξ΅ΞΉ ΟΟ ΟΟΞΉΟΞΌΞ± ΟΟΞ·Ξ½ ΞΊΞ»Ξ¬ΟΞ·
 	
-	private ArrayList<Integer> interv; // Temp, θα περνάει ως όρισμα στην κλάση
+	private ArrayList<Integer> interv; // Temp, ΞΈΞ± ΟΞ΅ΟΞ½Ξ¬Ξ΅ΞΉ ΟΟ ΟΟΞΉΟΞΌΞ± ΟΟΞ·Ξ½ ΞΊΞ»Ξ¬ΟΞ·
 	
 	private int[] frequency;
 	
@@ -31,19 +31,19 @@ public class Statistics {
 		
 		this.freq = new ArrayList<>(Arrays.asList(4,5,10,30,10,20,23,25,27,21,3,45,78,23,12,45,23,12,34,23,1,2,34));
 			
-		// Μετατροπή από ArrayList σε πίνακα, για να μπορούμε να περάσουμε τα δεδομένα στην R
+		// Convert from ArrayList to a table, so we can pass the data to R
 		this.frequency = convertListToArray(freq);
 		
-		// Μετατροπή από ArrayList σε πίνακα, για να μπορούμε να περάσουμε τα δεδομένα στην R
+		// Convert from ArrayList to a table, so we can pass the data to R
 		this.interval = convertListToArray(interv);
 		
-		// Υπολογισμός του n (άθροισμα όλων των συχνοτήτων)
+		// Calculation of n (sum of all frequencies)
 		this.n = calcN();
 		
-		// Υπολογισμός του μέσου (μέσος όρος παραγγελιών ανά μέρα)
+		// Calculation of mean (average of orders)
 		this.mean = calcMean();
 		
-		// Δημιουργία του barplot
+		// Creation of barplot
 		this.barplot = drawPlot();
 		
 	}
@@ -67,7 +67,7 @@ public class Statistics {
 	
 private int[] convertListToArray(ArrayList<Integer> list) {
 		
-		/* Η μέθοδος αυτή μετατρέπει ArrayList τύπου int σε πίνακα τύπου int */
+		/* This method converts an int-type ArrayList into an int table */
 		
 		int[] array = new int[list.size()];
 		
@@ -81,8 +81,8 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 	private int calcN() {
 		
 		/* 
-		 * Η μέθοδος αυτή υπολογίζει το n, το οποίο σε διαστήματα τιμών ισούται με 
-		 * το άθροισμα των όλων των συχνοτήτων.
+		 * This method calculates n, which at time intervals equals
+		 * the sum of all frequencies.
 		 */
 		
 		int n=0;
@@ -96,45 +96,45 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 
 	private double calcMean() {
 		
-		/* Η μέθοδος υπολογίζει τον μέσο όρο παραγγελιών ανά μέρα. ( sum(frequency*centralValues)/n ) */
+		/* The method calculates the average of orders. ( sum(frequency*centralValues)/n ) */
 		
-		// Ένας RCaller για κάθε μέθοδο, για να μην μας εμφανίσει πρόβλημα με τα threads
+		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
 				
-		// Ένα RCode για κάθε μέθοδο, για να μην μας εμφανίσει πρόβλημα με τα threads
+		// A RCode object for each method, so we do not have a problem with the threads
 		RCode code = RCode.create();
 	
-		// Η τιμή που θα επιστραφεί (ο μέσος)
+		// Value to be returned (mean)
 		double mean;
 		
-		// Υπολογισμός των κεντρικών τιμών
+		// Calculating Central Values
 		double[] centralValues = calcCentralValues(interval);
 		
-		// Ο πίνακας frequency θα αναγνωρίζεται ως freq στην R
+		// frequency table will be recognized as freq in R
 		code.addIntArray("freq", frequency);
 		
-		// Ο πίνακας interval θα αναγνωρίζεται ως interv στην R
+		// interval table will be recognized as interv in R
 		code.addIntArray("interv", interval);	
 		
-		// Ο πίνακας centralValues θα αναγνωρίζεται ως values στην R
+		// centralValues table will be recognized as values in R
 		code.addDoubleArray("values", centralValues);
 				
-		// Περνάμε το n στην R, το οποίο έχει υπολογιστεί από την calcMean()
+		// We pass n to R, calculated by calcMean()
 		code.addInt("n", n);
 
-		// Υπολογισμός του μέσου στην R		
+		// Mean calculation inside R	
 		code.addRCode("mean <- sum(values*freq)/n");
 				
-		// Πέρασμα του αντικειμένου του κώδικα R για να κληθεί
+		// Parsing object code
 		caller.setRCode(code);
 
-		// Εκτέλεση του κώδικα
+		// Excecuting R code
 		caller.runAndReturnResult("mean");
 		
 		/* 
-		 * Ο parser επιστρέφει τα αποτελέσματα πάντα σε πίνακα. Αφού, όμως, ξέρουμε ότι θα έχουμε μόνο
-		 * ένα στοιχείο (mean) λαμβάνουμε μόνο την 1η θέση του πίνακα που δημιουργήθηκε και την
-		 * εκχωρούμε στο mean.
+		 * Parser always returns the results to a table. But since we know we will only have
+		 * an element (mean) we only get the 1st position of the table created and we
+		 * assign it to mean variable.
 		 */
 		mean = caller.getParser().getAsDoubleArray("mean")[0];
 		
@@ -144,40 +144,40 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 	
 	private ImageIcon drawPlot() throws IOException {
 		
-		// Ένας RCaller για κάθε μέθοδο, για να μην μας εμφανίσει πρόβλημα με τα threads
+		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
 		
-		// Ένα RCode για κάθε μέθοδο, για να μην μας εμφανίσει πρόβλημα με τα threads
+		// A RCode object for each method, so we do not have a problem with the threads
 		RCode code = RCode.create();
 		
-		// Οι ετικέτες που θα περιγράφουν σε ποιο διάστημα αντιστοιχεί κάθε παρατήρηση (συχνότητα)
+		// Labels that describe how long each observation (frequency)
 		String[] names = getNames(interval);
 		
-		// Ο πίνακας frequency θα αναγνωρίζεται ως freq στην R
+		// frequency table will be recognized as freq in R
 		code.addIntArray("freq", frequency);
 		
-		// Ο πίνακας interval θα αναγνωρίζεται ως interv στην R
+		// interval table will be recognized as interv in R
 		code.addIntArray("interv", interval);	
 		
-		// Ο πίνακας names θα αναγνωρίζεται ως names.arg στην R
+		// names table will be recognized as names in R
 		code.addStringArray("names", names);
 		
-		// To ραβδόγραμμα αποθηκεύεται σε File
+		// Barplot saved in File object
 		File plotFile = code.startPlot();
 		
-		// Εκτέλεση της εντολής του ραβδογράμματος στην R
+		// Excecuting barplot command in R
 		code.addRCode("barplot(freq, main=\"\", horiz = T, names=names, las=1, col=\"brown\", cex.names=0.5, ylim = c(0, 24), xlim = c(0, 100))");
 		
-		// Σταματά η εκτέλεση της εντολής barplot
+		// Stop creating the barplot
 		code.endPlot();
 		
-		// Περνάω τον R κώδικα στον caller
+		// Parsing R code
 		caller.setRCode(code);
 		
-		// Τρέξιμο του script
+		// Excecuting code
 		caller.runOnly();
-		 code.showPlot(plotFile);
-		// Παίρνουμε την εικόνα του ραβδογράμματος σε imageicon αντικείμενο
+		// code.showPlot(plotFile); /* Ignore this */
+		// Barplot in ImageIcon object (to appear in GUI)
 		ImageIcon plot = code.getPlot(plotFile);
 
 		return plot;
@@ -186,35 +186,35 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 	
 	private double[] calcCentralValues(int[] interval) {
 		
-		// Ένας RCaller για κάθε μέθοδο, για να μην μας εμφανίσει πρόβλημα με τα threads
+		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
 				
-		// Ένα RCode για κάθε μέθοδο, για να μην μας εμφανίσει πρόβλημα με τα threads
+		// A RCode object for each method, so we do not have a problem with the threads
 		RCode code = RCode.create();
 		
-		// Πίνακας με τις κεντρικές τιμές του κάθες διαστήματος (για τον υπολογισμό μέσου, διακύμανσης)
+		// Table with the center values ββof each interval (to calculate mean, variance)
 		double[] values = new double[n];
 								
-		// Ο πίνακας interval θα αναγνωρίζεται ως interv στην R
+		// interval table will be recognized as interv in R
 		code.addIntArray("interv", interval);
 						
-		// Ο πίνακας interval θα αναγνωρίζεται ως interv στην R
+		// values table will be recognized as values in R
 		code.addDoubleArray("values", values);
 		
-		// Υπολογισμός κεντρικών τιμών
+		// Calculating central values with R
 		code.addRCode("k <- 1\r\n" + 
 								"  while(k < length(interv)){\r\n" + 
 								"    values[k] <- (interv[k] + interv[k+1])/2\r\n" + 
 								"    k <- k + 1\r\n" + 
 								"  }");
 		
-		// Πέρασμα του κώδικα στον caller
+		// Parsing R Code
 		caller.setRCode(code);
 		
-		// Εκτέλεση του κώδικα
+		// Excecuting Code
 		caller.runAndReturnResult("values");
 		
-		// Επιστροφή των κεντρικών τιμών στο διάνυσμα values
+		// Get central values
 		values = caller.getParser().getAsDoubleArray("values");
 		
 		return values;		
@@ -223,32 +223,34 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 	
 	private String[] getNames(int[] interval) {
 		
-		// Ένας RCaller για κάθε μέθοδο, για να μην μας εμφανίσει πρόβλημα με τα threads
+		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
 						
-		// Ένα RCode για κάθε μέθοδο, για να μην μας εμφανίσει πρόβλημα με τα threads
+		// A RCode object for each method, so we do not have a problem with the threads
 		RCode code = RCode.create();
 		
 		String[] names = new String[interval.length-1];
 		
-		// Ο πίνακας interval θα αναγνωρίζεται ως interv στην R
+		// interval table will be recognized as interv in R
 		code.addIntArray("interval", interval);
 		
-		// Ο πίνακας interval θα αναγνωρίζεται ως interv στην R
+		// names table will be recognized as names in R
 		code.addStringArray("names", names);
 		
+		// Getting names in vector in R
 		code.addRCode("k=1\r\n" + 
 				"				  while(k<length(interval)){\r\n" + 
 				"				    names[k] = paste(as.character(interval[k]), \":00 - \", (as.character(interval[k+1])), \":00\")\r\n" + 
 				"				    k=k+1\r\n" + 
 				"				  }");
 		
-		// Πέρασμα του κώδικα στον caller
+		// Parsing R code
 		caller.setRCode(code);
 		
-		// Εκτέλεση του κώδικα
+		// Excecuting R code
 		caller.runAndReturnResult("names");
 		
+		// Getting names
 		names = caller.getParser().getAsStringArray("names");
 		
 		return names;
