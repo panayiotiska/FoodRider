@@ -176,4 +176,5 @@ public class AddStaffScreen {
 		frame.setBounds(100, 100, 641, 430);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
 }

@@ -178,4 +178,5 @@ public class Login_Screen{
 		frame.setBounds(100, 100, 403, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
 }
