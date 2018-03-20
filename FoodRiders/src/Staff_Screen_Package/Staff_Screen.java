@@ -1,30 +1,39 @@
 package Staff_Screen_Package;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
+import Handler_Package.Handler;
+import Handler_Package.Staff;
 import MainMenu_Screen_Package.MainMenu;
+import Restaurants_Screen_Package.AddRestaurantScreen;
 
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class Staff_Screen {
 
 	private JFrame frame;
-	private JTable table;
+	private static JTable table;
+	private static int numberOfStaff = 3;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void EmployeesScreen() {
+	public static void toStaffScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -59,34 +68,33 @@ public class Staff_Screen {
 		scrollPane.setBounds(25, 11, 505, 164);
 		frame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new Integer(1), "\u0396\u03AE\u03C3\u03B7\u03C2 \u0394\u03B7\u03BC\u03AE\u03C4\u03C1\u03B9\u03BF\u03C2", "\u039F\u03B4\u03B7\u03B3\u03CC\u03C2", new Integer(12), "1/1/2017"},
-				{new Integer(2), "\u03A3\u03C9\u03C4\u03B7\u03C1\u03AC\u03BA\u03B7\u03C2 \u03A0\u03B7\u03B3\u03B9\u03CE\u03C4\u03B7\u03C2", "\u03A8\u03AE\u03C3\u03C4\u03B7\u03C2", new Integer(33), "1/1/2017"},
-				{new Integer(3), "\u03A0\u03B1\u03BD\u03B1\u03B3\u03B9\u03CE\u03C4\u03B7\u03C2 \u039A\u03B1\u03C4\u03C4\u03AF\u03B4\u03B7\u03C2", "Manager", new Integer(34), null},
-			},
-			new String[] {
-				"\u039A\u03C9\u03B4\u03B9\u03BA\u03CC\u03C2 \u03A5\u03C0\u03B1\u03BB\u03BB\u03AE\u03BB\u03BF\u03C5", "\u039F\u03BD\u03BF\u03BC\u03B1\u03C4\u03B5\u03C0\u03CE\u03BD\u03C5\u03BC\u03BF", "\u039A\u03B1\u03B8\u03AE\u03BA\u03BF\u03BD\u03C4\u03B1", "\u0397\u03BB\u03B9\u03BA\u03AF\u03B1", "\u0397\u03BC\u03B5\u03C1\u03BF\u03BC\u03B7\u03BD\u03AF\u03B1 \u03A0\u03C1\u03CC\u03C3\u03BB\u03B7\u03C8\u03B7\u03C2"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, String.class, String.class, Integer.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table.getColumnModel().getColumn(0).setMaxWidth(100);
-		table.getColumnModel().getColumn(1).setMaxWidth(100);
-		table.getColumnModel().getColumn(2).setMaxWidth(100);
-		table.getColumnModel().getColumn(3).setMaxWidth(100);
-		table.getColumnModel().getColumn(4).setMaxWidth(100);
+		List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<String[]>();
+        Handler temp = new Handler();
+        ArrayList<Staff> staffList = new ArrayList<>();
+        staffList = temp.getStaffList(); //ERROR_1
+
+        columns.add("ID");
+        columns.add("Name");
+        columns.add("Position");
+        columns.add("Recruitment Date");
+
+        TableModel tableModel = new DefaultTableModel(staffList.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
 		scrollPane.setViewportView(table);
 		
-		JButton btnProsthiki = new JButton("Π�?οσθήκη Υπαλλήλου");
-		btnProsthiki.setBounds(25, 195, 153, 25);
-		frame.getContentPane().add(btnProsthiki);
+		JButton addBtn = new JButton("Π�?οσθήκη Υπαλλήλου");
+		addBtn.setBounds(25, 195, 153, 25);
+		frame.getContentPane().add(addBtn);
+		addBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddStaffScreen newRest = new AddStaffScreen();
+				frame.dispose();
+				newRest.addStaff();
+				
+			}
+		});
 		
 		JButton btnDiagrafi = new JButton("Διαγ�?αφή Υπαλλήλου");
 		btnDiagrafi.setBounds(199, 195, 153, 25);

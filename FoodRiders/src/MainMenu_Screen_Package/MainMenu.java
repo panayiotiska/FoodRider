@@ -135,7 +135,13 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				frmFoodRiders.dispose();
 				Staff_Screen staffScreen = new Staff_Screen();
-				staffScreen.EmployeesScreen();
+				try {
+					Staff_Screen.toStaffScreen();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		GridBagConstraints gbc_btnYpalliloi = new GridBagConstraints();
