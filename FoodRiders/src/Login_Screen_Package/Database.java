@@ -21,7 +21,7 @@ public class Database {
 		administrators.add(user1);
 		administrators.add(user2);
 		clients.add(user3);
-		clients.add(user4);
+		administrators.add(user4);
 		//commit done 
 		
 	}
