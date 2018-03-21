@@ -13,7 +13,6 @@ import java.net.URL;
 import javax.swing.*;
 
 import MainMenu_Screen_Package.MainMenu;
-import Restaurants_Screen_Package.Restaurants_Screen;
 
 public class Login_Screen{
 
@@ -116,7 +115,7 @@ public class Login_Screen{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String username = username_textField.getText().trim();
-				String password = passwordField.getText();
+				String password = String.valueOf(passwordField.getPassword());
 				
 				Database db = new Database();
 		

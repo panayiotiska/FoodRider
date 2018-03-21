@@ -38,7 +38,7 @@ public class AddStaffScreen {
 	/**
 	 * Launch the application.
 	 */
-	public static void addStaff() {
+	public void addStaff() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

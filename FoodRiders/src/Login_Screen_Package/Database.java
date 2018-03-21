@@ -18,7 +18,7 @@ public class Database {
 		User user3 = new User("Panos", "panos", "31/5/17");
 		User user4= new User("Tasos", "tasos", "31/5/17");
 
-
+		administrators.add(user3);
 		
 	}
 

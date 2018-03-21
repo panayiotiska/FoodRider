@@ -6,11 +6,7 @@ import javax.swing.JFrame;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import Handler_Package.Handler;
-import Handler_Package.Staff;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -33,7 +29,7 @@ public class AddRestaurantScreen {
 	/**
 	 * Launch the application.
 	 */
-	public static void addRestaurant() {
+	public void addRestaurant() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

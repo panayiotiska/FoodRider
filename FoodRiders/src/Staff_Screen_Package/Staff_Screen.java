@@ -1,22 +1,17 @@
 package Staff_Screen_Package;
 
-import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import Handler_Package.Handler;
 import Handler_Package.Staff;
 import MainMenu_Screen_Package.MainMenu;
-import Restaurants_Screen_Package.AddRestaurantScreen;
-
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
@@ -33,7 +28,7 @@ public class Staff_Screen {
 	/**
 	 * Launch the application.
 	 */
-	public static void toStaffScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public void toStaffScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

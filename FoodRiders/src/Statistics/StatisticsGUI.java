@@ -35,7 +35,6 @@ public class StatisticsGUI extends JFrame {
 	private JButton btnThisMonth;
 	private JButton btnTotal;
 	private JButton btnThisYear;
-	private JButton btnNewButton;
 	private JPanel northPanel;
 	private JPanel southPanel;
 	private JPanel centerPanel;
@@ -102,6 +101,7 @@ public class StatisticsGUI extends JFrame {
 		southPanel.setLayout(new BorderLayout(0, 0));
 		
 		statsd = new JTextPane();
+		statsd.setBackground(frame.getBackground());
 		statsd.setEditable(false);
 		statsd.setText("Total Number of Orders: "+stats.getN()+System.lineSeparator()+"Orders' Mean (x): "+String.format("%.3g", stats.getMean())+System.lineSeparator());
 		statsd.setText(statsd.getText()+"Orders' Variance (s^2): "+stats.getVariance()+System.lineSeparator());
@@ -133,10 +133,7 @@ public class StatisticsGUI extends JFrame {
 		mainMenuBtn.setIcon(menuImg);
 		mainMenuBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
-				MainMenu mainMenu = new MainMenu();
-				mainMenu.showMainMenu();
-				
+				frame.dispose();		
 			}
 		});
 		

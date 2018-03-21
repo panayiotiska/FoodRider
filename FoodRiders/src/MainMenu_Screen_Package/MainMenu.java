@@ -33,7 +33,7 @@ public class MainMenu {
 	/**
 	 * Launch the application.
 	 */
-	public static void showMainMenu() {
+	public void showMainMenu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -138,7 +138,7 @@ public class MainMenu {
 				frmFoodRiders.dispose();
 				Staff_Screen staffScreen = new Staff_Screen();
 				try {
-					Staff_Screen.toStaffScreen();
+					staffScreen.toStaffScreen();
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e1) {
 					// TODO Auto-generated catch block
@@ -161,10 +161,10 @@ public class MainMenu {
 		gbc_btnStatistika.gridy = 6;
 		frmFoodRiders.getContentPane().add(btnStatistika, gbc_btnStatistika);
 		btnStatistika.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
+			public void actionPerformed(ActionEvent e) {
 				try {
 				StatisticsGUI statisticsScreen = new StatisticsGUI();	
-					StatisticsGUI.toStatisticsScreen();
+				statisticsScreen.toStatisticsScreen();
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException | IOException e1) {
 					// TODO Auto-generated catch block

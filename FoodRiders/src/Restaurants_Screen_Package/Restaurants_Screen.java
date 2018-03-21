@@ -27,14 +27,14 @@ public class Restaurants_Screen {
 	private JFrame frame;
 	private JTable table;
 
-	/**							//Jtattoo library: library for round buttons
+	/**	//Jtattoo library: library for round buttons
 	 * Launch the application. //exception in order the jtattoo library to work
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 * @throws ClassNotFoundException 
 	 */
-	public static void toRestaurantScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+	public void toRestaurantScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
 
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
@@ -60,6 +60,7 @@ public class Restaurants_Screen {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
