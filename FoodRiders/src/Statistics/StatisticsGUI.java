@@ -138,7 +138,6 @@ public class StatisticsGUI extends JFrame {
 		});
 		
 		underSouthPanel.add(mainMenuBtn);
-		
 	}
 
 }
