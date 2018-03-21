@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 
@@ -15,11 +16,13 @@ public class Statistics {
 	
 	private double mean;
 	
+	private double variance;
+	
 	private ImageIcon barplot;
 	
-	private ArrayList<Integer> freq; // Temp, θα περνάει ως όρισμα στην κλάση
+	private ArrayList<Integer> freq; // Temp, argument in class
 	
-	private ArrayList<Integer> interv; // Temp, θα περνάει ως όρισμα στην κλάση
+	private ArrayList<Integer> interv; // Temp, argument in class
 	
 	private int[] frequency;
 	
@@ -43,6 +46,9 @@ public class Statistics {
 		// Calculation of mean (average of orders)
 		this.mean = calcMean();
 		
+		// Calculation of variance
+		this.variance = calcVariance();
+		
 		// Creation of barplot
 		this.barplot = drawPlot();
 		
@@ -57,6 +63,10 @@ public class Statistics {
 	
 	public double getMean() {
 		return mean;
+	}
+	
+	public double getVariance() {
+		return variance;
 	}
 
 	public ImageIcon getBarplot() {
@@ -142,6 +152,60 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 
 	}
 	
+	private double calcVariance() {
+		
+		/* The method calculates the variance of orders. ( sum((central.values-mean)^2*frequency)/(sum(frequency)-1) ) */
+		
+		// A RCaller object for each method, so we do not have a problem with the threads
+		RCaller caller = RCaller.create();
+				
+		// A RCode object for each method, so we do not have a problem with the threads
+		RCode code = RCode.create();
+	
+		// Value to be returned (mean)
+		double variance;
+		
+		// We use mean to calculate variance
+		double mean;
+		
+		// Calculating Central Values
+		double[] centralValues = calcCentralValues(interval);
+		
+		// frequency table will be recognized as freq in R
+		code.addIntArray("freq", frequency);
+		
+		// interval table will be recognized as interv in R
+		code.addIntArray("interv", interval);	
+		
+		// centralValues table will be recognized as values in R
+		code.addDoubleArray("values", centralValues);
+
+		// We use mean to calculate variance	
+		mean = this.mean;
+		
+		// We pass n to R, calculated by calcMean()
+		code.addDouble("mean", mean);
+		
+		// Variance calculation inside R
+		code.addRCode("var=format(round(sum((values-mean)^2*freq)/(sum(freq)-1), 2), nsmall = 2)");
+		
+		// Parsing object code
+		caller.setRCode(code);
+
+		// Excecuting R code
+		caller.runAndReturnResult("var");
+		
+		/* 
+		 * Parser always returns the results to a table. But since we know we will only have
+		 * an element (var) we only get the 1st position of the table created and we
+		 * assign it to variance variable.
+		 */
+		variance = caller.getParser().getAsDoubleArray("var")[0];
+		
+		return variance;
+				
+	}
+	
 	private ImageIcon drawPlot() throws IOException {
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
@@ -162,11 +226,16 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		// names table will be recognized as names in R
 		code.addStringArray("names", names);
 		
+		// Getting max of frequency table, in order barplot to extend every time frequency max is increasing
+		code.addDouble("max", Collections.max(freq));
+		
 		// Barplot saved in File object
 		File plotFile = code.startPlot();
 		
 		// Excecuting barplot command in R
-		code.addRCode("barplot(freq, main=\"\", horiz = T, names=names, las=1, col=\"brown\", cex.names=0.5, ylim = c(0, 24), xlim = c(0, 100))");
+		code.addRCode("par(mar=c(3, 7, 5, 1))");
+		// xlim = c(0, max+10) -> every time barplot is extending x upper limit to frequency max plus 10
+		code.addRCode("barplot(freq, main=\"Order Frequency\", horiz = T, names=names, las=1, col=\"brown\", cex.names=0.8, ylim = c(0, 27), xlim = c(0, max+10))");
 		
 		// Stop creating the barplot
 		code.endPlot();

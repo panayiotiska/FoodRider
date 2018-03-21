@@ -4,16 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
-import Staff_Screen_Package.Staff_Screen;
-
+import MainMenu_Screen_Package.MainMenu;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 @SuppressWarnings("serial")
@@ -22,18 +27,32 @@ public class StatisticsGUI extends JFrame {
 	private JPanel contentPane;
 	private JLabel image;	
 	private JTextPane statsd;
+	private JFrame frame;
+	private JButton mainMenuBtn;
+	private JPanel panel;
+	private JButton btnToday;
+	private JButton btnThisWeek;
+	private JButton btnThisMonth;
+	private JButton btnTotal;
+	private JButton btnThisYear;
+	private JButton btnNewButton;
+	private JPanel northPanel;
+	private JPanel southPanel;
+	private JPanel centerPanel;
+	private JPanel underSouthPanel;
 
 	/**
 	 * Create the frame.
 	 * @throws IOException 
 	 */
 	
-	public static void toStatisticsScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public void toStatisticsScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					StatisticsGUI window = new StatisticsGUI();
-					window.setVisible(true);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,31 +61,86 @@ public class StatisticsGUI extends JFrame {
 	}
 	
 	public StatisticsGUI() throws IOException {
-		setTitle("Statistics");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame = new JFrame();
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		frame.setBounds(100, 100, 580, 760);
+		frame.setResizable(false);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setBounds(100, 100, 505, 674);
+		
+		frame.setContentPane(contentPane);
+		
+		northPanel = new JPanel();
+		contentPane.add(northPanel, BorderLayout.NORTH);
+		
+		southPanel = new JPanel();
+		contentPane.add(southPanel, BorderLayout.SOUTH);
+		
+		centerPanel = new JPanel();
+		contentPane.add(centerPanel, BorderLayout.CENTER);
+		
+		
+		underSouthPanel = new JPanel();
+		southPanel.add(underSouthPanel, BorderLayout.SOUTH);
+
+		frame.setTitle("Statistics");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Statistics stats = new Statistics();
-		
-		image = new JLabel("");
-		image.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(image, BorderLayout.CENTER);
-		image.setIcon(stats.getBarplot());
-		
+				
 		JLabel statisticsTitle = new JLabel("Statistics");
 		statisticsTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		statisticsTitle.setFont(new Font("Arial", Font.PLAIN, 32));
-		contentPane.add(statisticsTitle, BorderLayout.NORTH);
+		northPanel.add(statisticsTitle, BorderLayout.NORTH);	 
+	 
+		image = new JLabel("");
+		image.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(image, BorderLayout.CENTER);
+		image.setIcon(stats.getBarplot());
+		southPanel.setLayout(new BorderLayout(0, 0));
 		
 		statsd = new JTextPane();
 		statsd.setEditable(false);
-		statsd.setText("Total Number of Orders: "+stats.getN()+System.lineSeparator()+"Orders' Mean: "+String.format("%.3g", stats.getMean()));
-		contentPane.add(statsd, BorderLayout.SOUTH);
+		statsd.setText("Total Number of Orders: "+stats.getN()+System.lineSeparator()+"Orders' Mean (x): "+String.format("%.3g", stats.getMean())+System.lineSeparator());
+		statsd.setText(statsd.getText()+"Orders' Variance (s^2): "+stats.getVariance()+System.lineSeparator());
+		southPanel.add(statsd, BorderLayout.CENTER); 
+		
+		panel = new JPanel();
+		southPanel.add(panel, BorderLayout.NORTH);
+		
+		btnTotal = new JButton("Total");
+		panel.add(btnTotal);
+		
+		btnToday = new JButton("Today");
+		panel.add(btnToday);
+		
+		btnThisWeek = new JButton("This Week");
+		panel.add(btnThisWeek);
+		
+		btnThisMonth = new JButton("This Month");
+		panel.add(btnThisMonth);
+		
+		btnThisYear = new JButton("This Year");
+		panel.add(btnThisYear);
+		
+		underSouthPanel = new JPanel();
+		southPanel.add(underSouthPanel, BorderLayout.SOUTH);
+		
+		mainMenuBtn = new JButton();
+		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
+		mainMenuBtn.setIcon(menuImg);
+		mainMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				MainMenu mainMenu = new MainMenu();
+				mainMenu.showMainMenu();
+				
+			}
+		});
+		
+		underSouthPanel.add(mainMenuBtn);
 		
 	}
 
