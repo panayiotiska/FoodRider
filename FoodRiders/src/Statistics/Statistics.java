@@ -235,7 +235,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		// Excecuting barplot command in R
 		code.addRCode("par(mar=c(3, 7, 5, 1))");
 		// xlim = c(0, max+10) -> every time barplot is extending x upper limit to frequency max plus 10
-		code.addRCode("barplot(freq, main=\"Order Frequency\", horiz = T, names=names, las=1, col=\"brown\", cex.names=0.8, ylim = c(0, 27), xlim = c(0, max+10))");
+		code.addRCode("barplot(freq, main=\"Order Frequency\", horiz = T, names=names, las=1, col=\"brown\", cex.names=0.8, ylim = c(0, 27), xlim = c(0, max+20))");
 		
 		// Stop creating the barplot
 		code.endPlot();
