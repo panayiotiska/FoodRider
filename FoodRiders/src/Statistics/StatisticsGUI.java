@@ -9,8 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+
+import Staff_Screen_Package.Staff_Screen;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.UnsupportedLookAndFeelException;
 
 @SuppressWarnings("serial")
 public class StatisticsGUI extends JFrame {
@@ -23,6 +27,20 @@ public class StatisticsGUI extends JFrame {
 	 * Create the frame.
 	 * @throws IOException 
 	 */
+	
+	public static void toStatisticsScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StatisticsGUI window = new StatisticsGUI();
+					window.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	public StatisticsGUI() throws IOException {
 		setTitle("Statistics");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

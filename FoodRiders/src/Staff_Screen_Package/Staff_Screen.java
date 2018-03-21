@@ -70,9 +70,9 @@ public class Staff_Screen {
 		
 		List<String> columns = new ArrayList<String>();
         List<String[]> values = new ArrayList<String[]>();
-        Handler temp = new Handler();
+        //Handler temp = new Handler();
         ArrayList<Staff> staffList = new ArrayList<>();
-        staffList = temp.getStaffList(); //ERROR_1
+       //staffList = temp.getStaffList(); //ERROR_1
 
         columns.add("ID");
         columns.add("Name");
