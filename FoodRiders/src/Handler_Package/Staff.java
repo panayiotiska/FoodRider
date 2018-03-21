@@ -5,12 +5,12 @@ public class Staff {
 	private int id;
 	private String name;
 	private String position;
-	private int age;
-	private String recruitmentDate;
+	private String dateOfBirth;
+	private String recruitmentDate; //automatically get current date
 	
 	
 	
-	public Staff(int anId, String aName, String position, int age, String recruitmentDate) {
+	public Staff(int anId, String aName, String position, String dateOfBirth, String recruitmentDate) {
 	
 		id = anId;
 		name = aName;
@@ -24,12 +24,12 @@ public class Staff {
 		this.position = position;
 	}
 
-	public int getAge() {
-		return age;
+	public String getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getRecruitmentDate() {
@@ -55,6 +55,5 @@ public class Staff {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 }

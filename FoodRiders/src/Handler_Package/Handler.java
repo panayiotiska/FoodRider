@@ -57,6 +57,9 @@ public class Handler {
 	public void addVehicle(Vehicle aVehicle) {
 		vehicles.add(aVehicle);
 	}
-
-
+	
+	public ArrayList<Staff> getStaffList() {
+		return staffList;
+	}
+		
 }

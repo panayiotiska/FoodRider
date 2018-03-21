@@ -11,12 +11,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 import Login_Screen_Package.Login_Screen;
 import Restaurants_Screen_Package.Restaurants_Screen;
 import Staff_Screen_Package.Staff_Screen;
+import Statistics.StatisticsGUI;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.awt.event.ActionEvent;
@@ -135,7 +137,13 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				frmFoodRiders.dispose();
 				Staff_Screen staffScreen = new Staff_Screen();
-				staffScreen.EmployeesScreen();
+				try {
+					Staff_Screen.toStaffScreen();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		GridBagConstraints gbc_btnYpalliloi = new GridBagConstraints();
@@ -152,6 +160,19 @@ public class MainMenu {
 		gbc_btnStatistika.gridx = 0;
 		gbc_btnStatistika.gridy = 6;
 		frmFoodRiders.getContentPane().add(btnStatistika, gbc_btnStatistika);
+		btnStatistika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+				try {
+				StatisticsGUI statisticsScreen = new StatisticsGUI();	
+					StatisticsGUI.toStatisticsScreen();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//frmFoodRiders.dispose();
+			}
+		});
 		
 		JSeparator separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();

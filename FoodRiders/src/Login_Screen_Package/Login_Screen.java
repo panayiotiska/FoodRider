@@ -103,6 +103,8 @@ public class Login_Screen{
 		label.setBounds(-30, 132, 456, 355);
 		frame.getContentPane().add(label);
 		
+		frame.getRootPane().setDefaultButton(login_btn); // Allowing the “Enter” key to press the login button
+		
 		//ActionListeners 
 		
 		

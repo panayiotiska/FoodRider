@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import Handler_Package.Handler;
+import Handler_Package.Staff;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -115,6 +119,7 @@ public class AddRestaurantScreen {
 		JButton btnApply = new JButton("Apply");
 		btnApply.setBounds(503, 358, 89, 23);
 		frame.getContentPane().add(btnApply);
+		
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
