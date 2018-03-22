@@ -129,7 +129,7 @@ public class StatisticsGUI extends JFrame {
 		underSouthPanel = new JPanel();
 		southPanel.add(underSouthPanel, BorderLayout.SOUTH);
 		
-		mainMenuBtn = new JButton();
+		mainMenuBtn = new JButton("");
 		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
 		mainMenuBtn.setIcon(menuImg);
 		mainMenuBtn.addActionListener(new ActionListener() {

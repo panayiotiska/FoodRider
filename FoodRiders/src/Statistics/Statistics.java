@@ -171,7 +171,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		// Calculating Central Values
 		double[] centralValues = calcCentralValues(interval);
 		
-		// frequency table will be recognized as freq in R
+		// frequency table will be recognized as freq in R 
 		code.addIntArray("freq", frequency);
 		
 		// interval table will be recognized as interv in R
