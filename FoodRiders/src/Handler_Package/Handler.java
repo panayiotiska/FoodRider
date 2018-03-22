@@ -31,6 +31,10 @@ public class Handler {
 		staffAvailable = new LinkedList<>(staffList);
 		vehiclesAvailable = new LinkedList<>(vehicles);
 
+
+		staffAvailable = new LinkedList<>(staffList);
+		vehiclesAvailable = new LinkedList<>(vehicles);
+
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
 	}
