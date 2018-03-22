@@ -104,7 +104,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 	}
 
-	private double calcMean() throws ExceptionInInitializerError{
+	private double calcMean(){
 		
 		/* The method calculates the average of orders. ( sum(frequency*centralValues)/n ) */
 		
@@ -152,13 +152,16 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 		return mean;            
 		
-		}catch(Exception e) {
-			return 1;
+		}catch(ExceptionInInitializerError error) {
+			return -1;
+		}
+		catch (Exception | Error exception) {
+			return -1;
 		}
 
 	}
 	
-	private double calcVariance() throws ExceptionInInitializerError{
+	private double calcVariance(){
 		
 		/* The method calculates the variance of orders. ( sum((central.values-mean)^2*frequency)/(sum(frequency)-1) ) */
 		
@@ -212,13 +215,16 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 		return variance;
 		
-		}catch(Exception e) {
-			return 1;
+		}catch(ExceptionInInitializerError error) {
+			return -1;
+		}
+		catch (Exception | Error exception) {
+			return -1;
 		}
 				
 	}
 	
-	private ImageIcon drawPlot() throws IOException, ExceptionInInitializerError{
+	private ImageIcon drawPlot() throws IOException{
 	
 		try {
 		// A RCaller object for each method, so we do not have a problem with the threads
@@ -264,13 +270,16 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 
 		return plot;
 		
-		}catch (Exception e) {
+		}catch (ExceptionInInitializerError error) {
+			return null;
+		}
+		catch (Exception | Error exception) {
 			return null;
 		}
 		
 	}
 	
-	private double[] calcCentralValues(int[] interval) throws ExceptionInInitializerError{
+	private double[] calcCentralValues(int[] interval){
 		
 		try {
 		
@@ -307,13 +316,16 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 		return values;	
 		
-		}catch (Exception e) {
+		}catch (ExceptionInInitializerError error) {
+			return null;
+		}
+		catch (Exception | Error exception) {
 			return null;
 		}
 		
 	}
 	
-	private String[] getNames(int[] interval) throws ExceptionInInitializerError{
+	private String[] getNames(int[] interval){
 		
 		try {
 		
@@ -349,10 +361,13 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 		return names;
 		
-		}catch (Exception e) {
+		}catch (ExceptionInInitializerError error) {
 			return null;
+		}
+		catch (Exception | Error exception) {
+			return null;
+		}
+		
 		}
 	
 	}
-
-}
