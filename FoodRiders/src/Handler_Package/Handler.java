@@ -24,8 +24,8 @@ public class Handler {
 		restaurantsList = new ArrayList<>();
 		staffList = new ArrayList<>();
 		vehicles = new ArrayList<>();
-		staffAvailable = (Queue)staffList;
-		vehiclesAvailable = (Queue)vehicles;
+		staffAvailable =new LinkedList<>();
+		vehiclesAvailable = new LinkedList<>();
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
 	}

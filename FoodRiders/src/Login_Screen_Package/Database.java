@@ -13,12 +13,16 @@ public class Database {
 		administrators = new ArrayList<>();
 		clients = new ArrayList<>();
 		
-		User user1 = new User("Vaggos", "vaggos", "15/2/14");
+		User user1 = new User("vaggos", "vaggos", "15/2/14");
 		User user2 = new User("Vicky", "vicky", "25/4/15");  
 		User user3 = new User("panos", "panos", "31/5/17");
 		User user4= new User("Tasos", "tasos", "31/5/17");
 
+		administrators.add(user1);
+		administrators.add(user2);
 		administrators.add(user3);
+		clients.add(user4);
+		
 		
 	}
 
