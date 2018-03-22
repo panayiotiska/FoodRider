@@ -24,13 +24,11 @@ public class Handler {
 		restaurantsList = new ArrayList<>();
 		staffList = new ArrayList<>();
 		vehicles = new ArrayList<>();
-		staffAvailable = (Queue)staffList;
-		vehiclesAvailable = (Queue)vehicles;
+		staffAvailable = new LinkedList<>(staffList);
+		vehiclesAvailable = new LinkedList<>(vehicles);
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
 	}
-	
-	
 	
 	public void orderSubmission(Order anOrder) {
 		if(!(staffAvailable.isEmpty()) && !(vehiclesAvailable.isEmpty())) {

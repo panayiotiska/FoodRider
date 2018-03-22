@@ -123,7 +123,7 @@ public class AddStaffScreen {
 		btnApply.setBounds(503, 358, 89, 23);
 		frame.getContentPane().add(btnApply);	
 		Staff newStaffMember = new Staff(0, null, null, null, null);
-		//Handler newStaff = new Handler();
+		Handler newStaff = new Handler();
 		
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,7 +136,7 @@ public class AddStaffScreen {
 				newStaffMember.setRecruitmentDate(dtf.format(localDate));
 				newStaffMember.setPosition(cmbPositionList.getSelectedItem().toString());
 				
-				//newStaff.addStaff(newStaffMember); //ERROR_2
+				newStaff.addStaff(newStaffMember); //ERROR_2
 				
 				frame.dispose();
 				Staff_Screen restScreen = new Staff_Screen();
