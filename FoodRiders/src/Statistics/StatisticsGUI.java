@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
+import MainMenu_Screen_Package.MainMenu;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -132,7 +134,9 @@ public class StatisticsGUI extends JFrame {
 		mainMenuBtn.setIcon(menuImg);
 		mainMenuBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();		
+				frame.dispose();	
+				MainMenu mainMenu = new MainMenu();
+				mainMenu.showMainMenu();
 			}
 		});
 		

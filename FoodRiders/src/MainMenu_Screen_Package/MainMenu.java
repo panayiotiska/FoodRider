@@ -71,7 +71,7 @@ public class MainMenu {
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		frmFoodRiders.getContentPane().setLayout(gridBagLayout);
 		
-		JLabel label = new JLabel("\u039A\u03B5\u03BD\u03C4\u03C1\u03B9\u03BA\u03CC \u039C\u03B5\u03BD\u03BF\u03CD");
+		JLabel label = new JLabel("Main Menu");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_label = new GridBagConstraints();
@@ -81,7 +81,7 @@ public class MainMenu {
 		gbc_label.gridy = 0;
 		frmFoodRiders.getContentPane().add(label, gbc_label);
 		
-		JButton btnTrexousa = new JButton("\u03A4\u03C1\u03AD\u03C7\u03BF\u03C5\u03C3\u03B1 \u03BA\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7");
+		JButton btnTrexousa = new JButton("Current Status");
 		btnTrexousa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -100,7 +100,7 @@ public class MainMenu {
 		gbc_btnTrexousa.gridy = 2;
 		frmFoodRiders.getContentPane().add(btnTrexousa, gbc_btnTrexousa);
 		
-		JButton btnEstiatoria = new JButton("\u0395\u03C3\u03C4\u03B9\u03B1\u03C4\u03CC\u03C1\u03B9\u03B1");
+		JButton btnEstiatoria = new JButton("Restaurants");
 		btnEstiatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmFoodRiders.dispose();
@@ -124,7 +124,7 @@ public class MainMenu {
 		gbc_btnEstiatoria.gridy = 3;
 		frmFoodRiders.getContentPane().add(btnEstiatoria, gbc_btnEstiatoria);
 		
-		JButton btnParaggelies = new JButton("\u0399\u03C3\u03C4\u03BF\u03C1\u03B9\u03BA\u03CC \u03A0\u03B1\u03C1\u03B1\u03B3\u03B3\u03B5\u03BB\u03B9\u03CE\u03BD");
+		JButton btnParaggelies = new JButton("Orders");
 		GridBagConstraints gbc_btnParaggelies = new GridBagConstraints();
 		gbc_btnParaggelies.insets = new Insets(0, 0, 5, 0);
 		gbc_btnParaggelies.fill = GridBagConstraints.BOTH;
@@ -132,7 +132,7 @@ public class MainMenu {
 		gbc_btnParaggelies.gridy = 4;
 		frmFoodRiders.getContentPane().add(btnParaggelies, gbc_btnParaggelies);
 		
-		JButton btnYpalliloi = new JButton("\u039B\u03AF\u03C3\u03C4\u03B1 \u03A5\u03C0\u03B1\u03BB\u03BB\u03AE\u03BB\u03C9\u03BD");
+		JButton btnYpalliloi = new JButton("Staff");
 		btnYpalliloi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmFoodRiders.dispose();
@@ -153,7 +153,7 @@ public class MainMenu {
 		gbc_btnYpalliloi.gridy = 5;
 		frmFoodRiders.getContentPane().add(btnYpalliloi, gbc_btnYpalliloi);
 		
-		JButton btnStatistika = new JButton("\u03A3\u03C4\u03B1\u03C4\u03B9\u03C3\u03C4\u03B9\u03BA\u03AC");
+		JButton btnStatistika = new JButton("Statistics");
 		GridBagConstraints gbc_btnStatistika = new GridBagConstraints();
 		gbc_btnStatistika.insets = new Insets(0, 0, 5, 0);
 		gbc_btnStatistika.fill = GridBagConstraints.BOTH;
@@ -170,7 +170,7 @@ public class MainMenu {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				//frmFoodRiders.dispose();
+				frmFoodRiders.dispose();
 			}
 		});
 		
@@ -181,7 +181,7 @@ public class MainMenu {
 		gbc_separator_1.gridy = 7;
 		frmFoodRiders.getContentPane().add(separator_1, gbc_separator_1);
 		
-		JButton btnAposindesi = new JButton("\u0391\u03C0\u03BF\u03C3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7");
+		JButton btnAposindesi = new JButton("Log out");
 		btnAposindesi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmFoodRiders.dispose();

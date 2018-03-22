@@ -69,6 +69,7 @@ public class Restaurants_Screen {
 		frame.setBounds(100, 100, 487, 466);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Restaurants - FoodRiders");
 		
 		JButton addBtn = new JButton("Add");
 		addBtn.addActionListener(new ActionListener() {

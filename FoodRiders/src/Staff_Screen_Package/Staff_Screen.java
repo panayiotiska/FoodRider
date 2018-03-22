@@ -58,6 +58,7 @@ public class Staff_Screen {
 		frame.setBounds(100, 100, 559, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Staff - FoodRiders");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 11, 505, 164);
@@ -78,7 +79,7 @@ public class Staff_Screen {
         JTable table = new JTable(tableModel);
 		scrollPane.setViewportView(table);
 		
-		JButton addBtn = new JButton("Π�?οσθήκη Υπαλλήλου");
+		JButton addBtn = new JButton("Add");
 		addBtn.setBounds(25, 195, 153, 25);
 		frame.getContentPane().add(addBtn);
 		addBtn.addActionListener(new ActionListener() {
@@ -91,11 +92,11 @@ public class Staff_Screen {
 			}
 		});
 		
-		JButton btnDiagrafi = new JButton("Διαγ�?αφή Υπαλλήλου");
+		JButton btnDiagrafi = new JButton("Delete");
 		btnDiagrafi.setBounds(199, 195, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		
-		JButton btnEpeksergasia = new JButton("Επξε�?γασία Υπαλλήλου");
+		JButton btnEpeksergasia = new JButton("Edit");
 		btnEpeksergasia.setBounds(369, 195, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
 		
