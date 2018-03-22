@@ -11,7 +11,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import Login_Screen_Package.Login_Screen;
 import Restaurants_Screen_Package.Restaurants_Screen;
 import Staff_Screen_Package.Staff_Screen;
-import Statistics.StatisticsGUI;
+// import Statistics.StatisticsGUI;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -160,7 +160,7 @@ public class MainMenu {
 		gbc_btnStatistika.gridx = 0;
 		gbc_btnStatistika.gridy = 6;
 		frmFoodRiders.getContentPane().add(btnStatistika, gbc_btnStatistika);
-		btnStatistika.addActionListener(new ActionListener() {
+	/*	btnStatistika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 				StatisticsGUI statisticsScreen = new StatisticsGUI();	
@@ -172,7 +172,7 @@ public class MainMenu {
 				}
 				frmFoodRiders.dispose();
 			}
-		});
+		}); */
 		
 		JSeparator separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
