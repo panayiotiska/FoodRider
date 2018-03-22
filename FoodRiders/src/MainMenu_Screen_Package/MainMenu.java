@@ -112,11 +112,9 @@ public class MainMenu {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-				
 			}
 		});
+		
 		GridBagConstraints gbc_btnEstiatoria = new GridBagConstraints();
 		gbc_btnEstiatoria.insets = new Insets(0, 0, 5, 0);
 		gbc_btnEstiatoria.fill = GridBagConstraints.BOTH;

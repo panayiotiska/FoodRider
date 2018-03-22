@@ -113,6 +113,13 @@ public class AddRestaurantScreen {
 		frame.getContentPane().add(lblOtherComments);
 		
 		JButton btnApply = new JButton("Apply");
+		btnApply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+			}
+		});
 		btnApply.setBounds(503, 358, 89, 23);
 		frame.getContentPane().add(btnApply);
 		

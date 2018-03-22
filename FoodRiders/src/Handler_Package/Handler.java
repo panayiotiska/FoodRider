@@ -24,13 +24,16 @@ public class Handler {
 		restaurantsList = new ArrayList<>();
 		staffList = new ArrayList<>();
 		vehicles = new ArrayList<>();
+
 		staffAvailable =new LinkedList<>();
 		vehiclesAvailable = new LinkedList<>();
+
+		staffAvailable = new LinkedList<>(staffList);
+		vehiclesAvailable = new LinkedList<>(vehicles);
+
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
 	}
-	
-	
 	
 	public void orderSubmission(Order anOrder) {
 		if(!(staffAvailable.isEmpty()) && !(vehiclesAvailable.isEmpty())) {
@@ -49,7 +52,7 @@ public class Handler {
 	
 	public void addRestaurant(Restaurant aRestaurant) {
 		restaurantsList.add(aRestaurant);
-	}
+	} 
 	public void addStaff(Staff aStaff) {
 		staffList.add(aStaff);
 	}
