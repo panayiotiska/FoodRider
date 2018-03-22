@@ -42,7 +42,7 @@ public class StatisticsGUI extends JFrame {
 	private JPanel underSouthPanel;
 
 	/**
-	 * Create the frame.
+	 * Create the frame
 	 * @throws IOException 
 	 */
 	
