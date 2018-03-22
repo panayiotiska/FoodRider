@@ -104,7 +104,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 	}
 
-	private double calcMean() {
+	private double calcMean() throws ExceptionInInitializerError{
 		
 		/* The method calculates the average of orders. ( sum(frequency*centralValues)/n ) */
 		
@@ -152,7 +152,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 
 	}
 	
-	private double calcVariance() {
+	private double calcVariance() throws ExceptionInInitializerError{
 		
 		/* The method calculates the variance of orders. ( sum((central.values-mean)^2*frequency)/(sum(frequency)-1) ) */
 		
@@ -206,7 +206,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 				
 	}
 	
-	private ImageIcon drawPlot() throws IOException {
+	private ImageIcon drawPlot() throws IOException, ExceptionInInitializerError{
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
@@ -253,7 +253,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 	}
 	
-	private double[] calcCentralValues(int[] interval) {
+	private double[] calcCentralValues(int[] interval) throws ExceptionInInitializerError{
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
@@ -290,7 +290,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 	}
 	
-	private String[] getNames(int[] interval) {
+	private String[] getNames(int[] interval) throws ExceptionInInitializerError{
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
