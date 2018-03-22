@@ -28,7 +28,7 @@ public class Statistics {
 	
 	private int[] interval;
 	
-	public Statistics() throws IOException {
+	public Statistics() throws IOException, ExceptionInInitializerError {
 		
 		this.interv = new ArrayList<>(Arrays.asList(24,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23));
 		
@@ -53,23 +53,22 @@ public class Statistics {
 		this.barplot = drawPlot();
 		
 	}
-	
-	
+
 	/* Public Methods */
 	
-	public int getN() {
+	public int getN(){
 		return n;
 	}
 	
-	public double getMean() {
+	public double getMean() throws ExceptionInInitializerError{
 		return mean;
 	}
 	
-	public double getVariance() {
+	public double getVariance() throws ExceptionInInitializerError{
 		return variance;
 	}
 
-	public ImageIcon getBarplot() {
+	public ImageIcon getBarplot() throws ExceptionInInitializerError{
 		return barplot;
 	}
 	
@@ -104,7 +103,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 	}
 
-	private double calcMean() {
+	private double calcMean() throws ExceptionInInitializerError{
 		
 		/* The method calculates the average of orders. ( sum(frequency*centralValues)/n ) */
 		
@@ -146,13 +145,14 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		 * an element (mean) we only get the 1st position of the table created and we
 		 * assign it to mean variable.
 		 */
+		
 		mean = caller.getParser().getAsDoubleArray("mean")[0];
 		
 		return mean;            
 
 	}
 	
-	private double calcVariance() {
+	private double calcVariance() throws ExceptionInInitializerError{
 		
 		/* The method calculates the variance of orders. ( sum((central.values-mean)^2*frequency)/(sum(frequency)-1) ) */
 		
@@ -206,7 +206,9 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 				
 	}
 	
-	private ImageIcon drawPlot() throws IOException {
+	private ImageIcon drawPlot() throws IOException, ExceptionInInitializerError{
+		
+		/* This method creates & returns barplot. */
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
@@ -253,7 +255,9 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 	}
 	
-	private double[] calcCentralValues(int[] interval) {
+	private double[] calcCentralValues(int[] interval) throws ExceptionInInitializerError{
+		
+		/* This method calculates & returns central values of given interval. */
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
@@ -290,7 +294,9 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 	}
 	
-	private String[] getNames(int[] interval) {
+	private String[] getNames(int[] interval) throws ExceptionInInitializerError{
+		
+		/* This method gets interval as array and returns it as string array for barplot's labels. */
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();

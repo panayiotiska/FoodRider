@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
+import MainMenu_Screen_Package.MainMenu;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,7 +86,7 @@ public class StatisticsGUI extends JFrame {
 		southPanel.add(underSouthPanel, BorderLayout.SOUTH);
 
 		frame.setTitle("Statistics");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		Statistics stats = new Statistics();
 				
@@ -100,10 +102,12 @@ public class StatisticsGUI extends JFrame {
 		southPanel.setLayout(new BorderLayout(0, 0));
 		
 		statsd = new JTextPane();
+		statsd.setLayout(new BorderLayout(0, 0));
+		statsd.setFont(new Font("Arial", Font.BOLD, 14));
 		statsd.setBackground(frame.getBackground());
 		statsd.setEditable(false);
-		statsd.setText("Total Number of Orders: "+stats.getN()+System.lineSeparator()+"Orders' Mean (x): "+String.format("%.3g", stats.getMean())+System.lineSeparator());
-		statsd.setText(statsd.getText()+"Orders' Variance (s^2): "+stats.getVariance()+System.lineSeparator());
+		statsd.setText(System.lineSeparator()+"Total Number of Orders: "+stats.getN()+System.lineSeparator()+System.lineSeparator()+"Orders' Mean (x): "+String.format("%.3g", stats.getMean())+System.lineSeparator()+System.lineSeparator());
+		statsd.setText(statsd.getText()+"Standard Deviation (s): "+String.format("%.3g", Math.sqrt(stats.getVariance()))+System.lineSeparator());
 		southPanel.add(statsd, BorderLayout.CENTER); 
 		
 		panel = new JPanel();
@@ -133,12 +137,13 @@ public class StatisticsGUI extends JFrame {
 		mainMenuBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();	
-		//		MainMenu mainMenu = new MainMenu();
-			//	mainMenu.showMainMenu();
+				MainMenu mainMenu = new MainMenu();
+				mainMenu.showMainMenu();
 			}
 		});
 		
 		underSouthPanel.add(mainMenuBtn);
+		
 	}
 
 }
