@@ -49,7 +49,7 @@ public class Statistics {
 		// Calculation of variance
 		this.variance = calcVariance();
 		
-		// Creation of barplot
+		// Creation of Barplot
 		this.barplot = drawPlot();
 		
 	}
