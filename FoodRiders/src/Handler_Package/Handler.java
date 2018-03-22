@@ -7,6 +7,10 @@ import java.util.Queue;
 public class Handler {
 
 	private ArrayList<Restaurant> restaurantsList;
+	public ArrayList<Restaurant> getRestaurantsList() {
+		return restaurantsList;
+	}
+
 	private ArrayList<Staff> staffList;
 	private ArrayList<Vehicle> vehicles;
 	
@@ -58,9 +62,7 @@ public class Handler {
 		
 	}
 	
-	public void addRestaurant(Restaurant aRestaurant) {
-		restaurantsList.add(aRestaurant);
-	} 
+	
 	public void addStaff(Staff aStaff) {
 		staffList.add(aStaff);
 	}
@@ -73,4 +75,8 @@ public class Handler {
 		return staffList;
 	}
 		
+	public void addRestaurant(Restaurant aRestaurant) {
+		restaurantsList.add(aRestaurant);
+	} 
+	
 }

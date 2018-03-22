@@ -109,9 +109,7 @@ public class Login_Screen{
 		
 		
 		login_btn.addActionListener(new ActionListener() {
-			
-		
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String username = username_textField.getText().trim();

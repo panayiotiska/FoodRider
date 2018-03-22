@@ -17,10 +17,13 @@ public class Database {
 		User user2 = new User("Vicky", "vicky", "25/4/15");  
 		User user3 = new User("panos", "panos", "31/5/17");
 		User user4= new User("Tasos", "tasos", "31/5/17");
+		User user5 = new User("a", "a", "31/5/17");
 
 		administrators.add(user1);
 		administrators.add(user2);
 		administrators.add(user3);
+		administrators.add(user5);
+		
 		clients.add(user4);
 		
 		

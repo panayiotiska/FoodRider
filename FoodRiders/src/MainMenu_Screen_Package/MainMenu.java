@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import Handler_Package.Handler;
 import Login_Screen_Package.Login_Screen;
 import Restaurants_Screen_Package.Restaurants_Screen;
 import Staff_Screen_Package.Staff_Screen;
@@ -18,7 +19,6 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.awt.event.ActionEvent;
@@ -50,13 +50,17 @@ public class MainMenu {
 	 * Create the application.
 	 */
 	public MainMenu() {
-		initialize();
+		Handler data = new Handler();  //The handler object that will be senting all over the programm 
+		initialize(data);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Handler aData) {
+		
+		Handler data = aData; 
+		
 		frmFoodRiders = new JFrame();
 		frmFoodRiders.getContentPane().setBackground(SystemColor.textHighlight);
 		frmFoodRiders.setBackground(SystemColor.textHighlight);
@@ -104,9 +108,9 @@ public class MainMenu {
 		btnEstiatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmFoodRiders.dispose();
-				Restaurants_Screen restaurants = new Restaurants_Screen();
+				Restaurants_Screen restaurants = new Restaurants_Screen(data);
 				try {
-					restaurants.toRestaurantScreen();
+					restaurants.toRestaurantScreen(data);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e) {
 					// TODO Auto-generated catch block
@@ -134,9 +138,9 @@ public class MainMenu {
 		btnYpalliloi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmFoodRiders.dispose();
-				Staff_Screen staffScreen = new Staff_Screen();
+				Staff_Screen staffScreen = new Staff_Screen(data);
 				try {
-					staffScreen.toStaffScreen();
+					staffScreen.toStaffScreen(data);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e1) {
 					// TODO Auto-generated catch block

@@ -1,24 +1,26 @@
 package Staff_Screen_Package;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
+
 import javax.swing.UnsupportedLookAndFeelException;
 
 import Handler_Package.Handler;
 import Handler_Package.Staff;
-import Restaurants_Screen_Package.AddRestaurantScreen;
-import Restaurants_Screen_Package.Restaurants_Screen;
+
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JTextArea;
+
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
@@ -26,11 +28,11 @@ import java.awt.event.ActionEvent;
 public class AddStaffScreen {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField fullNameTextField;
 	private JLabel lblBday;
-	private JTextField textField_1;
+	private JTextField birthDateTextField;
 	private JLabel lblTelephoneNumber;
-	private JTextField textField_2;
+	private JTextField telephoneNumTextField;
 	private JLabel lblPosition;
 	private JTextField textField_3;
 	private JLabel lblOtherComments;
@@ -38,11 +40,14 @@ public class AddStaffScreen {
 	/**
 	 * Launch the application.
 	 */
-	public void addStaff() {
+	public void addStaff(Handler aData) {
+		
+		Handler data = aData;
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddStaffScreen window = new AddStaffScreen();
+					AddStaffScreen window = new AddStaffScreen(data);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,21 +59,25 @@ public class AddStaffScreen {
 	/**
 	 * Create the application.
 	 */
-	public AddStaffScreen() {
-		initialize();
+	public AddStaffScreen(Handler aData) {
+		Handler data = aData;
+		initialize(data);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Handler aData) {
+		
+		Handler data = aData;
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel titleLabel = new JLabel("Add a Staff Member");
 		titleLabel.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
-		titleLabel.setBounds(228, 0, 160, 66);
+		titleLabel.setBounds(228, 0, 200, 66);
 		frame.getContentPane().add(titleLabel);
 		
 		JLabel nameLabel = new JLabel("Full Name :");
@@ -77,21 +86,21 @@ public class AddStaffScreen {
 		nameLabel.setBounds(37, 79, 134, 22);
 		frame.getContentPane().add(nameLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(181, 82, 134, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		fullNameTextField = new JTextField();
+		fullNameTextField.setBounds(181, 82, 134, 20);
+		frame.getContentPane().add(fullNameTextField);
+		fullNameTextField.setColumns(10);
 		
 		lblBday = new JLabel("Date of birth :");
 		lblBday.setForeground(SystemColor.text);
 		lblBday.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		lblBday.setBounds(345, 85, 83, 14);
+		lblBday.setBounds(329, 85, 111, 16);
 		frame.getContentPane().add(lblBday);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(441, 82, 151, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		birthDateTextField = new JTextField();
+		birthDateTextField.setBounds(441, 82, 151, 20);
+		frame.getContentPane().add(birthDateTextField);
+		birthDateTextField.setColumns(10);
 		
 		lblTelephoneNumber = new JLabel("Telephone Number : ");
 		lblTelephoneNumber.setForeground(SystemColor.text);
@@ -99,10 +108,10 @@ public class AddStaffScreen {
 		lblTelephoneNumber.setBounds(34, 159, 153, 14);
 		frame.getContentPane().add(lblTelephoneNumber);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(191, 158, 127, 20);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		telephoneNumTextField = new JTextField();
+		telephoneNumTextField.setBounds(191, 158, 127, 20);
+		frame.getContentPane().add(telephoneNumTextField);
+		telephoneNumTextField.setColumns(10);
 		
 		lblPosition = new JLabel("Position :");
 		lblPosition.setForeground(SystemColor.text);
@@ -117,49 +126,90 @@ public class AddStaffScreen {
 		frame.getContentPane().add(cmbPositionList);
 		frame.getContentPane().add(lblPosition);
 		
-		
+		JLabel messageLbl = new JLabel("");
+		messageLbl.setBounds(178, 358, 315, 26);
+		frame.getContentPane().add(messageLbl);
 		
 		JButton btnApply = new JButton("Apply");
 		btnApply.setBounds(503, 358, 89, 23);
 		frame.getContentPane().add(btnApply);	
-		Staff newStaffMember = new Staff(0, null, null, null, null);
-		Handler newStaff = new Handler();
 		
 		btnApply.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				//newStaffMember.setId(newID.getStaffList().size() + 1); //in order to get the next ID
-				newStaffMember.setId(0); //JUST FOR TEST , LINE ABOVE NEEDS TO BE FIXED
-				newStaffMember.setName(textField.getText());
-				newStaffMember.setDateOfBirth(textField_1.getText());
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd"); //Current local date
-				LocalDate localDate = LocalDate.now();
-				newStaffMember.setRecruitmentDate(dtf.format(localDate));
-				newStaffMember.setPosition(cmbPositionList.getSelectedItem().toString());
+				String fullName = fullNameTextField.getText().trim();
+				String dateOfBirth = birthDateTextField.getText().trim();
+				String telephoneNum = telephoneNumTextField.getText().trim();
 				
-				newStaff.addStaff(newStaffMember); //ERROR_2
+				if(fullName.isEmpty() || dateOfBirth.isEmpty() || telephoneNum.isEmpty()) {
+					messageLbl.setForeground(Color.red);
+					messageLbl.setText("You must fill all the blanks in order to proceed! ");
+					if(fullName.isEmpty())
+						fullNameTextField.setBackground(Color.red);
+					if(dateOfBirth.isEmpty())
+						birthDateTextField.setBackground(Color.red);
+					if(telephoneNum.isEmpty())
+						telephoneNumTextField.setBackground(Color.red);
+				}else {
+					data.addStaff(new Staff(data.getStaffList().size(), fullName, cmbPositionList.toString(), dateOfBirth, "date format not done yet"));
+					System.out.println("size of arrayList: " + data.getStaffList().size());
+					System.out.println(cmbPositionList.getSelectedItem());
+				
 				
 				frame.dispose();
-				Staff_Screen restScreen = new Staff_Screen();
+				Staff_Screen restScreen = new Staff_Screen(data);
 				try {
-					restScreen.toStaffScreen();
+					restScreen.toStaffScreen(data);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
-				
+			}
 				
 			}
 		});
+		
+		fullNameTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+			    fullNameTextField.setBackground(Color.white);
+			    birthDateTextField.setBackground(Color.white);
+			    telephoneNumTextField.setBackground(Color.WHITE);
+			    messageLbl.setText("");
+			  }
+			});
+		birthDateTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+				  fullNameTextField.setBackground(Color.white);
+				  birthDateTextField.setBackground(Color.white);
+				  telephoneNumTextField.setBackground(Color.WHITE);
+				  messageLbl.setText("");
+			  }
+			});
+		
+		telephoneNumTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+				  fullNameTextField.setBackground(Color.white);
+				  birthDateTextField.setBackground(Color.white);
+				  telephoneNumTextField.setBackground(Color.WHITE);
+				  messageLbl.setText("");
+			  }
+			});
+		
+		
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				Staff_Screen restScreen = new Staff_Screen();
+				Staff_Screen restScreen = new Staff_Screen(data);
 				try {
-					restScreen.toStaffScreen();
+					restScreen.toStaffScreen(data);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e1) {
 					// TODO Auto-generated catch block
@@ -172,6 +222,7 @@ public class AddStaffScreen {
 		});
 		btnCancel.setBounds(37, 358, 89, 23);
 		frame.getContentPane().add(btnCancel);
+		
 		
 		frame.setBounds(100, 100, 641, 430);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
