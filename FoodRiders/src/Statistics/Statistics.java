@@ -108,6 +108,8 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 		/* The method calculates the average of orders. ( sum(frequency*centralValues)/n ) */
 		
+		try {
+		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
 				
@@ -149,6 +151,10 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		mean = caller.getParser().getAsDoubleArray("mean")[0];
 		
 		return mean;            
+		
+		}catch(Exception e) {
+			return 1;
+		}
 
 	}
 	
@@ -156,12 +162,14 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 		/* The method calculates the variance of orders. ( sum((central.values-mean)^2*frequency)/(sum(frequency)-1) ) */
 		
+		try {
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
 				
 		// A RCode object for each method, so we do not have a problem with the threads
 		RCode code = RCode.create();
-	
+		
+		
 		// Value to be returned (mean)
 		double variance;
 		
@@ -203,11 +211,16 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		variance = caller.getParser().getAsDoubleArray("var")[0];
 		
 		return variance;
+		
+		}catch(Exception e) {
+			return 1;
+		}
 				
 	}
 	
 	private ImageIcon drawPlot() throws IOException, ExceptionInInitializerError{
-		
+	
+		try {
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
 		
@@ -251,9 +264,15 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 
 		return plot;
 		
+		}catch (Exception e) {
+			return null;
+		}
+		
 	}
 	
 	private double[] calcCentralValues(int[] interval) throws ExceptionInInitializerError{
+		
+		try {
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
@@ -286,11 +305,17 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		// Get central values
 		values = caller.getParser().getAsDoubleArray("values");
 		
-		return values;		
+		return values;	
+		
+		}catch (Exception e) {
+			return null;
+		}
 		
 	}
 	
 	private String[] getNames(int[] interval) throws ExceptionInInitializerError{
+		
+		try {
 		
 		// A RCaller object for each method, so we do not have a problem with the threads
 		RCaller caller = RCaller.create();
@@ -323,6 +348,10 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		names = caller.getParser().getAsStringArray("names");
 		
 		return names;
+		
+		}catch (Exception e) {
+			return null;
+		}
 	
 	}
 
