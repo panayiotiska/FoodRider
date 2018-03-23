@@ -111,14 +111,14 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		double mean=0;
 		
 		// Calculating Central Values
-		double[] centralValues = calcCentralValues(interval);
+		ArrayList<Double> centralValues = calcCentralValues(interv);
 		
 		// Calculation
-		for(int i=0;i<centralValues.length;i++)
-			mean += centralValues[i]*frequency[i];
+		for(int i=0;i<centralValues.size();i++)
+			mean += centralValues.get(i)*freq.get(i);
 		mean /= n;
 		
-		return mean;            
+		return mean;
 
 	}
 	
@@ -133,12 +133,12 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		double mean = getMean();
 		
 		// Calculating Central Values
-		double[] centralValues = calcCentralValues(interval);
+		ArrayList<Double> centralValues = calcCentralValues(interv);
 		
 		// Calculating
-		for(int i=0;i<centralValues.length;i++)
-			variance += (centralValues[i]-mean)*(centralValues[i]-mean)*frequency[i];
-		variance /= n-1;
+		for(int i=0;i<centralValues.size();i++)
+			variance += (centralValues.get(i)-mean)*(centralValues.get(i)-mean)*freq.get(i);
+		variance /= getN()-1;
 		
 		return variance;
 				
@@ -155,7 +155,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		RCode code = RCode.create();
 		
 		// Labels that describe how long each observation (frequency)
-		String[] names = getNames(interval);
+		String[] names = getNames(interv);
 		
 		// frequency table will be recognized as freq in R
 		code.addIntArray("freq", frequency);
@@ -193,32 +193,36 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 	}
 	
-	private double[] calcCentralValues(int[] interval) throws ExceptionInInitializerError{
+	private ArrayList<Double> calcCentralValues(ArrayList<Integer> interv) throws ExceptionInInitializerError{
 		
 		/* This method calculates & returns central values of given interval. */
 		
 		// Table with the center values ​​of each interval (to calculate mean, variance)
-		double[] values = new double[interval.length-1];
+		ArrayList<Double> values = new ArrayList<>();
+		
+		// Used in calculation;
+		double tmp;
 		
 		// Calculation
-		for(int i=0;i<interval.length-1;i++){ 
-			values[i] = (interval[i] + interval[i+1]); 
-			values[i] /= 2;
+		for(int i=0;i<interv.size()-1;i++){ 
+			tmp = interv.get(i) + interv.get(i+1);
+			tmp /= 2;
+			values.add(tmp); 
 		}
 		
 		return values;		
 		
 	}
 	
-	private String[] getNames(int[] interval){
+	private String[] getNames(ArrayList<Integer> interv){
 		
-		/* This method gets interval as array and returns it as string array for barplot's labels. */
+		/* This method gets interval as arraylist and returns it as string array for barplot's labels. */
 		
-		String[] names = new String[interval.length-1];
+		String[] names = new String[interv.size()-1];
 		
 		// Calculation
 		for(int i=0;i<interval.length-1;i++)
-			names[i] = interval[i] + ":00 - " + interval[i+1] + ":00";
+			names[i] = interv.get(i) + ":00 - " + interv.get(i+1) + ":00";
 		
 		return names;
 	
