@@ -106,47 +106,17 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 	private double calcMean() throws ExceptionInInitializerError{
 		
 		/* The method calculates the average of orders. ( sum(frequency*centralValues)/n ) */
-		
-		// A RCaller object for each method, so we do not have a problem with the threads
-		RCaller caller = RCaller.create();
-				
-		// A RCode object for each method, so we do not have a problem with the threads
-		RCode code = RCode.create();
 	
 		// Value to be returned (mean)
-		double mean;
+		double mean=0;
 		
 		// Calculating Central Values
 		double[] centralValues = calcCentralValues(interval);
 		
-		// frequency table will be recognized as freq in R
-		code.addIntArray("freq", frequency);
-		
-		// interval table will be recognized as interv in R
-		code.addIntArray("interv", interval);	
-		
-		// centralValues table will be recognized as values in R
-		code.addDoubleArray("values", centralValues);
-				
-		// We pass n to R, calculated by calcMean()
-		code.addInt("n", n);
-
-		// Mean calculation inside R	
-		code.addRCode("mean <- sum(values*freq)/n");
-				
-		// Parsing object code
-		caller.setRCode(code);
-
-		// Executing R code
-		caller.runAndReturnResult("mean");
-		
-		/* 
-		 * Parser always returns the results to a table. But since we know we will only have
-		 * an element (mean) we only get the 1st position of the table created and we
-		 * assign it to mean variable.
-		 */
-		
-		mean = caller.getParser().getAsDoubleArray("mean")[0];
+		// Calculation
+		for(int i=0;i<centralValues.length;i++)
+			mean += centralValues[i]*frequency[i];
+		mean /= n;
 		
 		return mean;            
 
@@ -155,52 +125,20 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 	private double calcVariance() throws ExceptionInInitializerError{
 		
 		/* The method calculates the variance of orders. ( sum((central.values-mean)^2*frequency)/(sum(frequency)-1) ) */
-		
-		// A RCaller object for each method, so we do not have a problem with the threads
-		RCaller caller = RCaller.create();
-				
-		// A RCode object for each method, so we do not have a problem with the threads
-		RCode code = RCode.create();
 	
 		// Value to be returned (mean)
-		double variance;
+		double variance=0;
 		
 		// We use mean to calculate variance
-		double mean;
+		double mean = getMean();
 		
 		// Calculating Central Values
 		double[] centralValues = calcCentralValues(interval);
 		
-		// frequency table will be recognized as freq in R
-		code.addIntArray("freq", frequency);
-		
-		// interval table will be recognized as interv in R
-		code.addIntArray("interv", interval);	
-		
-		// centralValues table will be recognized as values in R
-		code.addDoubleArray("values", centralValues);
-
-		// We use mean to calculate variance	
-		mean = this.mean;
-		
-		// We pass n to R, calculated by calcMean()
-		code.addDouble("mean", mean);
-		
-		// Variance calculation inside R
-		code.addRCode("var=format(round(sum((values-mean)^2*freq)/(sum(freq)-1), 2), nsmall = 2)");
-		
-		// Parsing object code
-		caller.setRCode(code);
-
-		// Executing R code
-		caller.runAndReturnResult("var");
-		
-		/* 
-		 * Parser always returns the results to a table. But since we know we will only have
-		 * an element (var) we only get the 1st position of the table created and we
-		 * assign it to variance variable.
-		 */
-		variance = caller.getParser().getAsDoubleArray("var")[0];
+		// Calculating
+		for(int i=0;i<centralValues.length;i++)
+			variance += (centralValues[i]-mean)*(centralValues[i]-mean)*frequency[i];
+		variance /= n-1;
 		
 		return variance;
 				
@@ -259,74 +197,28 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		
 		/* This method calculates & returns central values of given interval. */
 		
-		// A RCaller object for each method, so we do not have a problem with the threads
-		RCaller caller = RCaller.create();
-				
-		// A RCode object for each method, so we do not have a problem with the threads
-		RCode code = RCode.create();
-		
 		// Table with the center values ​​of each interval (to calculate mean, variance)
-		double[] values = new double[n];
-								
-		// interval table will be recognized as interv in R
-		code.addIntArray("interv", interval);
-						
-		// values table will be recognized as values in R
-		code.addDoubleArray("values", values);
+		double[] values = new double[interval.length-1];
 		
-		// Calculating central values with R
-		code.addRCode("k <- 1\r\n" + 
-								"  while(k < length(interv)){\r\n" + 
-								"    values[k] <- (interv[k] + interv[k+1])/2\r\n" + 
-								"    k <- k + 1\r\n" + 
-								"  }");
-		
-		// Parsing R Code
-		caller.setRCode(code);
-		
-		// Executing Code
-		caller.runAndReturnResult("values");
-		
-		// Get central values
-		values = caller.getParser().getAsDoubleArray("values");
+		// Calculation
+		for(int i=0;i<interval.length-1;i++){ 
+			values[i] = (interval[i] + interval[i+1]); 
+			values[i] /= 2;
+		}
 		
 		return values;		
 		
 	}
 	
-	private String[] getNames(int[] interval) throws ExceptionInInitializerError{
+	private String[] getNames(int[] interval){
 		
 		/* This method gets interval as array and returns it as string array for barplot's labels. */
 		
-		// A RCaller object for each method, so we do not have a problem with the threads
-		RCaller caller = RCaller.create();
-						
-		// A RCode object for each method, so we do not have a problem with the threads
-		RCode code = RCode.create();
-		
 		String[] names = new String[interval.length-1];
 		
-		// interval table will be recognized as interv in R
-		code.addIntArray("interval", interval);
-		
-		// names table will be recognized as names in R
-		code.addStringArray("names", names);
-		
-		// Getting names in vector in R
-		code.addRCode("k=1\r\n" + 
-				"				  while(k<length(interval)){\r\n" + 
-				"				    names[k] = paste(as.character(interval[k]), \":00 - \", (as.character(interval[k+1])), \":00\")\r\n" + 
-				"				    k=k+1\r\n" + 
-				"				  }");
-		
-		// Parsing R code
-		caller.setRCode(code);
-		
-		// Executing R code
-		caller.runAndReturnResult("names");
-		
-		// Getting names
-		names = caller.getParser().getAsStringArray("names");
+		// Calculation
+		for(int i=0;i<interval.length-1;i++)
+			names[i] = interval[i] + ":00 - " + interval[i+1] + ":00";
 		
 		return names;
 	
