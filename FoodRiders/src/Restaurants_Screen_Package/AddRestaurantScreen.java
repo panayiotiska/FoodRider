@@ -1,5 +1,6 @@
 package Restaurants_Screen_Package;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,33 +8,43 @@ import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.UnsupportedLookAndFeelException;
-
+import Handler_Package.Handler;
+import Handler_Package.Restaurant;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+
 
 public class AddRestaurantScreen {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField nameTextField;
 	private JLabel lblAddress;
-	private JTextField textField_1;
+	private JTextField addressTextField;
 	private JLabel lblTelephoneNumber;
-	private JTextField textField_2;
+	private JTextField telephoneNumTextField;
 	private JLabel lblEmail;
-	private JTextField textField_3;
+	private JTextField emailTextField;
 	private JLabel lblOtherComments;
+	private JLabel timeDistanceLabel;
+	private JTextField timeDistanceTextField;
+	private JLabel messageLabel;
 
 	/**
 	 * Launch the application.
 	 */
-	public void addRestaurant() {
+	public void addRestaurant(Handler aData) {
+		
+		Handler data = aData;
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddRestaurantScreen window = new AddRestaurantScreen();
+					AddRestaurantScreen window = new AddRestaurantScreen(data);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,14 +56,18 @@ public class AddRestaurantScreen {
 	/**
 	 * Create the application.
 	 */
-	public AddRestaurantScreen() {
-		initialize();
+	public AddRestaurantScreen(Handler aData) {
+		Handler data = aData;
+		initialize(data);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Handler aData) {
+		
+		Handler data = aData;
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
 		frame.getContentPane().setLayout(null);
@@ -68,52 +83,174 @@ public class AddRestaurantScreen {
 		nameLabel.setBounds(37, 79, 134, 22);
 		frame.getContentPane().add(nameLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(181, 82, 134, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		nameTextField = new JTextField();
+		nameTextField.setBounds(201, 82, 134, 20);
+		frame.getContentPane().add(nameTextField);
+		nameTextField.setColumns(10);
 		
 		lblAddress = new JLabel("Address :");
 		lblAddress.setForeground(SystemColor.text);
 		lblAddress.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		lblAddress.setBounds(345, 85, 83, 14);
+		lblAddress.setBounds(37, 200, 550, 14);
 		frame.getContentPane().add(lblAddress);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(441, 82, 151, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		addressTextField = new JTextField();
+		addressTextField.setBounds(133, 197, 454, 20);
+		frame.getContentPane().add(addressTextField);
+		addressTextField.setColumns(10);
 		
 		lblTelephoneNumber = new JLabel("Telephone Number : ");
 		lblTelephoneNumber.setForeground(SystemColor.text);
 		lblTelephoneNumber.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		lblTelephoneNumber.setBounds(34, 159, 153, 14);
+		lblTelephoneNumber.setBounds(34, 141, 153, 14);
 		frame.getContentPane().add(lblTelephoneNumber);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(191, 158, 127, 20);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		telephoneNumTextField = new JTextField();
+		telephoneNumTextField.setBounds(201, 140, 134, 20);
+		frame.getContentPane().add(telephoneNumTextField);
+		telephoneNumTextField.setColumns(10);
 		
 		lblEmail = new JLabel("E-mail :");
 		lblEmail.setForeground(SystemColor.text);
 		lblEmail.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		lblEmail.setBounds(357, 164, 71, 14);
+		lblEmail.setBounds(357, 146, 71, 14);
 		frame.getContentPane().add(lblEmail);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(441, 158, 151, 20);
-		frame.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		emailTextField = new JTextField();
+		emailTextField.setBounds(441, 140, 151, 20);
+		frame.getContentPane().add(emailTextField);
+		emailTextField.setColumns(10);
 		
 		lblOtherComments = new JLabel("Other Comments :");
 		lblOtherComments.setForeground(SystemColor.text);
 		lblOtherComments.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		lblOtherComments.setBounds(37, 213, 139, 14);
+		lblOtherComments.setBounds(37, 240, 139, 14);
 		frame.getContentPane().add(lblOtherComments);
 		
+		timeDistanceLabel = new JLabel("Time Distance:");
+		timeDistanceLabel.setForeground(SystemColor.text);
+		timeDistanceLabel.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
+		timeDistanceLabel.setBounds(363, 83, 127, 14);
+		frame.getContentPane().add(timeDistanceLabel);
+		
+		timeDistanceTextField = new JTextField();
+		timeDistanceTextField.setBounds(509, 82, 30, 20);
+		frame.getContentPane().add(timeDistanceTextField);
+		timeDistanceTextField.setColumns(10);
+		
+		JTextArea otherCommentsTextArea = new JTextArea();
+		otherCommentsTextArea.setBounds(35, 267, 557, 107);
+		frame.getContentPane().add(otherCommentsTextArea);
+		
+		messageLabel = new JLabel("");
+		messageLabel.setBounds(207, 405, 231, 14);
+		frame.getContentPane().add(messageLabel);
+		
+		
 		JButton btnApply = new JButton("Apply");
-		btnApply.setBounds(503, 358, 89, 23);
+		btnApply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String name = nameTextField.getText().trim();
+				String timeDistance = timeDistanceTextField.getText().trim();
+				String telephoneNum = telephoneNumTextField.getText().trim();
+				String email = emailTextField.getText().trim();
+				String address = addressTextField.getText().trim();
+				String comments = otherCommentsTextArea.getText().trim();
+				
+				if(name.isEmpty() || timeDistance.isEmpty() || telephoneNum.isEmpty() || email.isEmpty() || address.isEmpty()) {
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("You must fill all the blanks in order to proceed! ");
+					if(name.isEmpty())
+						nameTextField.setBackground(Color.red);
+					if(timeDistance.isEmpty())
+						timeDistanceTextField.setBackground(Color.red);
+					if(telephoneNum.isEmpty())
+						telephoneNumTextField.setBackground(Color.red);
+					if(email.isEmpty())
+						emailTextField.setBackground(Color.red);
+					if(address.isEmpty())
+						addressTextField.setBackground(Color.red);
+				
+				}else {
+					data.addRestaurant(new Restaurant(data.getRestaurantsList().size(), name, address, telephoneNum, 
+																						email, timeDistance, comments));
+					System.out.println("size of arrayList: " + data.getRestaurantsList().size());
+					frame.dispose();
+					Restaurants_Screen restaurantScreen = new Restaurants_Screen(data);
+					try {
+						restaurantScreen.toRestaurantScreen(data);
+					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+							| UnsupportedLookAndFeelException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		});
+		
+		nameTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+			    nameTextField.setBackground(Color.white);
+			    timeDistanceTextField.setBackground(Color.white);
+			    telephoneNumTextField.setBackground(Color.WHITE);
+			    emailTextField.setBackground(Color.WHITE);
+			    addressTextField.setBackground(Color.white);
+			    messageLabel.setText("");
+			  }
+			});
+		timeDistanceTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+				  nameTextField.setBackground(Color.white);
+				    timeDistanceTextField.setBackground(Color.white);
+				    telephoneNumTextField.setBackground(Color.WHITE);
+				    emailTextField.setBackground(Color.WHITE);
+				    addressTextField.setBackground(Color.white);
+				    messageLabel.setText("");
+			  }
+			});
+		
+		telephoneNumTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+				  nameTextField.setBackground(Color.white);
+				    timeDistanceTextField.setBackground(Color.white);
+				    telephoneNumTextField.setBackground(Color.WHITE);
+				    emailTextField.setBackground(Color.WHITE);
+				    addressTextField.setBackground(Color.white);
+				    messageLabel.setText("");
+			  }
+			});
+		
+		emailTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+				  nameTextField.setBackground(Color.white);
+				    timeDistanceTextField.setBackground(Color.white);
+				    telephoneNumTextField.setBackground(Color.WHITE);
+				    emailTextField.setBackground(Color.WHITE);
+				    addressTextField.setBackground(Color.white);
+				    messageLabel.setText("");
+			  }
+			});
+		
+		addressTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+				  nameTextField.setBackground(Color.white);
+				    timeDistanceTextField.setBackground(Color.white);
+				    telephoneNumTextField.setBackground(Color.WHITE);
+				    emailTextField.setBackground(Color.WHITE);
+				    addressTextField.setBackground(Color.white);
+				    messageLabel.setText("");
+			  }
+			});
+		
+		
+		
+		btnApply.setBounds(503, 401, 89, 23);
 		frame.getContentPane().add(btnApply);
 		
 		
@@ -121,9 +258,9 @@ public class AddRestaurantScreen {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				Restaurants_Screen restScreen = new Restaurants_Screen();
+				Restaurants_Screen restScreen = new Restaurants_Screen(data);
 				try {
-					restScreen.toRestaurantScreen();
+					restScreen.toRestaurantScreen(data);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e1) {
 					// TODO Auto-generated catch block
@@ -134,13 +271,10 @@ public class AddRestaurantScreen {
 				
 			}
 		});
-		btnCancel.setBounds(37, 358, 89, 23);
+		btnCancel.setBounds(37, 401, 89, 23);
 		frame.getContentPane().add(btnCancel);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(35, 240, 557, 107);
-		frame.getContentPane().add(textArea);
-		frame.setBounds(100, 100, 641, 430);
+	
+		frame.setBounds(100, 100, 641, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

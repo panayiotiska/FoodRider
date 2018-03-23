@@ -19,7 +19,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
-import Main.Main;
+import Handler_Package.Handler;
 import MainMenu_Screen_Package.MainMenu;
 
 public class Restaurants_Screen { 
@@ -34,13 +34,15 @@ public class Restaurants_Screen {
 	 * @throws InstantiationException 
 	 * @throws ClassNotFoundException 
 	 */
-	public void toRestaurantScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+	public void toRestaurantScreen(Handler aData) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
 
+		Handler data = aData;
+		
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Restaurants_Screen window = new Restaurants_Screen();
+					Restaurants_Screen window = new Restaurants_Screen(data);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,20 +55,24 @@ public class Restaurants_Screen {
 	/**
 	 * Create the application.
 	 */
-	public Restaurants_Screen() {
-		initialize();
+	public Restaurants_Screen(Handler aData) {
+		Handler data = aData;
+		initialize(data);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	@SuppressWarnings("serial")
-	private void initialize() {
+	private void initialize(Handler aData) {
+		
+		Handler data = aData;
+		
 		frame = new JFrame();
 		frame.setResizable(false);
 		
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
-		frame.setBounds(100, 100, 487, 466);
+		frame.setBounds(100, 100, 555, 466);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Restaurants - FoodRiders");
@@ -75,39 +81,39 @@ public class Restaurants_Screen {
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AddRestaurantScreen newRest = new AddRestaurantScreen();
+				AddRestaurantScreen newRest = new AddRestaurantScreen(data);
 				frame.dispose();
-				newRest.addRestaurant();
+				newRest.addRestaurant(data);
 				
 			}
 		});
-		addBtn.setBounds(105, 311, 89, 23);
+		addBtn.setBounds(118, 311, 89, 23);
 		frame.getContentPane().add(addBtn);
 		
 		JButton editBtn = new JButton("Edit");
-		editBtn.setBounds(275, 311, 89, 23);
+		editBtn.setBounds(330, 311, 89, 23);
 		frame.getContentPane().add(editBtn);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 24, 437, 234);
+		scrollPane.setBounds(20, 24, 505, 236);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"ID code", "Name", "Address", "Telephone"
+				"ID", "Name", "Address", "Telephone", "Email", "Time Distance", "Comments"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
+				false, false, false, false, true, true, true
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -117,6 +123,7 @@ public class Restaurants_Screen {
 		table.getColumnModel().getColumn(1).setPreferredWidth(87);
 		table.getColumnModel().getColumn(2).setPreferredWidth(102);
 		table.getColumnModel().getColumn(3).setPreferredWidth(92);
+		table.getColumnModel().getColumn(5).setPreferredWidth(82);
 		scrollPane.setViewportView(table);
 		
 		JButton btnMainMenu = new JButton("");
@@ -125,12 +132,12 @@ public class Restaurants_Screen {
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-				MainMenu mainMenu = new MainMenu();
-				mainMenu.showMainMenu();
+				MainMenu mainMenu = new MainMenu(data);
+				mainMenu.showMainMenu(data);
 				
 			}
 		});
-		btnMainMenu.setBounds(192, 367, 64, 60);
+		btnMainMenu.setBounds(239, 367, 64, 60);
 		frame.getContentPane().add(btnMainMenu);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {

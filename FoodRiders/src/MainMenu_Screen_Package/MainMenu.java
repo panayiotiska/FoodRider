@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import Handler_Package.Handler;
 import Login_Screen_Package.Login_Screen;
 import Restaurants_Screen_Package.Restaurants_Screen;
 import Staff_Screen_Package.Staff_Screen;
@@ -34,11 +35,11 @@ public class MainMenu {
 	/**
 	 * Launch the application.
 	 */
-	public void showMainMenu() {
+	public void showMainMenu(Handler aData) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainMenu window = new MainMenu();
+					MainMenu window = new MainMenu(aData);
 					window.frmFoodRiders.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,14 +51,15 @@ public class MainMenu {
 	/**
 	 * Create the application.
 	 */
-	public MainMenu() {
-		initialize();
+	public MainMenu(Handler aData) {
+		initialize(aData);
 	}
-
+ 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Handler aData) {
+		Handler data = aData;
 		frmFoodRiders = new JFrame();
 		frmFoodRiders.getContentPane().setBackground(SystemColor.textHighlight);
 		frmFoodRiders.setBackground(SystemColor.textHighlight);
@@ -105,9 +107,9 @@ public class MainMenu {
 		btnEstiatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmFoodRiders.dispose();
-				Restaurants_Screen restaurants = new Restaurants_Screen();
+				Restaurants_Screen restaurants = new Restaurants_Screen(data);
 				try {
-					restaurants.toRestaurantScreen();
+					restaurants.toRestaurantScreen(data);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e) {
 					// TODO Auto-generated catch block
@@ -137,9 +139,9 @@ public class MainMenu {
 		btnYpalliloi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmFoodRiders.dispose();
-				Staff_Screen staffScreen = new Staff_Screen();
+				Staff_Screen staffScreen = new Staff_Screen(data);
 				try {
-					staffScreen.toStaffScreen();
+					staffScreen.toStaffScreen(data);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e1) {
 					// TODO Auto-generated catch block
@@ -164,8 +166,8 @@ public class MainMenu {
 		btnStatistika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-				StatisticsGUI statisticsScreen = new StatisticsGUI();	
-				statisticsScreen.toStatisticsScreen();
+				StatisticsGUI statisticsScreen = new StatisticsGUI(data);	
+				statisticsScreen.toStatisticsScreen(data);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException | IOException e1) {
 					// TODO Auto-generated catch block
@@ -188,12 +190,12 @@ public class MainMenu {
 				frmFoodRiders.dispose();
 				Login_Screen loginScreen;
 				try {
-					loginScreen = new Login_Screen();
+					loginScreen = new Login_Screen(data);
 					try {
 						URL url = getClass().getResource("/MainMenu_Screen_Package/skypeLogOutSound.wav");
 						AudioClip clip = Applet.newAudioClip(url);
 						clip.play();
-						loginScreen.showLoginScreen();
+						loginScreen.showLoginScreen(data);
 					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 							| UnsupportedLookAndFeelException e) {
 						// TODO Auto-generated catch block

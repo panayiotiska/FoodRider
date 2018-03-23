@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import Handler_Package.Handler;
 import Handler_Package.Staff;
 import MainMenu_Screen_Package.MainMenu;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class Staff_Screen {
@@ -24,15 +26,19 @@ public class Staff_Screen {
 	private JFrame frame;
 	private static JTable table;
 	private static int numberOfStaff = 3;
+	private JTable table_1;
 
+	
 	/**
 	 * Launch the application.
 	 */
-	public void toStaffScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public void toStaffScreen(Handler aData) throws ClassNotFoundException, InstantiationException, IllegalAccessException, 
+												UnsupportedLookAndFeelException {
+		Handler data = aData;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Staff_Screen window = new Staff_Screen();
+					Staff_Screen window = new Staff_Screen(data);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,14 +50,18 @@ public class Staff_Screen {
 	/**
 	 * Create the application.
 	 */
-	public Staff_Screen() {
-		initialize();
+	public Staff_Screen(Handler aData) {
+		Handler data = aData;
+		initialize(data);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Handler aData) {
+		
+		Handler data = aData;
+		
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
@@ -64,30 +74,26 @@ public class Staff_Screen {
 		scrollPane.setBounds(25, 11, 505, 164);
 		frame.getContentPane().add(scrollPane);
 		
-		List<String> columns = new ArrayList<String>();
-        List<String[]> values = new ArrayList<String[]>();
-        //Handler temp = new Handler();
-        ArrayList<Staff> staffList = new ArrayList<>();
-       //staffList = temp.getStaffList(); //ERROR_1
-
-        columns.add("ID");
-        columns.add("Name");
-        columns.add("Position");
-        columns.add("Recruitment Date");
-
-        TableModel tableModel = new DefaultTableModel(staffList.toArray(new Object[][] {}), columns.toArray());
-        JTable table = new JTable(tableModel);
-		scrollPane.setViewportView(table);
-		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"ID", "Full Name", "Position", "Age", "Recruitment Day"
+			}
+		));
+		scrollPane.setViewportView(table_1);  
+      
+        
 		JButton addBtn = new JButton("Add");
 		addBtn.setBounds(25, 195, 153, 25);
 		frame.getContentPane().add(addBtn);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AddStaffScreen newRest = new AddStaffScreen();
+				AddStaffScreen addStaffScreen  =  new AddStaffScreen(data);
 				frame.dispose();
-				newRest.addStaff();
+				addStaffScreen.addStaff(data);
 				
 			}
 		});
@@ -107,8 +113,8 @@ public class Staff_Screen {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				MainMenu mainMenu = new MainMenu();
-				mainMenu.showMainMenu();
+				MainMenu mainMenu = new MainMenu(data);
+				mainMenu.showMainMenu(data);
 				
 			}
 		});

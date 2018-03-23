@@ -11,7 +11,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 
+import Handler_Package.Handler;
 import MainMenu_Screen_Package.MainMenu;
 
 public class Login_Screen{
@@ -23,12 +25,12 @@ public class Login_Screen{
 	/**
 	 * Launch the application.
 	 */
-	public void showLoginScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+	public void showLoginScreen(Handler aData) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login_Screen window = new Login_Screen();
+					Login_Screen window = new Login_Screen(aData);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,17 +43,17 @@ public class Login_Screen{
 	 * Create the application.
 	 * @throws MalformedURLException 
 	 */
-	public Login_Screen() throws MalformedURLException {
-		initialize();
+	public Login_Screen(Handler aData) throws MalformedURLException {
+		initialize(aData);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws MalformedURLException 
 	 */
-	private void initialize() throws MalformedURLException {
+	private void initialize(Handler aData) throws MalformedURLException {
 		
-		
+		Handler data = aData;
 		
 		frame = new JFrame();
 		
@@ -134,11 +136,11 @@ public class Login_Screen{
 					
 					if(db.getLoginType()==1) {
 						frame.dispose();
-						MainMenu mainMenu = new MainMenu();
+						MainMenu mainMenu = new MainMenu(data);
 						URL url = getClass().getResource("/Login_Screen_Package/SkypeLogInSound.wav");
 						AudioClip clip = Applet.newAudioClip(url);
 						clip.play();
-						mainMenu.showMainMenu();
+						mainMenu.showMainMenu(data);
 					}else if(db.getLoginType()==2) {
 						frame.dispose();
 						URL url = getClass().getResource("/Login_Screen_Package/SkypeLogInSound.wav");

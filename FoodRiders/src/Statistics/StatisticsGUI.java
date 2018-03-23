@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
+import Handler_Package.Handler;
 import MainMenu_Screen_Package.MainMenu;
 
 import java.awt.Font;
@@ -46,12 +47,12 @@ public class StatisticsGUI extends JFrame {
 	 * @throws IOException 
 	 */
 	
-	public void toStatisticsScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public void toStatisticsScreen(Handler aData) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StatisticsGUI window = new StatisticsGUI();
+					StatisticsGUI window = new StatisticsGUI(aData);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,8 +61,9 @@ public class StatisticsGUI extends JFrame {
 		});
 	}
 	
-	public StatisticsGUI() throws IOException {
+	public StatisticsGUI(Handler aData) throws IOException {
 		
+		Handler data = aData;
 		frame = new JFrame();
 		
 		contentPane = new JPanel();
@@ -137,8 +139,8 @@ public class StatisticsGUI extends JFrame {
 		mainMenuBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();	
-				MainMenu mainMenu = new MainMenu();
-				mainMenu.showMainMenu();
+				MainMenu mainMenu = new MainMenu(data);
+				mainMenu.showMainMenu(data);
 			}
 		});
 		
