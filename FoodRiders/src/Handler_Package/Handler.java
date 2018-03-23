@@ -1,5 +1,6 @@
 package Handler_Package;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -58,6 +59,10 @@ public class Handler {
 	
 	public ArrayList<Staff> getStaffList() {
 		return staffList;
+	}
+
+	public ArrayList<Restaurant> getRestaurantsList() {
+		return restaurantsList;
 	}
 		
 }

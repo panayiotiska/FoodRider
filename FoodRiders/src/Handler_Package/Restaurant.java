@@ -8,17 +8,21 @@ public class Restaurant {
 	private int  code;
 	private String address;
 	private String telephoneNum;
-	private int timeDistance;
+	private String timeDistance;
+	private String email;
+	private String comments;
 	private ArrayList<Order>  orderHistory;
 	
 	
-	public Restaurant(String aName, int aCode, String aAddress, String aTelephoneNum, int aTimeDistance) {
+	public Restaurant(int aCode, String aName, String aAddress, String aTelephoneNum, String anEmail, String aTimeDistance, String someComments) {
 		
 		name = aName;
 		code = aCode;
 		address = aAddress;
 		telephoneNum = aTelephoneNum;
 		timeDistance = aTimeDistance;
+		email = anEmail;
+		comments = someComments;
 		orderHistory = new ArrayList<>();
 	}
 	
@@ -74,12 +78,12 @@ public class Restaurant {
 	}
 
 
-	public int getTimeDistance() {
+	public String getTimeDistance() {
 		return timeDistance;
 	}
 
 
-	public void setTimeDistance(int timeDistance) {
+	public void setTimeDistance(String timeDistance) {
 		this.timeDistance = timeDistance;
 	}
 
