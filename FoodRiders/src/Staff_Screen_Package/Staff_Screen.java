@@ -8,7 +8,6 @@ import javax.swing.JTable;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import Handler_Package.Handler;
 import Handler_Package.Staff;
@@ -17,16 +16,11 @@ import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class Staff_Screen {
 
 	private JFrame frame;
-	private static JTable table;
-	private static int numberOfStaff = 3;
-	private JTable table_1;
 
 	
 	/**
@@ -74,17 +68,31 @@ public class Staff_Screen {
 		scrollPane.setBounds(25, 11, 505, 164);
 		frame.getContentPane().add(scrollPane);
 		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"ID", "Full Name", "Position", "Age", "Recruitment Day"
-			}
-		));
-		scrollPane.setViewportView(table_1);  
-      
-        
+		//Filling up the JTable
+		ArrayList<Staff> staffList = new ArrayList<>();
+		staffList = data.getStaffList();
+		
+		String col[] = {"ID","Name","Position", "Recruitment Date","Birth Date"};	
+		
+		DefaultTableModel model = new DefaultTableModel(col, 0) {
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false (non editable cells by double-clicking on them)
+		       return false;
+		    }
+		};
+		JTable table = new JTable(model);
+		
+		for(int i = 0 ; i < staffList.size(); i++) {
+			System.out.println(staffList.get(i).getPosition());
+			System.out.println(staffList.get(i).getRecruitmentDate());
+			System.out.println(i);
+			model.addRow(new Object[]{staffList.get(i).getId(),staffList.get(i).getName(),staffList.get(i).getPosition(),
+									  staffList.get(i).getRecruitmentDate(),staffList.get(i).getDateOfBirth()});
+		}
+		scrollPane.setViewportView(table);
+		
+		//Buttons
 		JButton addBtn = new JButton("Add");
 		addBtn.setBounds(25, 195, 153, 25);
 		frame.getContentPane().add(addBtn);

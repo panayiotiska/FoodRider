@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Restaurant {
 	
 	private String name;
-	private int  code;
+	private int  id;
 	private String address;
 	private String telephoneNum;
 	private String timeDistance;
@@ -14,10 +14,10 @@ public class Restaurant {
 	private ArrayList<Order>  orderHistory;
 	
 	
-	public Restaurant(int aCode, String aName, String aAddress, String aTelephoneNum, String anEmail, String aTimeDistance, String someComments) {
+	public Restaurant(int aID, String aName, String aAddress, String aTelephoneNum, String anEmail, String aTimeDistance, String someComments) {
 		
 		name = aName;
-		code = aCode;
+		id = aID;
 		address = aAddress;
 		telephoneNum = aTelephoneNum;
 		timeDistance = aTimeDistance;
@@ -31,69 +31,63 @@ public class Restaurant {
 		orderHistory.add(anOrder);
 	}
 	
-
-
-	
-	
-	
-	
-	
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
+	}	
+
+	public int getId() {
+		return id;
 	}
 
-
-	public int getCode() {
-		return code;
+	public void setId(int id) {
+		this.id = id;
 	}
-
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-
 
 	public String getAddress() {
 		return address;
 	}
 
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 
 	public String getTelephoneNum() {
 		return telephoneNum;
 	}
 
-
 	public void setTelephoneNum(String telephoneNum) {
 		this.telephoneNum = telephoneNum;
 	}
-
 
 	public String getTimeDistance() {
 		return timeDistance;
 	}
 
-
 	public void setTimeDistance(String timeDistance) {
 		this.timeDistance = timeDistance;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 
 	public ArrayList<Order> getOrderHistory() {
 		return orderHistory;
 	}
-	
-	
-	
-	
-
 }

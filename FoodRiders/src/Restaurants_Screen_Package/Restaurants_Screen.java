@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +21,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 import Handler_Package.Handler;
+import Handler_Package.Restaurant;
+import Handler_Package.Staff;
 import MainMenu_Screen_Package.MainMenu;
 
 public class Restaurants_Screen { 
@@ -77,6 +80,33 @@ public class Restaurants_Screen {
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Restaurants - FoodRiders");
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 24, 505, 236);
+		frame.getContentPane().add(scrollPane);
+		
+		//Filling up the JTable
+		ArrayList<Restaurant> restaurantsList = new ArrayList<>();
+		restaurantsList = data.getRestaurantsList();
+			
+		String col[] = {"ID", "Name", "Address", "Telephone", "Email", "Time Distance", "Comments"};	
+			
+		DefaultTableModel model = new DefaultTableModel(col, 0) {
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false (non editable cells by double-clicking on them)
+		       return false;
+		    }
+		};
+		JTable table = new JTable(model);
+		
+		for(int i = 0 ; i < restaurantsList.size(); i++) {
+			model.addRow(new Object[]{restaurantsList.get(i).getId(),restaurantsList.get(i).getName(),restaurantsList.get(i).getAddress(),
+									  restaurantsList.get(i).getTelephoneNum(),restaurantsList.get(i).getEmail(),
+									  restaurantsList.get(i).getTimeDistance(),restaurantsList.get(i).getComments()});
+		}
+		scrollPane.setViewportView(table);
+		
+		//Buttons
 		JButton addBtn = new JButton("Add");
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,38 +123,6 @@ public class Restaurants_Screen {
 		JButton editBtn = new JButton("Edit");
 		editBtn.setBounds(330, 311, 89, 23);
 		frame.getContentPane().add(editBtn);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 24, 505, 236);
-		frame.getContentPane().add(scrollPane);
-		
-		table = new JTable();
-		table.setBackground(Color.WHITE);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"ID", "Name", "Address", "Telephone", "Email", "Time Distance", "Comments"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, true, true, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table.getColumnModel().getColumn(1).setPreferredWidth(87);
-		table.getColumnModel().getColumn(2).setPreferredWidth(102);
-		table.getColumnModel().getColumn(3).setPreferredWidth(92);
-		table.getColumnModel().getColumn(5).setPreferredWidth(82);
-		scrollPane.setViewportView(table);
 		
 		JButton btnMainMenu = new JButton("");
 		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));

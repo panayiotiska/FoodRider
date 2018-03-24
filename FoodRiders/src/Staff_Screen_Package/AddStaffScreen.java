@@ -137,9 +137,17 @@ public class AddStaffScreen {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int ID = data.getStaffList().size();
 				String fullName = fullNameTextField.getText().trim();
+				String position = cmbPositionList.getSelectedItem().toString();
 				String dateOfBirth = birthDateTextField.getText().trim();
 				String telephoneNum = telephoneNumTextField.getText().trim();
+				String recruitmentDate = "Error Occurred";
+				
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd"); //Current local date
+				LocalDate localDate = LocalDate.now();
+				recruitmentDate = dtf.format(localDate).toString();
+				System.out.println(recruitmentDate);
 				
 				if(fullName.isEmpty() || dateOfBirth.isEmpty() || telephoneNum.isEmpty()) {
 					messageLbl.setForeground(Color.red);
@@ -151,10 +159,8 @@ public class AddStaffScreen {
 					if(telephoneNum.isEmpty())
 						telephoneNumTextField.setBackground(Color.red);
 				}else {
-					data.addStaff(new Staff(data.getStaffList().size(), fullName, cmbPositionList.toString(), dateOfBirth, "date format not done yet"));
+					data.addStaff(new Staff(ID, fullName, position, dateOfBirth, recruitmentDate));
 					System.out.println("size of arrayList: " + data.getStaffList().size());
-					System.out.println(cmbPositionList.getSelectedItem());
-				
 				
 				frame.dispose();
 				Staff_Screen restScreen = new Staff_Screen(data);
@@ -223,6 +229,7 @@ public class AddStaffScreen {
 		btnCancel.setBounds(37, 358, 89, 23);
 		frame.getContentPane().add(btnCancel);
 		
+		frame.getRootPane().setDefaultButton(btnApply); // Allowing the “Enter” key to press the login button
 		
 		frame.setBounds(100, 100, 641, 430);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

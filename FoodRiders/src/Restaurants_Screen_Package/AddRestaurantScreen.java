@@ -150,6 +150,7 @@ public class AddRestaurantScreen {
 		JButton btnApply = new JButton("Apply");
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int ID = data.getRestaurantsList().size();
 				String name = nameTextField.getText().trim();
 				String timeDistance = timeDistanceTextField.getText().trim();
 				String telephoneNum = telephoneNumTextField.getText().trim();
@@ -172,8 +173,7 @@ public class AddRestaurantScreen {
 						addressTextField.setBackground(Color.red);
 				
 				}else {
-					data.addRestaurant(new Restaurant(data.getRestaurantsList().size(), name, address, telephoneNum, 
-																						email, timeDistance, comments));
+					data.addRestaurant(new Restaurant(ID, name, address, telephoneNum, email, timeDistance, comments));
 					System.out.println("size of arrayList: " + data.getRestaurantsList().size());
 					frame.dispose();
 					Restaurants_Screen restaurantScreen = new Restaurants_Screen(data);
