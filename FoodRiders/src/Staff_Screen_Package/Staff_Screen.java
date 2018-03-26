@@ -3,6 +3,7 @@ package Staff_Screen_Package;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -109,6 +110,19 @@ public class Staff_Screen {
 		JButton btnDiagrafi = new JButton("Delete");
 		btnDiagrafi.setBounds(199, 195, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
+		btnDiagrafi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int column = 0; //ID column
+				int row = table.getSelectedRow();
+				int id = -1;
+				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + table.getModel().getValueAt(row, 1), "Delete?",  JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+					id = (int) table.getModel().getValueAt(row, column);
+					data.deleteStaff(id);
+					((DefaultTableModel)table.getModel()).removeRow(row);
+				}
+			}
+		});
 		
 		JButton btnEpeksergasia = new JButton("Edit");
 		btnEpeksergasia.setBounds(369, 195, 161, 25);

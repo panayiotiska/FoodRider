@@ -144,7 +144,7 @@ public class AddStaffScreen {
 				String telephoneNum = telephoneNumTextField.getText().trim();
 				String recruitmentDate = "Error Occurred";
 				
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd"); //Current local date
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Current local date
 				LocalDate localDate = LocalDate.now();
 				recruitmentDate = dtf.format(localDate).toString();
 				System.out.println(recruitmentDate);
