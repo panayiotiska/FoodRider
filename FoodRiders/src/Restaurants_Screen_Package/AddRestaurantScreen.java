@@ -74,7 +74,7 @@ public class AddRestaurantScreen {
 		
 		JLabel titleLabel = new JLabel("Add a Restaurant");
 		titleLabel.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
-		titleLabel.setBounds(228, 0, 160, 66);
+		titleLabel.setBounds(250, 0, 160, 66);
 		frame.getContentPane().add(titleLabel);
 		
 		JLabel nameLabel = new JLabel("Restaurant Name :");

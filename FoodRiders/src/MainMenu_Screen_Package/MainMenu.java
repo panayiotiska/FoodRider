@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import Current_Status_Package.Current_Status;
 import Handler_Package.Handler;
 import Login_Screen_Package.Login_Screen;
 import Restaurants_Screen_Package.Restaurants_Screen;
@@ -87,6 +88,10 @@ public class MainMenu {
 		JButton btnTrexousa = new JButton("Current Status");
 		btnTrexousa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frmFoodRiders.dispose();
+				Current_Status currStat = new Current_Status(data);
+				currStat.Current_Screen(data);
+				
 			}
 		});
 		

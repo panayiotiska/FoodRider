@@ -25,6 +25,8 @@ import Handler_Package.Handler;
 import Handler_Package.Restaurant;
 import Handler_Package.Staff;
 import MainMenu_Screen_Package.MainMenu;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Restaurants_Screen { 
 
@@ -76,13 +78,13 @@ public class Restaurants_Screen {
 		frame.setResizable(false);
 		
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
-		frame.setBounds(100, 100, 555, 466);
+		frame.setBounds(100, 100, 574, 498);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Restaurants - FoodRiders");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 24, 505, 236);
+		scrollPane.setBounds(20, 76, 526, 236);
 		frame.getContentPane().add(scrollPane);
 		
 		//Filling up the JTable
@@ -118,11 +120,11 @@ public class Restaurants_Screen {
 				
 			}
 		});
-		addBtn.setBounds(118, 311, 89, 23);
+		addBtn.setBounds(123, 343, 89, 23);
 		frame.getContentPane().add(addBtn);
 		
 		JButton deleteBtn = new JButton("Delete");
-		deleteBtn.setBounds(330, 311, 89, 23);
+		deleteBtn.setBounds(329, 343, 89, 23);
 		frame.getContentPane().add(deleteBtn);
 		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -149,8 +151,13 @@ public class Restaurants_Screen {
 				
 			}
 		});
-		btnMainMenu.setBounds(239, 367, 64, 60);
+		btnMainMenu.setBounds(239, 382, 64, 60);
 		frame.getContentPane().add(btnMainMenu);
+		
+		JLabel titleLbl = new JLabel("Collaborating Restaurants");
+		titleLbl.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
+		titleLbl.setBounds(163, 22, 255, 35);
+		frame.getContentPane().add(titleLbl);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

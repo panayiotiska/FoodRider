@@ -81,5 +81,34 @@ public class Handler {
 	public ArrayList<Restaurant> getRestaurantsList() {
 		return restaurantsList;
 	}
-		
+
+	public ArrayList<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	public Queue<Staff> getStaffAvailable() {
+		return staffAvailable;
+	}
+
+	public Queue<Vehicle> getVehiclesAvailable() {
+		return vehiclesAvailable;
+	}
+
+	public Queue<Order> getRunningOrders() {
+		return runningOrders;
+	}
+
+	public Queue<Order> getOrdersInQueue() {
+		return ordersInQueue;
+	}
+
+	public void setStaffList(ArrayList<Staff> staffList) {
+		this.staffList = staffList;
+	}
+	
+	
+	
+	
+	
+	
 }

@@ -18,6 +18,8 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Staff_Screen {
 
@@ -60,13 +62,13 @@ public class Staff_Screen {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
-		frame.setBounds(100, 100, 559, 360);
+		frame.setBounds(100, 100, 559, 405);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Staff - FoodRiders");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 11, 505, 164);
+		scrollPane.setBounds(25, 66, 505, 164);
 		frame.getContentPane().add(scrollPane);
 		
 		//Filling up the JTable
@@ -95,7 +97,7 @@ public class Staff_Screen {
 		
 		//Buttons
 		JButton addBtn = new JButton("Add");
-		addBtn.setBounds(25, 195, 153, 25);
+		addBtn.setBounds(25, 250, 153, 25);
 		frame.getContentPane().add(addBtn);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +110,7 @@ public class Staff_Screen {
 		});
 		
 		JButton btnDiagrafi = new JButton("Delete");
-		btnDiagrafi.setBounds(199, 195, 153, 25);
+		btnDiagrafi.setBounds(199, 250, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		btnDiagrafi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,7 +127,7 @@ public class Staff_Screen {
 		});
 		
 		JButton btnEpeksergasia = new JButton("Edit");
-		btnEpeksergasia.setBounds(369, 195, 161, 25);
+		btnEpeksergasia.setBounds(369, 250, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
 		
 		JButton button = new JButton("");
@@ -140,7 +142,12 @@ public class Staff_Screen {
 				
 			}
 		});
-		button.setBounds(243, 251, 64, 60);
+		button.setBounds(243, 306, 64, 60);
+		
+		JLabel lblBusinessStaff = new JLabel("Business'  Staff");
+		lblBusinessStaff.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
+		lblBusinessStaff.setBounds(210, 11, 142, 44);
+		frame.getContentPane().add(lblBusinessStaff);
 		
 	}
 }
