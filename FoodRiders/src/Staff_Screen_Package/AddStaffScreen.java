@@ -36,7 +36,6 @@ public class AddStaffScreen {
 	private JLabel lblPosition;
 	private JTextField textField_3;
 	private JLabel lblOtherComments;
-
 	/**
 	 * Launch the application.
 	 */
