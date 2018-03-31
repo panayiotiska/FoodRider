@@ -60,6 +60,7 @@ public class Handler {
 	
 	public void addStaff(Staff aStaff) {
 		staffList.add(aStaff);
+		staffAvailable.add(aStaff);
 	}
 	
 	public void deleteStaff(int anID) {
@@ -68,10 +69,12 @@ public class Handler {
 				staffList.remove(i);
 			}
 		}
+		
 	}
 	
 	public void addVehicle(Vehicle aVehicle) {
 		vehicles.add(aVehicle);
+		vehiclesAvailable.add(aVehicle);
 	}
 	
 	public ArrayList<Staff> getStaffList() {
@@ -102,9 +105,6 @@ public class Handler {
 		return ordersInQueue;
 	}
 
-	public void setStaffList(ArrayList<Staff> staffList) {
-		this.staffList = staffList;
-	}
 	
 	
 	
