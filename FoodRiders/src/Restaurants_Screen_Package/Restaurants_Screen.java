@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -120,9 +121,22 @@ public class Restaurants_Screen {
 		addBtn.setBounds(118, 311, 89, 23);
 		frame.getContentPane().add(addBtn);
 		
-		JButton editBtn = new JButton("Edit");
-		editBtn.setBounds(330, 311, 89, 23);
-		frame.getContentPane().add(editBtn);
+		JButton deleteBtn = new JButton("Delete");
+		deleteBtn.setBounds(330, 311, 89, 23);
+		frame.getContentPane().add(deleteBtn);
+		deleteBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int column = 0; //ID column
+				int row = table.getSelectedRow();
+				int id = -1;
+				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + table.getModel().getValueAt(row, 1), "Delete?",  JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+					id = (int) table.getModel().getValueAt(row, column);
+					data.deleteRestaurant(id);
+					((DefaultTableModel)table.getModel()).removeRow(row);
+				}
+			}
+		});
 		
 		JButton btnMainMenu = new JButton("");
 		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));

@@ -49,8 +49,25 @@ public class Handler {
 	public void addRestaurant(Restaurant aRestaurant) {
 		restaurantsList.add(aRestaurant);
 	}
+	
+	public void deleteRestaurant(int anID) {
+		for(int i = 0; i < restaurantsList.size(); i++){
+			if(restaurantsList.get(i).getId() == anID) {
+				restaurantsList.remove(i);
+			}
+		}
+	}
+	
 	public void addStaff(Staff aStaff) {
 		staffList.add(aStaff);
+	}
+	
+	public void deleteStaff(int anID) {
+		for(int i = 0; i < staffList.size(); i++){
+			if(staffList.get(i).getId() == anID) {
+				staffList.remove(i);
+			}
+		}
 	}
 	
 	public void addVehicle(Vehicle aVehicle) {
