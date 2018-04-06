@@ -136,7 +136,7 @@ public class AddStaffScreen {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int ID = data.getStaffList().size();
+				int ID = data.getStaffList().size(); //BUG MUST FIX (REPLACE WITH METRITI)
 				String fullName = fullNameTextField.getText().trim();
 				String position = cmbPositionList.getSelectedItem().toString();
 				String dateOfBirth = birthDateTextField.getText().trim();

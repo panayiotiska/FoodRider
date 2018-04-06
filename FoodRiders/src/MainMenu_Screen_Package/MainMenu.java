@@ -15,6 +15,7 @@ import Restaurants_Screen_Package.Restaurants_Screen;
 import Staff_Screen_Package.Staff_Screen;
 // import Statistics.StatisticsGUI;
 import Statistics.StatisticsGUI;
+import Vehicles_Screen_Package.Vehicles_Screen;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -72,7 +73,7 @@ public class MainMenu {
 		gridBagLayout.columnWidths = new int[]{432, 0};
 		gridBagLayout.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		frmFoodRiders.getContentPane().setLayout(gridBagLayout);
 		
 		JLabel label = new JLabel("Main Menu");
@@ -80,7 +81,7 @@ public class MainMenu {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.VERTICAL;
-		gbc_label.insets = new Insets(0, 0, 5, 0);
+		gbc_label.insets = new Insets(0, 0, 5, 5);
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 0;
 		frmFoodRiders.getContentPane().add(label, gbc_label);
@@ -97,12 +98,12 @@ public class MainMenu {
 		
 		JSeparator separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
-		gbc_separator.insets = new Insets(0, 0, 5, 0);
+		gbc_separator.insets = new Insets(0, 0, 5, 5);
 		gbc_separator.gridx = 0;
 		gbc_separator.gridy = 1;
 		frmFoodRiders.getContentPane().add(separator, gbc_separator);
 		GridBagConstraints gbc_btnTrexousa = new GridBagConstraints();
-		gbc_btnTrexousa.insets = new Insets(0, 0, 5, 0);
+		gbc_btnTrexousa.insets = new Insets(0, 0, 5, 5);
 		gbc_btnTrexousa.fill = GridBagConstraints.BOTH;
 		gbc_btnTrexousa.gridx = 0;
 		gbc_btnTrexousa.gridy = 2;
@@ -126,7 +127,7 @@ public class MainMenu {
 			}
 		});
 		GridBagConstraints gbc_btnEstiatoria = new GridBagConstraints();
-		gbc_btnEstiatoria.insets = new Insets(0, 0, 5, 0);
+		gbc_btnEstiatoria.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEstiatoria.fill = GridBagConstraints.BOTH;
 		gbc_btnEstiatoria.gridx = 0;
 		gbc_btnEstiatoria.gridy = 3;
@@ -134,7 +135,7 @@ public class MainMenu {
 		
 		JButton btnParaggelies = new JButton("Orders");
 		GridBagConstraints gbc_btnParaggelies = new GridBagConstraints();
-		gbc_btnParaggelies.insets = new Insets(0, 0, 5, 0);
+		gbc_btnParaggelies.insets = new Insets(0, 0, 5, 5);
 		gbc_btnParaggelies.fill = GridBagConstraints.BOTH;
 		gbc_btnParaggelies.gridx = 0;
 		gbc_btnParaggelies.gridy = 4;
@@ -155,18 +156,43 @@ public class MainMenu {
 			}
 		});
 		GridBagConstraints gbc_btnYpalliloi = new GridBagConstraints();
-		gbc_btnYpalliloi.insets = new Insets(0, 0, 5, 0);
+		gbc_btnYpalliloi.insets = new Insets(0, 0, 5, 5);
 		gbc_btnYpalliloi.fill = GridBagConstraints.BOTH;
 		gbc_btnYpalliloi.gridx = 0;
 		gbc_btnYpalliloi.gridy = 5;
 		frmFoodRiders.getContentPane().add(btnYpalliloi, gbc_btnYpalliloi);
+		gbc_btnYpalliloi.insets = new Insets(0, 0, 5, 0);
+		gbc_btnYpalliloi.fill = GridBagConstraints.BOTH;
+		gbc_btnYpalliloi.gridx = 0;
+		gbc_btnYpalliloi.gridy = 6;
+		
+		JButton btnVehicles = new JButton("Vehicles");
+		btnVehicles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmFoodRiders.dispose();
+				Vehicles_Screen vehiclesScreen = new Vehicles_Screen(data);
+				try {
+					vehiclesScreen.toVehiclesScreen(data);
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		GridBagConstraints gbc_btnVehicles = new GridBagConstraints();
+		gbc_btnVehicles.fill = GridBagConstraints.BOTH;
+		gbc_btnVehicles.insets = new Insets(0, 0, 5, 5);
+		gbc_btnVehicles.gridx = 0;
+		gbc_btnVehicles.gridy = 6;
+		frmFoodRiders.getContentPane().add(btnVehicles, gbc_btnVehicles);
 		
 		JButton btnStatistika = new JButton("Statistics");
 		GridBagConstraints gbc_btnStatistika = new GridBagConstraints();
-		gbc_btnStatistika.insets = new Insets(0, 0, 5, 0);
+		gbc_btnStatistika.insets = new Insets(0, 0, 5, 5);
 		gbc_btnStatistika.fill = GridBagConstraints.BOTH;
 		gbc_btnStatistika.gridx = 0;
-		gbc_btnStatistika.gridy = 6;
+		gbc_btnStatistika.gridy = 7;
 		frmFoodRiders.getContentPane().add(btnStatistika, gbc_btnStatistika);
 		btnStatistika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -184,9 +210,9 @@ public class MainMenu {
 		
 		JSeparator separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
-		gbc_separator_1.insets = new Insets(5, 0, 5, 0);
+		gbc_separator_1.insets = new Insets(5, 0, 5, 5);
 		gbc_separator_1.gridx = 0;
-		gbc_separator_1.gridy = 7;
+		gbc_separator_1.gridy = 8;
 		frmFoodRiders.getContentPane().add(separator_1, gbc_separator_1);
 		
 		JButton btnAposindesi = new JButton("Log out");
@@ -216,9 +242,10 @@ public class MainMenu {
 			}
 		});
 		GridBagConstraints gbc_btnAposindesi = new GridBagConstraints();
+		gbc_btnAposindesi.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAposindesi.fill = GridBagConstraints.VERTICAL;
 		gbc_btnAposindesi.gridx = 0;
-		gbc_btnAposindesi.gridy = 8;
+		gbc_btnAposindesi.gridy = 9;
 		frmFoodRiders.getContentPane().add(btnAposindesi, gbc_btnAposindesi);
 	}
 }

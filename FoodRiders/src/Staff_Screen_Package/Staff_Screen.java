@@ -120,7 +120,9 @@ public class Staff_Screen {
 				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + table.getModel().getValueAt(row, 1), "Delete?",  JOptionPane.YES_NO_OPTION);
 				if (reply == JOptionPane.YES_OPTION) {
 					id = (int) table.getModel().getValueAt(row, column);
-					data.deleteStaff(id);
+					if(!data.deleteStaff(id)) { //IF this staff member is unavailable
+						JOptionPane.showMessageDialog(frame, "Sorry, this staff member is currently on the road.");
+					}
 					((DefaultTableModel)table.getModel()).removeRow(row);
 				}
 			}

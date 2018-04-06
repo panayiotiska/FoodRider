@@ -26,6 +26,7 @@ public class Handler {
 		staffList = new ArrayList<>();
 		vehicles = new ArrayList<>();
 		staffAvailable = new LinkedList<>(staffList);
+		staffUnavailable = new LinkedList<>();
 		vehiclesAvailable = new LinkedList<>(vehicles);
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
@@ -63,18 +64,33 @@ public class Handler {
 		staffAvailable.add(aStaff);
 	}
 	
-	public void deleteStaff(int anID) {
-		for(int i = 0; i < staffList.size(); i++){
-			if(staffList.get(i).getId() == anID) {
-				staffList.remove(i);
+	public boolean deleteStaff(int anID) {
+		boolean found = false;
+		for(Staff s : staffAvailable){
+			if (s.getId() == anID) {
+				found = true;
+				staffAvailable.remove(s);
+				staffList.remove(s);
 			}
 		}
-		
+		return found;	
 	}
-	
+
 	public void addVehicle(Vehicle aVehicle) {
 		vehicles.add(aVehicle);
 		vehiclesAvailable.add(aVehicle);
+	}
+	
+	public boolean deleteVehicle(String aPlate) {
+		boolean found = false;
+		for(Vehicle v : vehiclesAvailable){
+			if (v.getPlate() == aPlate) {
+				found = true;
+				vehiclesAvailable.remove(v);
+				vehicles.remove(v);
+			}
+		}
+		return found;
 	}
 	
 	public ArrayList<Staff> getStaffList() {
@@ -104,11 +120,5 @@ public class Handler {
 	public Queue<Order> getOrdersInQueue() {
 		return ordersInQueue;
 	}
-
-	
-	
-	
-	
-	
 	
 }
