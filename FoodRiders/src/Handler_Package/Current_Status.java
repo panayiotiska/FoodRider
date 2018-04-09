@@ -1,4 +1,4 @@
-package Current_Status_Package;
+package Handler_Package;
 
 import java.awt.EventQueue;
 
@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 import Handler_Package.Handler;
 import MainMenu_Screen_Package.MainMenu;
@@ -16,11 +17,23 @@ import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 
 public class Current_Status {
 
 	private JFrame frame;
-
+	
+	private JLabel runningOrders;
+	private JLabel ordersInQueue; 
+	private JLabel totalVehicles;
+	private JLabel vehiclesAvailable;
+	private JLabel totalStuffNumber;
+	private JLabel staffAvailable;
+	private JLabel MoneyIn;
+	private JLabel MoneyOut;
+	
+	private Handler data;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -29,7 +42,7 @@ public class Current_Status {
 			public void run() {
 				try {
 					Current_Status window = new Current_Status(aData);
-					window.frame.setVisible(true);
+					window.frame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,7 +61,7 @@ public class Current_Status {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(Handler aData) {
-		Handler data = aData;
+		data = aData;
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
@@ -108,47 +121,47 @@ public class Current_Status {
 		moneyOutLabel.setBounds(301, 350, 103, 14);
 		frame.getContentPane().add(moneyOutLabel);
 		
-		JLabel runningOrders = new JLabel(String.valueOf(data.getRunningOrders().size()));
+		runningOrders = new JLabel(String.valueOf(data.getRunningOrders().size()));
 		runningOrders.setForeground(SystemColor.text);
 		runningOrders.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
 		runningOrders.setBounds(184, 117, 46, 14);
 		frame.getContentPane().add(runningOrders);
 		
-		JLabel ordersInQueue = new JLabel(String.valueOf(data.getOrdersInQueue().size()));
+		ordersInQueue = new JLabel(String.valueOf(data.getOrdersInQueue().size()));
 		ordersInQueue.setForeground(SystemColor.text);
 		ordersInQueue.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
 		ordersInQueue.setBounds(422, 117, 46, 14);
 		frame.getContentPane().add(ordersInQueue);
 		
-		JLabel totalVehicles = new JLabel(String.valueOf(data.getVehicles().size()));
+		totalVehicles = new JLabel(String.valueOf(data.getVehicles().size()));
 		totalVehicles.setForeground(SystemColor.text);
 		totalVehicles.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
 		totalVehicles.setBounds(177, 194, 53, 14);
 		frame.getContentPane().add(totalVehicles);
 		
-		JLabel vehiclesAvailable = new JLabel(String.valueOf(data.getVehiclesAvailable().size()));
+		vehiclesAvailable = new JLabel(String.valueOf(data.getVehiclesAvailable().size()));
 		vehiclesAvailable.setForeground(SystemColor.text);
 		vehiclesAvailable.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
 		vehiclesAvailable.setBounds(433, 192, 53, 19);
 		frame.getContentPane().add(vehiclesAvailable);
 		
-		JLabel totalStuffNumber = new JLabel(String.valueOf(data.getStaffList().size()));
+		totalStuffNumber = new JLabel(String.valueOf(data.getStaffList().size()));
 		totalStuffNumber.setForeground(SystemColor.text);
 		totalStuffNumber.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
 		totalStuffNumber.setBounds(192, 276, 46, 14);
 		frame.getContentPane().add(totalStuffNumber);
 		
-		JLabel staffAvailable = new JLabel(String.valueOf(data.getStaffAvailable().size()));
+		staffAvailable = new JLabel(String.valueOf(data.getStaffAvailable().size()));
 		staffAvailable.setForeground(SystemColor.text);
 		staffAvailable.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
 		staffAvailable.setBounds(412, 276, 46, 14);
 		frame.getContentPane().add(staffAvailable);
 		
-		JLabel MoneyIn = new JLabel("");
+		MoneyIn = new JLabel("");
 		MoneyIn.setBounds(154, 352, 46, 14);
 		frame.getContentPane().add(MoneyIn);
 		
-		JLabel MoneyOut = new JLabel("");
+		MoneyOut = new JLabel("");
 		MoneyOut.setBounds(396, 352, 46, 14);
 		frame.getContentPane().add(MoneyOut);
 		
@@ -172,4 +185,7 @@ public class Current_Status {
 		frame.setBounds(100, 100, 512, 491);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
 }
+
+

@@ -1,6 +1,5 @@
 package Handler_Package;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -20,6 +19,8 @@ public class Handler {
 	private Queue<Order> runningOrders ;
 	private Queue<Order> ordersInQueue ;
 	
+	private Current_Status currStat;
+	
 	
 	public Handler() {
 		restaurantsList = new ArrayList<>();
@@ -30,6 +31,14 @@ public class Handler {
 		vehiclesAvailable = new LinkedList<>(vehicles);
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
+		
+		
+		
+	}
+	
+	
+	public void openCurrentStatus() {
+		currStat = new Current_Status(this);
 	}
 	
 	public void orderSubmission(Order anOrder) {
@@ -58,6 +67,9 @@ public class Handler {
 			}
 		}
 	}
+	
+	
+	
 	
 	public void addStaff(Staff aStaff) {
 		staffList.add(aStaff);

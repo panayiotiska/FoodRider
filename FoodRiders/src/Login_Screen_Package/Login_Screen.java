@@ -137,13 +137,13 @@ public class Login_Screen{
 					if(db.getLoginType()==1) {
 						frame.dispose();
 						MainMenu mainMenu = new MainMenu(data);
-						URL url = getClass().getResource("/Login_Screen_Package/SkypeLogInSound.wav");
+						URL url = getClass().getResource("/Login_Screen_Package/LogInSound.wav");
 						AudioClip clip = Applet.newAudioClip(url);
 						clip.play();
 						mainMenu.showMainMenu(data);
 					}else if(db.getLoginType()==2) {
 						frame.dispose();
-						URL url = getClass().getResource("/Login_Screen_Package/SkypeLogInSound.wav");
+						URL url = getClass().getResource("/Login_Screen_Package/LogInSound.wav");
 						AudioClip clip = Applet.newAudioClip(url);
 						clip.play();
 					}else {
