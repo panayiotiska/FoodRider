@@ -181,6 +181,19 @@ public class Login_Screen{
 	
 		
 		frame.setBounds(100, 100, 403, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		WindowListener exitListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	if (JOptionPane.showConfirmDialog(null, "Are You Sure to Close Application?", "WARNING",
+            	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            	    System.exit(0);
+            	} else {
+            	    // no option
+            	}
+            }
+        };
+        frame.addWindowListener(exitListener);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 }

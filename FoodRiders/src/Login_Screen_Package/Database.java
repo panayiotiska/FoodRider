@@ -19,19 +19,23 @@ public class Database {
 		User user4= new User("Tasos", "tasos", "31/5/17");
 
 		administrators.add(user3);
+		administrators.add(user1);
+		
+		clients.add(user2);
+		clients.add(user4);
 		
 	}
 
 	public boolean checkData(String aGivenUsername, String aGivenPassword){
 
 		for(User anAdmin : administrators){
-			if(anAdmin.getName().equals(aGivenUsername)) {
+			if(anAdmin.getName().equals(aGivenUsername) && anAdmin.getPassword().equals(aGivenPassword)) {
 				LoginType = 1;
 				return true;
 			}
 		}
 		for(User aClient : clients) {
-			if(aClient.getName().equals(aGivenUsername)) {
+			if(aClient.getName().equals(aGivenUsername) && aClient.getPassword().equals(aGivenPassword)) {
 				LoginType = 2;
 				return true;
 			}

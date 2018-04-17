@@ -19,7 +19,7 @@ public class Handler {
 	private Queue<Order> runningOrders ;
 	private Queue<Order> ordersInQueue ;
 	
-	private Current_Status currStat;
+	private Current_Status lockedWindow = null;
 	
 	
 	public Handler() {
@@ -36,10 +36,6 @@ public class Handler {
 		
 	}
 	
-	
-	public void openCurrentStatus() {
-		currStat = new Current_Status(this);
-	}
 	
 	public void orderSubmission(Order anOrder) {
 		if(!(staffAvailable.isEmpty()) && !(vehiclesAvailable.isEmpty())) {
@@ -103,6 +99,15 @@ public class Handler {
 			}
 		}
 		return found;
+	}
+	
+	public Current_Status getLockedWindow() {
+		return lockedWindow;
+	}
+
+
+	public void setLockedWindow(Current_Status lockedWindow) {
+		this.lockedWindow = lockedWindow;
 	}
 	
 	public ArrayList<Staff> getStaffList() {

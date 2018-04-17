@@ -16,6 +16,9 @@ import MainMenu_Screen_Package.MainMenu;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -63,7 +66,20 @@ public class Staff_Screen {
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
 		frame.setBounds(100, 100, 559, 405);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		WindowListener exitListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	if (JOptionPane.showConfirmDialog(null, "Are You Sure to Close Application?", "WARNING",
+            	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            	    System.exit(0);
+            	} else {
+            	    // no option
+            	}
+            }
+        };
+        frame.addWindowListener(exitListener);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Staff - FoodRiders");
 		
@@ -140,6 +156,7 @@ public class Staff_Screen {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				MainMenu mainMenu = new MainMenu(data);
+				mainMenu.setLockedWindow(data.getLockedWindow());
 				mainMenu.showMainMenu(data);
 				
 			}

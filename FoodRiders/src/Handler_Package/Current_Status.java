@@ -1,25 +1,32 @@
 package Handler_Package;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
 
 import Handler_Package.Handler;
 import MainMenu_Screen_Package.MainMenu;
 
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
+import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
 
-public class Current_Status {
+
+public class Current_Status implements Runnable {
 
 	private JFrame frame;
 	
@@ -34,34 +41,30 @@ public class Current_Status {
 	
 	private Handler data;
 	
-	/**
-	 * Launch the application.
-	 */
-	public void Current_Screen (Handler aData) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Current_Status window = new Current_Status(aData);
-					window.frame.setVisible(false);
+	
+	
+	
+	
+	public Current_Status(Handler aData) {
+		
+		data = aData;
+	}
+	
+		public void run() {
+			try {
+					initialize(data);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public Current_Status(Handler aData) {
-		initialize(aData);
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
+		/**
+		 * @wbp.parser.entryPoint
+		 */
 	private void initialize(Handler aData) {
 		data = aData;
+		Current_Status lockedWindow = this;
+		
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
@@ -118,7 +121,7 @@ public class Current_Status {
 		JLabel moneyOutLabel = new JLabel("Money Out :");
 		moneyOutLabel.setForeground(SystemColor.text);
 		moneyOutLabel.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		moneyOutLabel.setBounds(301, 350, 103, 14);
+		moneyOutLabel.setBounds(302, 350, 103, 14);
 		frame.getContentPane().add(moneyOutLabel);
 		
 		runningOrders = new JLabel(String.valueOf(data.getRunningOrders().size()));
@@ -165,7 +168,12 @@ public class Current_Status {
 		MoneyOut.setBounds(396, 352, 46, 14);
 		frame.getContentPane().add(MoneyOut);
 		
-		
+		JCheckBox lockCheckBox = new JCheckBox("Lock Open");
+		lockCheckBox.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
+		lockCheckBox.setBackground(SystemColor.textHighlight);
+		lockCheckBox.setForeground(SystemColor.text);
+		lockCheckBox.setBounds(315, 402, 127, 23);
+		frame.getContentPane().add(lockCheckBox);
 		
 		
 		JButton btnMainMenu = new JButton("");
@@ -173,19 +181,83 @@ public class Current_Status {
 		btnMainMenu.setIcon(menuImg);
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
-				MainMenu mainMenu = new MainMenu(data);
-				mainMenu.showMainMenu(data);
 				
+				if(!(lockCheckBox.isSelected())) {
+					frame.dispose();
+					MainMenu mainMenu = new MainMenu(data);
+					mainMenu.showMainMenu(data);
+				}else {
+					MainMenu mainMenu = new MainMenu(data);
+					mainMenu.setLockedWindow(lockedWindow);
+					data.setLockedWindow(lockedWindow);
+					mainMenu.showMainMenu(data);
+					Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+			        // Determine the new location of the window
+			        int w = frame.getSize().width;
+			        int h = frame.getSize().height;
+			        int x = (dim.width-w)/2 + 200;
+			        int y = (dim.height-h)/2 - 200;
+			        // Move the window
+			        frame.setLocation(x, y);               	
+				
+			        btnMainMenu.setVisible(false);
+			        lockCheckBox.setVisible(false);
+			        
+			        WindowListener exitListener = new WindowAdapter() {
+
+			            @Override
+			            public void windowClosing(WindowEvent e) {    
+			               data.setLockedWindow(null);
+			               Frame[] jframes = JFrame.getFrames();
+			               for(Frame aFrame : jframes) {
+			            	   aFrame.dispose();
+			               }
+			               MainMenu mainMenu = new MainMenu(data);
+							mainMenu.showMainMenu(data);
+			            }
+			        };
+			        frame.addWindowListener(exitListener);
+			        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+				
+				
+				}		
 			}
 		});
+		
+		
+		
 		btnMainMenu.setBounds(196, 382, 64, 60);
 		frame.getContentPane().add(btnMainMenu);
-
 		frame.setBounds(100, 100, 512, 491);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		WindowListener exitListener = new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	if (JOptionPane.showConfirmDialog(null, "Are You Sure to Close Application?", "WARNING",
+            	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            	    System.exit(0);
+            	} else {
+            	    // no option
+            	}
+            }
+        };
+        frame.addWindowListener(exitListener);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setVisible(true);
+	}
+	
+	public boolean isDisplayable() {
+		if(frame.isVisible()){
+			return true;
+		
+		}else {
+			return false;
+		}
+	}
+
+	public void getFocus() {
+		frame.requestFocus();
 	}
 	
 }
-
 

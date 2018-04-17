@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -23,6 +24,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,7 +37,9 @@ import java.awt.SystemColor;
 
 public class MainMenu {
 
-	private JFrame frmFoodRiders;
+	private JFrame frameFoodRiders;
+
+	private Current_Status lockedWindow = null;
 
 	/**
 	 * Launch the application.
@@ -43,7 +49,8 @@ public class MainMenu {
 			public void run() {
 				try {
 					MainMenu window = new MainMenu(aData);
-					window.frmFoodRiders.setVisible(true);
+					window.setLockedWindow(lockedWindow);
+					window.frameFoodRiders.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,28 +61,56 @@ public class MainMenu {
 	/**
 	 * Create the application.
 	 */
+	/**
+	 * @wbp.parser.constructor
+	 */
+
 	public MainMenu(Handler aData) {
 		initialize(aData);
 	}
  
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
+	
+	
 	private void initialize(Handler aData) {
+		
 		Handler data = aData;
-		frmFoodRiders = new JFrame();
-		frmFoodRiders.getContentPane().setBackground(SystemColor.textHighlight);
-		frmFoodRiders.setBackground(SystemColor.textHighlight);
-		frmFoodRiders.setResizable(false);
-		frmFoodRiders.setTitle("Food Riders");
-		frmFoodRiders.setBounds(100, 100, 690, 461);
-		frmFoodRiders.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		frameFoodRiders = new JFrame();
+		frameFoodRiders.getContentPane().setBackground(SystemColor.textHighlight);
+		frameFoodRiders.setBackground(SystemColor.textHighlight);
+		frameFoodRiders.setResizable(false);
+		frameFoodRiders.setTitle("Food Riders");
+		frameFoodRiders.setBounds(100, 100, 690, 461);
+		
+	    WindowListener exitListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	if (JOptionPane.showConfirmDialog(null, "Are You Sure to Close Application?", "WARNING",
+            	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            	    System.exit(0);
+            	} else {
+            	    // no option
+            	}
+            }
+        };
+        frameFoodRiders.addWindowListener(exitListener);
+        frameFoodRiders.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{432, 0};
 		gridBagLayout.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		frmFoodRiders.getContentPane().setLayout(gridBagLayout);
+		frameFoodRiders.getContentPane().setLayout(gridBagLayout);
 		
 		JLabel label = new JLabel("Main Menu");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -85,14 +120,21 @@ public class MainMenu {
 		gbc_label.insets = new Insets(0, 0, 5, 5);
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 0;
-		frmFoodRiders.getContentPane().add(label, gbc_label);
+		frameFoodRiders.getContentPane().add(label, gbc_label);
 		
 		JButton btnTrexousa = new JButton("Current Status");
 		btnTrexousa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frmFoodRiders.dispose();
-				data.openCurrentStatus();
-				
+				frameFoodRiders.dispose();
+				if(!(lockedWindow == null)) {
+					lockedWindow.getFocus();
+					System.out.println("Not null");
+				}else {
+					Current_Status curr_stat = new Current_Status(data);
+					Thread t1 = new Thread(curr_stat);
+					t1.start();
+					System.out.println("Null");
+				}
 			}
 		});
 		
@@ -101,18 +143,18 @@ public class MainMenu {
 		gbc_separator.insets = new Insets(0, 0, 5, 5);
 		gbc_separator.gridx = 0;
 		gbc_separator.gridy = 1;
-		frmFoodRiders.getContentPane().add(separator, gbc_separator);
+		frameFoodRiders.getContentPane().add(separator, gbc_separator);
 		GridBagConstraints gbc_btnTrexousa = new GridBagConstraints();
 		gbc_btnTrexousa.insets = new Insets(0, 0, 5, 5);
 		gbc_btnTrexousa.fill = GridBagConstraints.BOTH;
 		gbc_btnTrexousa.gridx = 0;
 		gbc_btnTrexousa.gridy = 2;
-		frmFoodRiders.getContentPane().add(btnTrexousa, gbc_btnTrexousa);
+		frameFoodRiders.getContentPane().add(btnTrexousa, gbc_btnTrexousa);
 		
 		JButton btnEstiatoria = new JButton("Restaurants");
 		btnEstiatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frmFoodRiders.dispose();
+				frameFoodRiders.dispose();
 				Restaurants_Screen restaurants = new Restaurants_Screen(data);
 				try {
 					restaurants.toRestaurantScreen(data);
@@ -131,7 +173,7 @@ public class MainMenu {
 		gbc_btnEstiatoria.fill = GridBagConstraints.BOTH;
 		gbc_btnEstiatoria.gridx = 0;
 		gbc_btnEstiatoria.gridy = 3;
-		frmFoodRiders.getContentPane().add(btnEstiatoria, gbc_btnEstiatoria);
+		frameFoodRiders.getContentPane().add(btnEstiatoria, gbc_btnEstiatoria);
 		
 		JButton btnParaggelies = new JButton("Orders");
 		GridBagConstraints gbc_btnParaggelies = new GridBagConstraints();
@@ -139,12 +181,12 @@ public class MainMenu {
 		gbc_btnParaggelies.fill = GridBagConstraints.BOTH;
 		gbc_btnParaggelies.gridx = 0;
 		gbc_btnParaggelies.gridy = 4;
-		frmFoodRiders.getContentPane().add(btnParaggelies, gbc_btnParaggelies);
+		frameFoodRiders.getContentPane().add(btnParaggelies, gbc_btnParaggelies);
 		
 		JButton btnYpalliloi = new JButton("Staff");
 		btnYpalliloi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmFoodRiders.dispose();
+				frameFoodRiders.dispose();
 				Staff_Screen staffScreen = new Staff_Screen(data);
 				try {
 					staffScreen.toStaffScreen(data);
@@ -160,7 +202,7 @@ public class MainMenu {
 		gbc_btnYpalliloi.fill = GridBagConstraints.BOTH;
 		gbc_btnYpalliloi.gridx = 0;
 		gbc_btnYpalliloi.gridy = 5;
-		frmFoodRiders.getContentPane().add(btnYpalliloi, gbc_btnYpalliloi);
+		frameFoodRiders.getContentPane().add(btnYpalliloi, gbc_btnYpalliloi);
 		gbc_btnYpalliloi.insets = new Insets(0, 0, 5, 0);
 		gbc_btnYpalliloi.fill = GridBagConstraints.BOTH;
 		gbc_btnYpalliloi.gridx = 0;
@@ -169,7 +211,7 @@ public class MainMenu {
 		JButton btnVehicles = new JButton("Vehicles");
 		btnVehicles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmFoodRiders.dispose();
+				frameFoodRiders.dispose();
 				Vehicles_Screen vehiclesScreen = new Vehicles_Screen(data);
 				try {
 					vehiclesScreen.toVehiclesScreen(data);
@@ -185,7 +227,7 @@ public class MainMenu {
 		gbc_btnVehicles.insets = new Insets(0, 0, 5, 5);
 		gbc_btnVehicles.gridx = 0;
 		gbc_btnVehicles.gridy = 6;
-		frmFoodRiders.getContentPane().add(btnVehicles, gbc_btnVehicles);
+		frameFoodRiders.getContentPane().add(btnVehicles, gbc_btnVehicles);
 		
 		JButton btnStatistika = new JButton("Statistics");
 		GridBagConstraints gbc_btnStatistika = new GridBagConstraints();
@@ -193,7 +235,7 @@ public class MainMenu {
 		gbc_btnStatistika.fill = GridBagConstraints.BOTH;
 		gbc_btnStatistika.gridx = 0;
 		gbc_btnStatistika.gridy = 7;
-		frmFoodRiders.getContentPane().add(btnStatistika, gbc_btnStatistika);
+		frameFoodRiders.getContentPane().add(btnStatistika, gbc_btnStatistika);
 		btnStatistika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -204,7 +246,7 @@ public class MainMenu {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				frmFoodRiders.dispose();
+				frameFoodRiders.dispose();
 			}
 		});   
 		
@@ -213,12 +255,12 @@ public class MainMenu {
 		gbc_separator_1.insets = new Insets(5, 0, 5, 5);
 		gbc_separator_1.gridx = 0;
 		gbc_separator_1.gridy = 8;
-		frmFoodRiders.getContentPane().add(separator_1, gbc_separator_1);
+		frameFoodRiders.getContentPane().add(separator_1, gbc_separator_1);
 		
 		JButton btnAposindesi = new JButton("Log out");
 		btnAposindesi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frmFoodRiders.dispose();
+				frameFoodRiders.dispose();
 				Login_Screen loginScreen;
 				try {
 					loginScreen = new Login_Screen(data);
@@ -246,6 +288,14 @@ public class MainMenu {
 		gbc_btnAposindesi.fill = GridBagConstraints.VERTICAL;
 		gbc_btnAposindesi.gridx = 0;
 		gbc_btnAposindesi.gridy = 9;
-		frmFoodRiders.getContentPane().add(btnAposindesi, gbc_btnAposindesi);
+		frameFoodRiders.getContentPane().add(btnAposindesi, gbc_btnAposindesi);
 	}
+
+	public Current_Status getLockedWindow() {
+		return lockedWindow;
+	}
+	public void setLockedWindow(Current_Status aLockedWindow) {
+		lockedWindow = aLockedWindow;
+	}
+
 }

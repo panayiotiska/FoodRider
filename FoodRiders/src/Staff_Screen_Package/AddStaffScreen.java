@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 import javax.swing.UnsupportedLookAndFeelException;
@@ -21,6 +23,9 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
@@ -231,6 +236,19 @@ public class AddStaffScreen {
 		frame.getRootPane().setDefaultButton(btnApply); // Allowing the “Enter” key to press the login button
 		
 		frame.setBounds(100, 100, 641, 430);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		WindowListener exitListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	if (JOptionPane.showConfirmDialog(null, "Are You Sure to Close Application?", "WARNING",
+            	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            	    System.exit(0);
+            	} else {
+            	    // no option
+            	}
+            }
+        };
+        frame.addWindowListener(exitListener);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 }
