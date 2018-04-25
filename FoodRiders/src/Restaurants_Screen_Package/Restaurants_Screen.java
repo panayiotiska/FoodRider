@@ -27,7 +27,10 @@ import javax.swing.table.DefaultTableModel;
 import Handler_Package.Handler;
 import Handler_Package.Restaurant;
 import Handler_Package.Staff;
+import Handler_Package.Vehicle;
 import MainMenu_Screen_Package.MainMenu;
+import Vehicles_Screen_Package.AddVehicleScreen;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 
@@ -130,9 +133,9 @@ public class Restaurants_Screen {
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AddRestaurantScreen newRest = new AddRestaurantScreen(data);
+				AddRestaurantScreen newRest = new AddRestaurantScreen(data, null);
 				frame.dispose();
-				newRest.addRestaurant(data);
+				newRest.addRestaurant(data, null);
 				
 			}
 		});
@@ -144,15 +147,41 @@ public class Restaurants_Screen {
 		frame.getContentPane().add(deleteBtn);
 		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int column = 0; //ID column
-				int row = table.getSelectedRow();
-				int id = -1;
-				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + table.getModel().getValueAt(row, 1), "Delete?",  JOptionPane.YES_NO_OPTION);
-				if (reply == JOptionPane.YES_OPTION) {
-					id = (int) table.getModel().getValueAt(row, column);
-					data.deleteRestaurant(id);
-					((DefaultTableModel)table.getModel()).removeRow(row);
+				if(!table.getSelectionModel().isSelectionEmpty()) {
+					int column = 0; //ID column
+					int row = table.getSelectedRow();
+					int id = -1;
+					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + table.getModel().getValueAt(row, 1), "Delete?",  JOptionPane.YES_NO_OPTION);
+					if (reply == JOptionPane.YES_OPTION) {
+						id = (int) table.getModel().getValueAt(row, column);
+						data.deleteRestaurant(id);
+						((DefaultTableModel)table.getModel()).removeRow(row);
+					}
 				}
+			}
+		});
+
+		JButton btnEdit = new JButton("Edit");
+		btnEdit.setBounds(224, 342, 89, 23);
+		frame.getContentPane().add(btnEdit);
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = table.getSelectedRow();
+				//pass in addStaffScreen the data of the selected row
+				
+				if(!table.getSelectionModel().isSelectionEmpty()) {
+					Restaurant rowData = new Restaurant((int) table.getModel().getValueAt(row,  0),  //ID
+											(String) table.getModel().getValueAt(row, 1),
+											(String) table.getModel().getValueAt(row, 2),
+											(String) table.getModel().getValueAt(row, 3),
+											(String) table.getModel().getValueAt(row, 4),
+											(String) table.getModel().getValueAt(row, 5),
+											(String) table.getModel().getValueAt(row, 5));
+					AddRestaurantScreen addRestaurantScreen  =  new AddRestaurantScreen(data,rowData);
+					frame.dispose();
+					AddRestaurantScreen.addRestaurant(data,rowData);
+				}
+				
 			}
 		});
 		
@@ -168,6 +197,7 @@ public class Restaurants_Screen {
 				
 			}
 		});
+		
 		btnMainMenu.setBounds(239, 382, 64, 60);
 		frame.getContentPane().add(btnMainMenu);
 		
@@ -175,6 +205,7 @@ public class Restaurants_Screen {
 		titleLbl.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		titleLbl.setBounds(163, 22, 255, 35);
 		frame.getContentPane().add(titleLbl);
+		
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

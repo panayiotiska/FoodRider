@@ -21,8 +21,10 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 import Handler_Package.Handler;
+import Handler_Package.Staff;
 import Handler_Package.Vehicle;
 import MainMenu_Screen_Package.MainMenu;
+import Staff_Screen_Package.AddStaffScreen;
 
 public class Vehicles_Screen {
 
@@ -118,9 +120,9 @@ public class Vehicles_Screen {
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AddVehicleScreen addVehicleScreen  =  new AddVehicleScreen(data);
+				AddVehicleScreen addVehicleScreen  =  new AddVehicleScreen(data, null);
 				frame.dispose();
-				addVehicleScreen.addVehicle(data);
+				addVehicleScreen.addVehicle(data, null);
 				
 			}
 		});
@@ -132,14 +134,18 @@ public class Vehicles_Screen {
 			public void actionPerformed(ActionEvent e) {
 				int column = 0; //Plates Column
 				int row = table.getSelectedRow();
-				String plate = null;
-				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + table.getModel().getValueAt(row, 1), "Delete?",  JOptionPane.YES_NO_OPTION);
-				if (reply == JOptionPane.YES_OPTION) {
-					plate = (String) table.getModel().getValueAt(row, column);
-					if(!data.deleteVehicle(plate)) { //IF this staff member is unavailable
-						JOptionPane.showMessageDialog(frame, "Sorry, this Vehicle is currently on the road.");
+				String selectedRow = null;
+				String selectedPlate = null;
+				if(!table.getSelectionModel().isSelectionEmpty()) {
+					selectedPlate = (String) table.getModel().getValueAt(row, 1);
+					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + selectedPlate , "Delete?",  JOptionPane.YES_NO_OPTION);
+					if (reply == JOptionPane.YES_OPTION) {
+						selectedRow = (String) table.getModel().getValueAt(row, column);
+						if(!data.deleteVehicle(selectedRow)) { //IF this staff member is unavailable
+							JOptionPane.showMessageDialog(frame, "Sorry, this Vehicle is currently on the road.");
+						}
+						((DefaultTableModel)table.getModel()).removeRow(row);
 					}
-					((DefaultTableModel)table.getModel()).removeRow(row);
 				}
 			}
 		});
@@ -147,6 +153,25 @@ public class Vehicles_Screen {
 		JButton btnEpeksergasia = new JButton("Edit");
 		btnEpeksergasia.setBounds(369, 250, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
+		btnEpeksergasia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = table.getSelectedRow();
+				//pass in addStaffScreen the data of the selected row
+				
+				if(!table.getSelectionModel().isSelectionEmpty()) {
+					Vehicle rowData = new Vehicle((String) table.getModel().getValueAt(row,  0),  //ID
+											(String) table.getModel().getValueAt(row, 1), //NAME
+											(String) table.getModel().getValueAt(row, 2), //POSITION
+											(String) table.getModel().getValueAt(row, 3), //DATE OF BIRTHE
+											(String) table.getModel().getValueAt(row, 4),
+											(Boolean) table.getModel().getValueAt(row, 5));//RECRUITMENT DATE
+					AddVehicleScreen addVehicleScreen  =  new AddVehicleScreen(data,rowData);
+					frame.dispose();
+					AddVehicleScreen.addVehicle(data,rowData);
+				}
+				
+			}
+		});
 		
 		JButton button = new JButton("");
 		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));

@@ -65,7 +65,7 @@ public class Staff_Screen {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
-		frame.setBounds(100, 100, 559, 405);
+		frame.setBounds(100, 100, 750, 405);
 		WindowListener exitListener = new WindowAdapter() {
 
             @Override
@@ -79,19 +79,19 @@ public class Staff_Screen {
             }
         };
         frame.addWindowListener(exitListener);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Staff - FoodRiders");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 66, 505, 164);
+		scrollPane.setBounds(25, 66, 700, 164);
 		frame.getContentPane().add(scrollPane);
 		
 		//Filling up the JTable
 		ArrayList<Staff> staffList = new ArrayList<>();
 		staffList = data.getStaffList();
 		
-		String col[] = {"ID","Name","Position", "Recruitment Date","Birth Date"};	
+		String col[] = {"ID","Name","Position","Birth Date","Recruitment Date" ,"Telephone Number"};	
 		
 		DefaultTableModel model = new DefaultTableModel(col, 0) {
 		    @Override
@@ -107,7 +107,8 @@ public class Staff_Screen {
 			System.out.println(staffList.get(i).getRecruitmentDate());
 			System.out.println(i);
 			model.addRow(new Object[]{staffList.get(i).getId(),staffList.get(i).getName(),staffList.get(i).getPosition(),
-									  staffList.get(i).getRecruitmentDate(),staffList.get(i).getDateOfBirth()});
+									  staffList.get(i).getDateOfBirth(),staffList.get(i).getRecruitmentDate(),
+									  staffList.get(i).getTelephoneNumber()});
 		}
 		scrollPane.setViewportView(table);
 		
@@ -117,36 +118,56 @@ public class Staff_Screen {
 		frame.getContentPane().add(addBtn);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				AddStaffScreen addStaffScreen  =  new AddStaffScreen(data);
+				AddStaffScreen addStaffScreen  =  new AddStaffScreen(data, null);
 				frame.dispose();
-				addStaffScreen.addStaff(data);
+				addStaffScreen.addStaff(data,null);
 				
 			}
 		});
 		
 		JButton btnDiagrafi = new JButton("Delete");
-		btnDiagrafi.setBounds(199, 250, 153, 25);
+		btnDiagrafi.setBounds(572, 250, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		btnDiagrafi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int column = 0; //ID column
 				int row = table.getSelectedRow();
 				int id = -1;
-				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + table.getModel().getValueAt(row, 1), "Delete?",  JOptionPane.YES_NO_OPTION);
-				if (reply == JOptionPane.YES_OPTION) {
-					id = (int) table.getModel().getValueAt(row, column);
-					if(!data.deleteStaff(id)) { //IF this staff member is unavailable
-						JOptionPane.showMessageDialog(frame, "Sorry, this staff member is currently on the road.");
+				if(!table.getSelectionModel().isSelectionEmpty()) {
+					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + table.getModel().getValueAt(row, 1), "Delete?",  JOptionPane.YES_NO_OPTION);
+					if (reply == JOptionPane.YES_OPTION) {
+						id = (int) table.getModel().getValueAt(row, column);
+						if(!data.deleteStaff(id)) { //IF this staff member is unavailable
+							JOptionPane.showMessageDialog(frame, "Sorry, this staff member is currently on the road.");
+						}
+						((DefaultTableModel)table.getModel()).removeRow(row);
 					}
-					((DefaultTableModel)table.getModel()).removeRow(row);
 				}
 			}
 		});
 		
 		JButton btnEpeksergasia = new JButton("Edit");
-		btnEpeksergasia.setBounds(369, 250, 161, 25);
+		btnEpeksergasia.setBounds(306, 250, 161, 25);
 		frame.getContentPane().add(btnEpeksergasia);
+		btnEpeksergasia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = table.getSelectedRow();
+				//pass in addStaffScreen the data of the selected row
+				
+				if(!table.getSelectionModel().isSelectionEmpty()) {
+					Staff rowData = new Staff((int) table.getModel().getValueAt(row,  0),  //ID
+											(String) table.getModel().getValueAt(row, 1), //NAME
+											(String) table.getModel().getValueAt(row, 2), //POSITION
+											(String) table.getModel().getValueAt(row, 3), //DATE OF BIRTHE
+											(String) table.getModel().getValueAt(row, 4),
+											(String) table.getModel().getValueAt(row, 5));//RECRUITMENT DATE
+					AddStaffScreen addStaffScreen  =  new AddStaffScreen(data,rowData);
+					frame.dispose();
+					addStaffScreen.addStaff(data,rowData);
+				}
+				
+			}
+		});
 		
 		JButton button = new JButton("");
 		ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
@@ -161,11 +182,11 @@ public class Staff_Screen {
 				
 			}
 		});
-		button.setBounds(243, 306, 64, 60);
+		button.setBounds(351, 297, 64, 60);
 		
 		JLabel lblBusinessStaff = new JLabel("Business'  Staff");
 		lblBusinessStaff.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
-		lblBusinessStaff.setBounds(210, 11, 142, 44);
+		lblBusinessStaff.setBounds(307, 13, 142, 44);
 		frame.getContentPane().add(lblBusinessStaff);
 		
 	}

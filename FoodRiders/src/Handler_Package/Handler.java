@@ -64,9 +64,6 @@ public class Handler {
 		}
 	}
 	
-	
-	
-	
 	public void addStaff(Staff aStaff) {
 		staffList.add(aStaff);
 		staffAvailable.add(aStaff);

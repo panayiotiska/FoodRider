@@ -42,14 +42,12 @@ public class AddRestaurantScreen {
 	/**
 	 * Launch the application.
 	 */
-	public void addRestaurant(Handler aData) {
-		
-		Handler data = aData;
+	public static void addRestaurant(Handler data, Restaurant rowData) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddRestaurantScreen window = new AddRestaurantScreen(data);
+					AddRestaurantScreen window = new AddRestaurantScreen(data, rowData);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,24 +58,26 @@ public class AddRestaurantScreen {
 
 	/**
 	 * Create the application.
+	 * @param rowData 
 	 */
-	public AddRestaurantScreen(Handler aData) {
-		Handler data = aData;
-		initialize(data);
+	public AddRestaurantScreen(Handler data, Restaurant rowData) {
+		initialize(data,rowData);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param rowData 
 	 */
-	private void initialize(Handler aData) {
-		
-		Handler data = aData;
+	private void initialize(Handler data, Restaurant rowData) {
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel titleLabel = new JLabel("Add a Restaurant");
+		if (rowData != null) {
+			titleLabel.setText("Editing - " + rowData.getName());
+		}
 		titleLabel.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		titleLabel.setBounds(250, 0, 160, 66);
 		frame.getContentPane().add(titleLabel);
@@ -92,6 +92,9 @@ public class AddRestaurantScreen {
 		nameTextField.setBounds(201, 82, 134, 20);
 		frame.getContentPane().add(nameTextField);
 		nameTextField.setColumns(10);
+		if (rowData != null) {
+			nameTextField.setText(rowData.getName());
+		}
 		
 		lblAddress = new JLabel("Address :");
 		lblAddress.setForeground(SystemColor.text);
@@ -103,6 +106,9 @@ public class AddRestaurantScreen {
 		addressTextField.setBounds(133, 197, 454, 20);
 		frame.getContentPane().add(addressTextField);
 		addressTextField.setColumns(10);
+		if (rowData != null) {
+			addressTextField.setText(rowData.getAddress());
+		}
 		
 		lblTelephoneNumber = new JLabel("Telephone Number : ");
 		lblTelephoneNumber.setForeground(SystemColor.text);
@@ -114,6 +120,9 @@ public class AddRestaurantScreen {
 		telephoneNumTextField.setBounds(201, 140, 134, 20);
 		frame.getContentPane().add(telephoneNumTextField);
 		telephoneNumTextField.setColumns(10);
+		if (rowData != null) {
+			telephoneNumTextField.setText(rowData.getTelephoneNum());
+		}
 		
 		lblEmail = new JLabel("E-mail :");
 		lblEmail.setForeground(SystemColor.text);
@@ -125,6 +134,9 @@ public class AddRestaurantScreen {
 		emailTextField.setBounds(441, 140, 151, 20);
 		frame.getContentPane().add(emailTextField);
 		emailTextField.setColumns(10);
+		if (rowData != null) {
+			emailTextField.setText(rowData.getEmail());
+		}
 		
 		lblOtherComments = new JLabel("Other Comments :");
 		lblOtherComments.setForeground(SystemColor.text);
@@ -142,10 +154,16 @@ public class AddRestaurantScreen {
 		timeDistanceTextField.setBounds(509, 82, 30, 20);
 		frame.getContentPane().add(timeDistanceTextField);
 		timeDistanceTextField.setColumns(10);
+		if (rowData != null) {
+			timeDistanceTextField.setText(rowData.getTimeDistance());
+		}
 		
 		JTextArea otherCommentsTextArea = new JTextArea();
 		otherCommentsTextArea.setBounds(35, 267, 557, 107);
 		frame.getContentPane().add(otherCommentsTextArea);
+		if (rowData != null) {
+			otherCommentsTextArea.setText(rowData.getComments());
+		}
 		
 		messageLabel = new JLabel("");
 		messageLabel.setBounds(207, 405, 231, 14);
@@ -156,6 +174,9 @@ public class AddRestaurantScreen {
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int ID = data.getRestaurantsList().size();
+				if (rowData != null) {
+					ID = rowData.getId();
+				}
 				String name = nameTextField.getText().trim();
 				String timeDistance = timeDistanceTextField.getText().trim();
 				String telephoneNum = telephoneNumTextField.getText().trim();
@@ -178,6 +199,9 @@ public class AddRestaurantScreen {
 						addressTextField.setBackground(Color.red);
 				
 				}else {
+					if (rowData != null) { //If it is an edit !
+						data.deleteRestaurant(ID);
+					}
 					data.addRestaurant(new Restaurant(ID, name, address, telephoneNum, email, timeDistance, comments));
 					System.out.println("size of arrayList: " + data.getRestaurantsList().size());
 					frame.dispose();

@@ -41,15 +41,14 @@ public class AddVehicleScreen {
 	private JLabel typeLabel;
 	/**
 	 * Launch the application.
+	 * @param rowData 
 	 */
-	public void addVehicle(Handler aData) {
-		
-		Handler data = aData;
+	public static void addVehicle(Handler data, Vehicle rowData) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddVehicleScreen window = new AddVehicleScreen(data);
+					AddVehicleScreen window = new AddVehicleScreen(data, rowData);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,16 +59,17 @@ public class AddVehicleScreen {
 
 	/**
 	 * Create the application.
+	 * @param rowData 
 	 */
-	public AddVehicleScreen(Handler aData) {
-		Handler data = aData;
-		initialize(data);
+	public AddVehicleScreen(Handler data, Vehicle rowData) {
+		initialize(data,rowData);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param rowData 
 	 */
-	private void initialize(Handler aData) {
+	private void initialize(Handler aData, Vehicle rowData) {
 		
 		Handler data = aData;
 		
@@ -78,6 +78,9 @@ public class AddVehicleScreen {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel titleLabel = new JLabel("Add a new Vehicle");
+		if (rowData != null) {
+			titleLabel.setText("Editing - " + rowData.getPlate());
+		}
 		titleLabel.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		titleLabel.setBounds(228, 0, 200, 66);
 		frame.getContentPane().add(titleLabel);
@@ -92,6 +95,9 @@ public class AddVehicleScreen {
 		plateTextField.setBounds(181, 82, 134, 20);
 		frame.getContentPane().add(plateTextField);
 		plateTextField.setColumns(10);
+		if (rowData != null) {
+			plateTextField.setText(rowData.getPlate());
+		}
 		
 		brandLabel = new JLabel("Brand :");
 		brandLabel.setForeground(SystemColor.text);
@@ -103,6 +109,9 @@ public class AddVehicleScreen {
 		brandTextField.setBounds(441, 82, 151, 20);
 		frame.getContentPane().add(brandTextField);
 		brandTextField.setColumns(10);
+		if (rowData != null) {
+			brandTextField.setText(rowData.getBrand());
+		}
 		
 		modelLabel = new JLabel("Model : ");
 		modelLabel.setForeground(SystemColor.text);
@@ -114,6 +123,9 @@ public class AddVehicleScreen {
 		modelTextField.setBounds(191, 158, 127, 20);
 		frame.getContentPane().add(modelTextField);
 		modelTextField.setColumns(10);
+		if (rowData != null) {
+			modelTextField.setText(rowData.getModel());
+		}
 		
 		typeLabel = new JLabel("Type :");
 		typeLabel.setForeground(SystemColor.text);
@@ -121,10 +133,20 @@ public class AddVehicleScreen {
 		typeLabel.setBounds(357, 164, 71, 14);
 		frame.getContentPane().add(typeLabel);
 		
-		String[] typeStrings = {"Car","Motorcycle","Buggie","Bicycle","Skateboard"};
+		String[] typeStrings = {"Car","Motorcycle","Bicycle"};
 		JComboBox cmbTypeList = new JComboBox(typeStrings);
 		cmbTypeList.setBounds(441, 158, 151, 20);
 		cmbTypeList.setSelectedIndex(1);
+		if (rowData != null) {
+			switch (rowData.getType()) {
+            case "Car": cmbTypeList.setSelectedIndex(0);
+                    break;
+            case "Motorcycle": cmbTypeList.setSelectedIndex(1);
+            		break;
+            case "Bicycle": cmbTypeList.setSelectedIndex(2);
+            		break;
+			}
+		}
 		frame.getContentPane().add(cmbTypeList);
 		frame.getContentPane().add(typeLabel);
 		
@@ -143,12 +165,18 @@ public class AddVehicleScreen {
 				String type = cmbTypeList.getSelectedItem().toString();
 				String brand = brandTextField.getText().trim();
 				String model = modelTextField.getText().trim();
-				String purchaseDate = "Error Occurred";
+				String purchaseDate;
 				
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Current local date
-				LocalDate localDate = LocalDate.now();
-				purchaseDate = dtf.format(localDate).toString();
-				System.out.println(purchaseDate);
+
+				if(rowData == null) { //if its an add and not an edit
+					purchaseDate = "Error Occurred";
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //set Current local date as recruitmentDate
+					LocalDate localDate = LocalDate.now();
+					purchaseDate = dtf.format(localDate).toString();
+				}
+				else {
+					purchaseDate = rowData.getPurchaseDate();
+				}
 				
 				if(plate.isEmpty() || brand.isEmpty() || model.isEmpty()) {
 					messageLbl.setForeground(Color.red);
@@ -160,6 +188,9 @@ public class AddVehicleScreen {
 					if(model.isEmpty())
 						modelTextField.setBackground(Color.red);
 				}else {
+					if (rowData != null) { //If it is an edit !
+						data.deleteVehicle(rowData.getPlate());
+					}
 					data.addVehicle(new Vehicle(plate, type, brand, model, purchaseDate,true));
 					System.out.println("size of arrayList: " + data.getStaffList().size());
 				

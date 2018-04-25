@@ -39,19 +39,16 @@ public class AddStaffScreen {
 	private JLabel lblTelephoneNumber;
 	private JTextField telephoneNumTextField;
 	private JLabel lblPosition;
-	private JTextField textField_3;
-	private JLabel lblOtherComments;
 	/**
 	 * Launch the application.
+	 * @param rowData 
 	 */
-	public void addStaff(Handler aData) {
-		
-		Handler data = aData;
+	public void addStaff(Handler data, Staff rowData) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddStaffScreen window = new AddStaffScreen(data);
+					AddStaffScreen window = new AddStaffScreen(data, rowData);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,24 +59,25 @@ public class AddStaffScreen {
 
 	/**
 	 * Create the application.
+	 * @param rowData 
 	 */
-	public AddStaffScreen(Handler aData) {
-		Handler data = aData;
-		initialize(data);
+	public AddStaffScreen(Handler data, Staff rowData) {
+		initialize(data,rowData);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Handler aData) {
-		
-		Handler data = aData;
+	private void initialize(Handler data, Staff rowData) {
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel titleLabel = new JLabel("Add a Staff Member");
+		JLabel titleLabel = new JLabel("Add a Staff member");
+		if (rowData != null) {
+			titleLabel.setText("Editing - " + rowData.getName());
+		}
 		titleLabel.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		titleLabel.setBounds(228, 0, 200, 66);
 		frame.getContentPane().add(titleLabel);
@@ -94,6 +92,9 @@ public class AddStaffScreen {
 		fullNameTextField.setBounds(181, 82, 134, 20);
 		frame.getContentPane().add(fullNameTextField);
 		fullNameTextField.setColumns(10);
+		if (rowData != null) {
+			fullNameTextField.setText(rowData.getName());
+		}
 		
 		lblBday = new JLabel("Date of birth :");
 		lblBday.setForeground(SystemColor.text);
@@ -105,6 +106,9 @@ public class AddStaffScreen {
 		birthDateTextField.setBounds(441, 82, 151, 20);
 		frame.getContentPane().add(birthDateTextField);
 		birthDateTextField.setColumns(10);
+		if (rowData != null) {
+			birthDateTextField.setText(rowData.getDateOfBirth());
+		}
 		
 		lblTelephoneNumber = new JLabel("Telephone Number : ");
 		lblTelephoneNumber.setForeground(SystemColor.text);
@@ -116,6 +120,9 @@ public class AddStaffScreen {
 		telephoneNumTextField.setBounds(191, 158, 127, 20);
 		frame.getContentPane().add(telephoneNumTextField);
 		telephoneNumTextField.setColumns(10);
+		if (rowData != null) {
+			telephoneNumTextField.setText(rowData.getTelephoneNumber());
+		}
 		
 		lblPosition = new JLabel("Position :");
 		lblPosition.setForeground(SystemColor.text);
@@ -142,16 +149,24 @@ public class AddStaffScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int ID = data.getStaffList().size(); //BUG MUST FIX (REPLACE WITH METRITI)
+				if (rowData != null) {
+					ID = rowData.getId(); // so the ID remains the same
+				}
 				String fullName = fullNameTextField.getText().trim();
 				String position = cmbPositionList.getSelectedItem().toString();
 				String dateOfBirth = birthDateTextField.getText().trim();
 				String telephoneNum = telephoneNumTextField.getText().trim();
-				String recruitmentDate = "Error Occurred";
+				String recruitmentDate = null;
 				
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Current local date
-				LocalDate localDate = LocalDate.now();
-				recruitmentDate = dtf.format(localDate).toString();
-				System.out.println(recruitmentDate);
+				if(rowData == null) { //if its an add and not an edit
+					recruitmentDate = "Error Occurred";
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //set Current local date as recruitmentDate
+					LocalDate localDate = LocalDate.now();
+					recruitmentDate = dtf.format(localDate).toString();
+				}
+				else {
+					recruitmentDate = rowData.getRecruitmentDate();
+				}
 				
 				if(fullName.isEmpty() || dateOfBirth.isEmpty() || telephoneNum.isEmpty()) {
 					messageLbl.setForeground(Color.red);
@@ -163,9 +178,13 @@ public class AddStaffScreen {
 					if(telephoneNum.isEmpty())
 						telephoneNumTextField.setBackground(Color.red);
 				}else {
-					data.addStaff(new Staff(ID, fullName, position, dateOfBirth, recruitmentDate));
+					
+					if (rowData != null) { //If it is an edit !
+						data.deleteStaff(ID);
+					}
+					data.addStaff(new Staff(ID, fullName, position, dateOfBirth, recruitmentDate, telephoneNum));
 					System.out.println("size of arrayList: " + data.getStaffList().size());
-				
+
 				frame.dispose();
 				Staff_Screen restScreen = new Staff_Screen(data);
 				try {

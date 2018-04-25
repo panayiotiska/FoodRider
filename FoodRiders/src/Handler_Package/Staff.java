@@ -7,14 +7,16 @@ public class Staff {
     private String position;
     private String dateOfBirth;
     private String recruitmentDate;
+    private String telephoneNumber;
  
    
-    public Staff(int id, String name, String position, String dateOfBirth, String recruitmentDate) {
+    public Staff(int id, String name, String position, String dateOfBirth, String recruitmentDate, String telephoneNumber) {
         this.id = id;
         this.name = name;
         this.position = position;
         this.dateOfBirth = dateOfBirth;
         this.recruitmentDate = recruitmentDate;
+        this.telephoneNumber = telephoneNumber;
     }
  
     public String getPosition() {
@@ -56,5 +58,15 @@ public class Staff {
     public void setName(String name) {
         this.name = name;
     }
+
+	public String getTelephoneNumber() {
+		return telephoneNumber;
+	}
+
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
+	}
+    
+    
    
 }
