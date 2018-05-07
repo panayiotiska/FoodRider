@@ -233,11 +233,13 @@ public class Current_Status implements Runnable {
 		WindowListener exitListener = new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-            	if (JOptionPane.showConfirmDialog(null, "Are You Sure to Close Application?", "WARNING",
-            	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            	    System.exit(0);
-            	} else {
-            	    // no option
+            	if(!lockCheckBox.isSelected()) {
+	            	if (JOptionPane.showConfirmDialog(null, "Are You Sure to Close Application?", "WARNING",
+	            	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+	            	    System.exit(0);
+	            	} else {
+	            	    // no option
+	            	}
             	}
             }
         };
