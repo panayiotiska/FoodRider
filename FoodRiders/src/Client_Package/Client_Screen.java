@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import Login_Screen_Package.Login_Screen;
 
@@ -21,12 +22,12 @@ public class Client_Screen {
 	private JFrame frame;
 	private JTextField timeTextField;
 	
-	/**
-	 * Launch the application.
-	 * @param rowData 
-	 */
-	public static void client() {
+
+	
+	
+	public static void showClientScreen() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
+		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,14 +44,16 @@ public class Client_Screen {
 	 * Create the application.
 	 * @param rowData 
 	 * @return 
+	 * @wbp.parser.entryPoint
 	 */
-	public void ClientScreen() {
+	public Client_Screen() {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 * @param rowData 
+	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {
 		
@@ -75,7 +78,7 @@ public class Client_Screen {
 		timeTextField.setColumns(10);
 		
 		JButton btnApply = new JButton("Send");
-		btnApply.setBounds(503, 358, 89, 23);
+		btnApply.setBounds(336, 243, 89, 23);
 		frame.getContentPane().add(btnApply);	
 		btnApply.addActionListener(new ActionListener() {
 			
@@ -110,7 +113,7 @@ public class Client_Screen {
 				
 			}
 		});
-		btnLogout.setBounds(37, 358, 89, 23);
+		btnLogout.setBounds(94, 243, 89, 23);
 		frame.getContentPane().add(btnLogout);
 }
 }

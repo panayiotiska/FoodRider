@@ -13,6 +13,7 @@ import java.net.URL;
 import javax.swing.*;
 import javax.xml.crypto.Data;
 
+import Client_Package.Client_Screen;
 import Handler_Package.Handler;
 import MainMenu_Screen_Package.MainMenu;
 
@@ -143,6 +144,14 @@ public class Login_Screen{
 						mainMenu.showMainMenu(data);
 					}else if(db.getLoginType()==2) {
 						frame.dispose();
+						Client_Screen clientScreen = new Client_Screen();
+						try {
+							clientScreen.showClientScreen();
+						} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+								| UnsupportedLookAndFeelException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						URL url = getClass().getResource("/Login_Screen_Package/LogInSound.wav");
 						AudioClip clip = Applet.newAudioClip(url);
 						clip.play();
