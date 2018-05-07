@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class Restaurant {
 	
+	private static int  IDsetter = -1;
+	
+
 	private String name;
 	private int  id;
 	private String address;
@@ -83,6 +86,12 @@ public class Restaurant {
 		return comments;
 	}
 
+	public static int getIDsetter() {
+		IDsetter ++;
+		return IDsetter;
+	}
+	
+	
 	public void setComments(String comments) {
 		this.comments = comments;
 	}

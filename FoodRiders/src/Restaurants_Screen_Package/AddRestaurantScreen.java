@@ -173,7 +173,7 @@ public class AddRestaurantScreen {
 		JButton btnApply = new JButton("Apply");
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int ID = data.getRestaurantsList().size();
+				int ID = Restaurant.getIDsetter();
 				if (rowData != null) {
 					ID = rowData.getId();
 				}
