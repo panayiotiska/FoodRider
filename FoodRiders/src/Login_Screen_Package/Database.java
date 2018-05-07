@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Database {
 
-	private ArrayList<User> administrators;
-	private ArrayList<User> clients;
+	private ArrayList<Administrator> administrators;
+	private ArrayList<Client> clients;
 	private int LoginType;
 
 	public Database() {
@@ -13,28 +13,29 @@ public class Database {
 		administrators = new ArrayList<>();
 		clients = new ArrayList<>();
 		
-		User user1 = new User("vaggos", "vaggos", "15/2/14");
-		User user2 = new User("vicky", "vicky", "25/4/15");  
-		User user3 = new User("panos", "panos", "31/5/17");
-		User user4= new User("tasos", "tasos", "31/5/17");
-
-		administrators.add(user3);
-		administrators.add(user1);
+		Administrator user1 = new Administrator("vaggos", "vaggos", "15/2/14");
+		 
+		Administrator user2 = new Administrator("panos", "panos", "31/5/17");
 		
-		clients.add(user2);
-		clients.add(user4);
+		Client user3 = new Client("tasos", "tasos", "31/5/17",0);
+		Client user4 = new Client("vicky", "vicky", "7/6/18",1); 
+
+		administrators.add(user1);
+		administrators.add(user2);
+
+		clients.add(user3);
 		
 	}
 
 	public boolean checkData(String aGivenUsername, String aGivenPassword){
 
-		for(User anAdmin : administrators){
+		for(Administrator anAdmin : administrators){
 			if(anAdmin.getName().equals(aGivenUsername) && anAdmin.getPassword().equals(aGivenPassword)) {
 				LoginType = 1;
 				return true;
 			}
 		}
-		for(User aClient : clients) {
+		for(Administrator aClient : clients) {
 			if(aClient.getName().equals(aGivenUsername) && aClient.getPassword().equals(aGivenPassword)) {
 				LoginType = 2;
 				return true;
@@ -46,5 +47,13 @@ public class Database {
 	public int getLoginType() {
 		return LoginType;
 	}
-		
+	
+	public Client findClientByUsername(String username){
+		for (Client c : clients){
+			if(username.equals(c.getName())){
+				return c;
+			}
+		}
+		return null;
+	}
 }

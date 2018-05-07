@@ -9,6 +9,7 @@ public class Handler {
 	private ArrayList<Restaurant> restaurantsList;
 	private ArrayList<Staff> staffList;
 	private ArrayList<Vehicle> vehicles;
+	private ArrayList<Vehicle> OrderHistory;
 	
 	private Queue<Staff> staffAvailable;
 	private Queue<Staff> staffUnavailable ;
@@ -26,14 +27,22 @@ public class Handler {
 		restaurantsList = new ArrayList<>();
 		staffList = new ArrayList<>();
 		vehicles = new ArrayList<>();
+		OrderHistory = new ArrayList<>();
 		staffAvailable = new LinkedList<>(staffList);
 		staffUnavailable = new LinkedList<>();
 		vehiclesAvailable = new LinkedList<>(vehicles);
 		runningOrders = new LinkedList<>();
 		ordersInQueue = new LinkedList<>();
 		
+		//ADD DUMMY VALUES INTO TABLES
 		
+		Restaurant dummyRestaurant1 = new Restaurant(0,"Makis Pizza","egnatia 12","69696969","makispizza@yahoo.de","20","no-comment");
+		Restaurant dummyRestaurant2 = new Restaurant(1,"Babis Pizza","egnatia 13","69696969","babispizza@yahoo.de","21","no-comment");
+		Restaurant dummyRestaurant3 = new Restaurant(2,"Lakis Pizza","egnatia 14","69696969","lakispizza@yahoo.de","22","no-comment");
 		
+		restaurantsList.add(dummyRestaurant1);
+		restaurantsList.add(dummyRestaurant2);
+		restaurantsList.add(dummyRestaurant3);
 	}
 	
 	
@@ -62,6 +71,15 @@ public class Handler {
 				restaurantsList.remove(i);
 			}
 		}
+	}
+	
+	public Restaurant findRestaurantFromClient(int restaurantID){
+		for (Restaurant r : restaurantsList){
+			if (r.getId() == restaurantID){
+				return r;
+			}
+		}
+		return null;
 	}
 	
 	public void addStaff(Staff aStaff) {
@@ -133,6 +151,11 @@ public class Handler {
 
 	public Queue<Order> getOrdersInQueue() {
 		return ordersInQueue;
+	}
+
+
+	public ArrayList<Vehicle> getOrderHistory() {
+		return OrderHistory;
 	}
 	
 }

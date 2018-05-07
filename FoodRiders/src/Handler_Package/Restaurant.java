@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Restaurant {
 	
-	private static int  IDsetter = -1;
+	private static int  IDsetter = 3;
 	
 
 	private String name;

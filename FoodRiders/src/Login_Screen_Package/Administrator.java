@@ -1,12 +1,12 @@
 package Login_Screen_Package;
 
-public class User {
+public class Administrator {
 
 	private String name; 
 	private String password;
 	private String subscriptionDate;
 	
-	public User(String aName, String aPassword, String aSubscriptionDate) {
+	public Administrator(String aName, String aPassword, String aSubscriptionDate) {
 		name = aName;
 		password = aPassword;
 		subscriptionDate = aSubscriptionDate;
