@@ -2,13 +2,15 @@ package Login_Screen_Package;
 
 import java.util.ArrayList;
 
+import Handler_Package.Vehicle;
+
 public class Database {
 
-	private ArrayList<Administrator> administrators;
-	private ArrayList<Client> clients;
-	private int LoginType;
+	static ArrayList<Administrator> administrators;
+	static ArrayList<Client> clients;
+	static int LoginType;
 
-	public Database() {
+	static {
 		
 		administrators = new ArrayList<>();
 		clients = new ArrayList<>();
@@ -19,15 +21,18 @@ public class Database {
 		
 		Client user3 = new Client("tasos", "tasos", "31/5/17",0);
 		Client user4 = new Client("vicky", "vicky", "7/6/18",1); 
+		Client user5 = new Client("mitsos", "mitsos", "9/6/18",2); 
 
 		administrators.add(user1);
 		administrators.add(user2);
 
 		clients.add(user3);
+		clients.add(user4);
+		clients.add(user5);
 		
 	}
 
-	public boolean checkData(String aGivenUsername, String aGivenPassword){
+	public static boolean checkData(String aGivenUsername, String aGivenPassword){
 
 		for(Administrator anAdmin : administrators){
 			if(anAdmin.getName().equals(aGivenUsername) && anAdmin.getPassword().equals(aGivenPassword)) {
@@ -44,13 +49,26 @@ public class Database {
 		return false;
 	}
 
-	public int getLoginType() {
+	public static int getLoginType() {
 		return LoginType;
 	}
 	
-	public Client findClientByUsername(String username){
+	public static void addClient(Client aClient) {
+		clients.add(aClient);
+	}
+	
+	public static Client findClientByUsername(String username){
 		for (Client c : clients){
 			if(username.equals(c.getName())){
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	public static Client findClientByRestaurantID(int restaurantID) {
+		for (Client c : clients){
+			if(restaurantID == c.getRestaurantID()){
 				return c;
 			}
 		}

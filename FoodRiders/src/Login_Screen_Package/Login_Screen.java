@@ -42,6 +42,7 @@ public class Login_Screen{
 
 	/**
 	 * Create the application.
+	 * @param db 
 	 * @throws MalformedURLException 
 	 */
 	public Login_Screen(Handler aData) throws MalformedURLException {
@@ -50,6 +51,8 @@ public class Login_Screen{
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param db 
+	 * @param db 
 	 * @throws MalformedURLException 
 	 */
 	private void initialize(Handler aData) throws MalformedURLException {
@@ -112,16 +115,10 @@ public class Login_Screen{
 		
 		
 		login_btn.addActionListener(new ActionListener() {
-			
-		
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String username = username_textField.getText().trim();
 				String password = String.valueOf(passwordField.getPassword());
-				
-				Database db = new Database();
-		
 				
 				if(username.isEmpty() || password.isEmpty()) {
 					message_label.setForeground(Color.red);
@@ -132,23 +129,23 @@ public class Login_Screen{
 						passwordField.setBackground(Color.red);
 						
 				
-				}else if(db.checkData(username, password)) {
+				}else if(Database.checkData(username, password)) {
 						
 					
-					if(db.getLoginType()==1) {
+					if(Database.getLoginType()==1) {
 						frame.dispose();
 						MainMenu mainMenu = new MainMenu(data);
 						URL url = getClass().getResource("/Login_Screen_Package/LogInSound.wav");
 						AudioClip clip = Applet.newAudioClip(url);
 						clip.play();
 						mainMenu.showMainMenu(data);
-					}else if(db.getLoginType()==2) {
+					}else if(Database.getLoginType()==2) {
 						frame.dispose();
 						
-						if (db.findClientByUsername(username) != null){
+						if (Database.findClientByUsername(username) != null){
 							try {
-								Client_Screen clientScreen = new Client_Screen(data, db.findClientByUsername(username));
-								clientScreen.showClientScreen(data,db.findClientByUsername(username));
+								Client_Screen clientScreen = new Client_Screen(data, Database.findClientByUsername(username));
+								clientScreen.showClientScreen(data,Database.findClientByUsername(username));
 							} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 									| UnsupportedLookAndFeelException e1) {
 								// TODO Auto-generated catch block

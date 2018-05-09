@@ -12,6 +12,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import Handler_Package.Current_Status;
 import Handler_Package.Handler;
+import Login_Screen_Package.Database;
 import Login_Screen_Package.Login_Screen;
 import Restaurants_Screen_Package.Restaurants_Screen;
 import Staff_Screen_Package.Staff_Screen;
@@ -72,6 +73,7 @@ public class MainMenu {
 	
 	/**
 	 * Initialize the contents of the frame.
+	 * @param db 
 	 */
 	
 	

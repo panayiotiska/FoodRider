@@ -12,6 +12,9 @@ import java.awt.Font;
 import javax.swing.UnsupportedLookAndFeelException;
 import Handler_Package.Handler;
 import Handler_Package.Restaurant;
+import Login_Screen_Package.Client;
+import Login_Screen_Package.Database;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -21,6 +24,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 
 
@@ -38,11 +43,13 @@ public class AddRestaurantScreen {
 	private JLabel timeDistanceLabel;
 	private JTextField timeDistanceTextField;
 	private JLabel messageLabel;
+	private JTextField textFieldClientUsername;
+	private JTextField textFieldClientPassword;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void addRestaurant(Handler data, Restaurant rowData) {
+	public void addRestaurant(Handler data, Restaurant rowData) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -59,6 +66,7 @@ public class AddRestaurantScreen {
 	/**
 	 * Create the application.
 	 * @param rowData 
+	 * @param db 
 	 */
 	public AddRestaurantScreen(Handler data, Restaurant rowData) {
 		initialize(data,rowData);
@@ -67,6 +75,7 @@ public class AddRestaurantScreen {
 	/**
 	 * Initialize the contents of the frame.
 	 * @param rowData 
+	 * @param db 
 	 */
 	private void initialize(Handler data, Restaurant rowData) {
 		
@@ -138,10 +147,34 @@ public class AddRestaurantScreen {
 			emailTextField.setText(rowData.getEmail());
 		}
 		
+		if (rowData == null) {
+			JLabel lblClient = new JLabel("Client Username : ");
+			lblClient.setForeground(Color.WHITE);
+			lblClient.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
+			lblClient.setBounds(37, 247, 153, 14);
+			frame.getContentPane().add(lblClient);
+			
+			textFieldClientUsername = new JTextField();
+			textFieldClientUsername.setColumns(10);
+			textFieldClientUsername.setBounds(201, 244, 134, 20);
+			frame.getContentPane().add(textFieldClientUsername);
+			
+			textFieldClientPassword = new JTextField();
+			textFieldClientPassword.setColumns(10);
+			textFieldClientPassword.setBounds(441, 245, 151, 20);
+			frame.getContentPane().add(textFieldClientPassword);
+			
+			JLabel lblPassword = new JLabel("Password :");
+			lblPassword.setForeground(Color.WHITE);
+			lblPassword.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
+			lblPassword.setBounds(349, 247, 89, 14);
+			frame.getContentPane().add(lblPassword);
+		}
+		
 		lblOtherComments = new JLabel("Other Comments :");
 		lblOtherComments.setForeground(SystemColor.text);
 		lblOtherComments.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		lblOtherComments.setBounds(37, 240, 139, 14);
+		lblOtherComments.setBounds(37, 288, 139, 14);
 		frame.getContentPane().add(lblOtherComments);
 		
 		timeDistanceLabel = new JLabel("Time Distance:");
@@ -159,7 +192,7 @@ public class AddRestaurantScreen {
 		}
 		
 		JTextArea otherCommentsTextArea = new JTextArea();
-		otherCommentsTextArea.setBounds(35, 267, 557, 107);
+		otherCommentsTextArea.setBounds(35, 315, 557, 59);
 		frame.getContentPane().add(otherCommentsTextArea);
 		if (rowData != null) {
 			otherCommentsTextArea.setText(rowData.getComments());
@@ -183,6 +216,22 @@ public class AddRestaurantScreen {
 				String email = emailTextField.getText().trim();
 				String address = addressTextField.getText().trim();
 				String comments = otherCommentsTextArea.getText().trim();
+				String clientUsername = null;
+				String clientPassword = null;
+				//String clientUsername = db.findClientByRestaurantID(ID).getName(); //arxikopoieisi ston client pou antistoixoun
+				//String clientPassword = db.findClientByRestaurantID(ID).getPassword();
+				if(rowData == null) {
+					clientUsername = textFieldClientUsername.getText().trim();
+					clientPassword = textFieldClientPassword.getText().trim();
+				}
+				String purchaseDate = "Error Occurred";
+			
+				if(rowData == null) { //if its an add and not an edit
+					purchaseDate = "Error Occurred";
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //set Current local date as recruitmentDate
+					LocalDate localDate = LocalDate.now();
+					purchaseDate = dtf.format(localDate).toString();
+				}
 				
 				if(name.isEmpty() || timeDistance.isEmpty() || telephoneNum.isEmpty() || email.isEmpty() || address.isEmpty()) {
 					messageLabel.setForeground(Color.red);
@@ -197,11 +246,21 @@ public class AddRestaurantScreen {
 						emailTextField.setBackground(Color.red);
 					if(address.isEmpty())
 						addressTextField.setBackground(Color.red);
-				
+					
+				if(rowData == null && (clientUsername.isEmpty() || clientPassword.isEmpty())) { //check for emptynes of client's textFields only if it is an addRestaurant process
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("You must fill all the blanks in order to proceed! ");
+					if(clientUsername.isEmpty())
+						textFieldClientUsername.setBackground(Color.red);
+					if(clientPassword.isEmpty())
+						textFieldClientPassword.setBackground(Color.red);
+				}
+
 				}else {
 					if (rowData != null) { //If it is an edit !
 						data.deleteRestaurant(ID);
 					}
+					Database.addClient(new Client(clientUsername, clientPassword, purchaseDate, 4));
 					data.addRestaurant(new Restaurant(ID, name, address, telephoneNum, email, timeDistance, comments));
 					System.out.println("size of arrayList: " + data.getRestaurantsList().size());
 					frame.dispose();

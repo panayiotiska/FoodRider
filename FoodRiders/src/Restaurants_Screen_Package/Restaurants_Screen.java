@@ -28,6 +28,8 @@ import Handler_Package.Handler;
 import Handler_Package.Restaurant;
 import Handler_Package.Staff;
 import Handler_Package.Vehicle;
+import Login_Screen_Package.Client;
+import Login_Screen_Package.Database;
 import MainMenu_Screen_Package.MainMenu;
 import Vehicles_Screen_Package.AddVehicleScreen;
 
@@ -74,6 +76,7 @@ public class Restaurants_Screen {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param db 
 	 */
 	@SuppressWarnings("serial")
 	private void initialize(Handler aData) {
@@ -84,7 +87,7 @@ public class Restaurants_Screen {
 		frame.setResizable(false);
 		
 		frame.getContentPane().setBackground(SystemColor.textHighlight);
-		frame.setBounds(100, 100, 574, 498);
+		frame.setBounds(100, 100, 987, 498);
 		WindowListener exitListener = new WindowAdapter() {
 
             @Override
@@ -103,14 +106,14 @@ public class Restaurants_Screen {
 		frame.setTitle("Restaurants - FoodRiders");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 76, 526, 236);
+		scrollPane.setBounds(20, 76, 949, 236);
 		frame.getContentPane().add(scrollPane);
 		
 		//Filling up the JTable
 		ArrayList<Restaurant> restaurantsList = new ArrayList<>();
 		restaurantsList = data.getRestaurantsList();
 			
-		String col[] = {"ID", "Name", "Address", "Telephone", "Email", "Time Distance", "Comments"};	
+		String col[] = {"ID", "Name", "Address", "Telephone", "Email", "Time Distance", "Comments","Client Username"};	
 			
 		DefaultTableModel model = new DefaultTableModel(col, 0) {
 		    @Override
@@ -122,9 +125,16 @@ public class Restaurants_Screen {
 		JTable table = new JTable(model);
 		
 		for(int i = 0 ; i < restaurantsList.size(); i++) {
+			
+			String ClientUsername = "Not Found!";
+			Client aClient = Database.findClientByRestaurantID(restaurantsList.get(i).getId()); //returns the clients username of the restaurant by RestaurantID
+			if (aClient != null) {
+				ClientUsername = aClient.getName();
+			}
+			
 			model.addRow(new Object[]{restaurantsList.get(i).getId(),restaurantsList.get(i).getName(),restaurantsList.get(i).getAddress(),
 									  restaurantsList.get(i).getTelephoneNum(),restaurantsList.get(i).getEmail(),
-									  restaurantsList.get(i).getTimeDistance(),restaurantsList.get(i).getComments()});
+									  restaurantsList.get(i).getTimeDistance(),restaurantsList.get(i).getComments(),ClientUsername});
 		}
 		scrollPane.setViewportView(table);
 		
@@ -139,11 +149,11 @@ public class Restaurants_Screen {
 				
 			}
 		});
-		addBtn.setBounds(123, 343, 89, 23);
+		addBtn.setBounds(201, 343, 89, 23);
 		frame.getContentPane().add(addBtn);
 		
 		JButton deleteBtn = new JButton("Delete");
-		deleteBtn.setBounds(329, 343, 89, 23);
+		deleteBtn.setBounds(673, 343, 89, 23);
 		frame.getContentPane().add(deleteBtn);
 		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -162,7 +172,7 @@ public class Restaurants_Screen {
 		});
 
 		JButton btnEdit = new JButton("Edit");
-		btnEdit.setBounds(224, 342, 89, 23);
+		btnEdit.setBounds(432, 343, 89, 23);
 		frame.getContentPane().add(btnEdit);
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -179,7 +189,7 @@ public class Restaurants_Screen {
 											(String) table.getModel().getValueAt(row, 5));
 					AddRestaurantScreen addRestaurantScreen  =  new AddRestaurantScreen(data,rowData);
 					frame.dispose();
-					AddRestaurantScreen.addRestaurant(data,rowData);
+					addRestaurantScreen.addRestaurant(data,rowData);
 				}
 				
 			}
@@ -198,12 +208,12 @@ public class Restaurants_Screen {
 			}
 		});
 		
-		btnMainMenu.setBounds(239, 382, 64, 60);
+		btnMainMenu.setBounds(442, 390, 64, 60);
 		frame.getContentPane().add(btnMainMenu);
 		
 		JLabel titleLbl = new JLabel("Collaborating Restaurants");
 		titleLbl.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
-		titleLbl.setBounds(163, 22, 255, 35);
+		titleLbl.setBounds(363, 13, 255, 35);
 		frame.getContentPane().add(titleLbl);
 		
 	}
