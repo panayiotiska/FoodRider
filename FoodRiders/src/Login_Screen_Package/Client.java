@@ -1,6 +1,6 @@
 package Login_Screen_Package;
 
-public class Client extends Administrator {
+public class Client extends User {
 
 	private int restaurantID;
 	

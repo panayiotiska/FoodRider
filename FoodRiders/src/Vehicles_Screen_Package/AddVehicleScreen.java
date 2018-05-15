@@ -13,7 +13,6 @@ import java.awt.Font;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import Handler_Package.Handler;
-import Handler_Package.Staff;
 import Handler_Package.Vehicle;
 
 import javax.swing.JTextField;

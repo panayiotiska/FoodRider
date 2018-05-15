@@ -2,7 +2,6 @@ package Login_Screen_Package;
 
 import java.util.ArrayList;
 
-import Handler_Package.Vehicle;
 
 public class Database {
 
@@ -16,7 +15,6 @@ public class Database {
 		clients = new ArrayList<>();
 		
 		Administrator user1 = new Administrator("vaggos", "vaggos", "15/2/14");
-		 
 		Administrator user2 = new Administrator("panos", "panos", "31/5/17");
 		
 		Client user3 = new Client("tasos", "tasos", "31/5/17",0);
@@ -40,7 +38,7 @@ public class Database {
 				return true;
 			}
 		}
-		for(Administrator aClient : clients) {
+		for(Client aClient : clients) {
 			if(aClient.getName().equals(aGivenUsername) && aClient.getPassword().equals(aGivenPassword)) {
 				LoginType = 2;
 				return true;

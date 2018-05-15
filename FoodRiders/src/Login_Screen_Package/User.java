@@ -1,14 +1,15 @@
 package Login_Screen_Package;
 
-public class Administrator extends User{
-
+public abstract class User {
+	
 	private String name; 
 	private String password;
 	private String subscriptionDate;
 	
-	public Administrator(String aName, String aPassword, String aSubscriptionDate) {
-		super(aName, aPassword, aSubscriptionDate);
-		
+	public User(String aName, String aPassword, String aSubscriptionDate) {
+		name = aName;
+		password = aPassword;
+		subscriptionDate = aSubscriptionDate;
 	}
 
 	public String getName() {
