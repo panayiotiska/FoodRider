@@ -125,14 +125,15 @@ public class Client_Screen {
 					int prepareTime = Integer.valueOf(prepTimeTextField.getText().trim());
 					if (aData.findRestaurantFromClient(aClient.getRestaurantID()) != null){
 						restaurant = aData.findRestaurantFromClient(aClient.getRestaurantID());
+						
+						int orderCode = aData.getRunningOrders().size() + aData.getOrderHistory().size() + 1;
+						Order order = new Order(restaurant, prepareTime, orderCode);
+						aData.orderStart(order);
 					}
 					else{
 						messageLbl.setForeground(Color.red);
 						messageLbl.setText("Something went wrong!");
 					}
-					int orderCode = aData.getRunningOrders().size() + aData.getOrderHistory().size() + 1;
-				
-					Order order = new Order(restaurant, prepareTime, orderCode);
 					
 				}else{
 					messageLbl.setForeground(Color.red);

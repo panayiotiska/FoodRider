@@ -61,6 +61,12 @@ public class Handler {
 		
 	}
 	
+	public void orderStart(Order anOrder) {
+		
+	}
+	
+	
+	
 	public void addRestaurant(Restaurant aRestaurant) {
 		restaurantsList.add(aRestaurant);
 	}
@@ -119,7 +125,6 @@ public class Handler {
 	public Current_Status getLockedWindow() {
 		return lockedWindow;
 	}
-
 
 	public void setLockedWindow(Current_Status lockedWindow) {
 		this.lockedWindow = lockedWindow;

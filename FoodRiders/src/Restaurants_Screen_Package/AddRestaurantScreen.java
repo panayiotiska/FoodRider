@@ -162,7 +162,7 @@ public class AddRestaurantScreen {
 			textFieldClientPassword = new JTextField();
 			textFieldClientPassword.setColumns(10);
 			textFieldClientPassword.setBounds(441, 245, 151, 20);
-			frame.getContentPane().add(textFieldClientPassword);
+			frame.add(textFieldClientPassword);
 			
 			JLabel lblPassword = new JLabel("Password :");
 			lblPassword.setForeground(Color.WHITE);
@@ -224,13 +224,13 @@ public class AddRestaurantScreen {
 					clientUsername = textFieldClientUsername.getText().trim();
 					clientPassword = textFieldClientPassword.getText().trim();
 				}
-				String purchaseDate = "Error Occurred";
+				String subscriptionDate = "Error Occurred";
 			
 				if(rowData == null) { //if its an add and not an edit
-					purchaseDate = "Error Occurred";
+					subscriptionDate = "Error Occurred";
 					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //set Current local date as recruitmentDate
 					LocalDate localDate = LocalDate.now();
-					purchaseDate = dtf.format(localDate).toString();
+					subscriptionDate = dtf.format(localDate).toString();
 				}
 				
 				if(name.isEmpty() || timeDistance.isEmpty() || telephoneNum.isEmpty() || email.isEmpty() || address.isEmpty()) {
@@ -260,9 +260,9 @@ public class AddRestaurantScreen {
 					if (rowData != null) { //If it is an edit !
 						data.deleteRestaurant(ID);
 					}
-					Database.addClient(new Client(clientUsername, clientPassword, purchaseDate, 4));
+					Database.addClient(new Client(clientUsername, clientPassword, subscriptionDate, ID));
 					data.addRestaurant(new Restaurant(ID, name, address, telephoneNum, email, timeDistance, comments));
-					System.out.println("size of arrayList: " + data.getRestaurantsList().size());
+					
 					frame.dispose();
 					Restaurants_Screen restaurantScreen = new Restaurants_Screen(data);
 					try {
