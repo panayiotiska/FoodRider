@@ -104,7 +104,6 @@ public class Login_Screen{
 		URL url = this.getClass().getResource("ghostRider.gif");
         Icon icon = new ImageIcon(url);
         JLabel label = new JLabel(icon);
-		
 		label.setBounds(-30, 132, 456, 355);
 		frame.getContentPane().add(label);
 		
