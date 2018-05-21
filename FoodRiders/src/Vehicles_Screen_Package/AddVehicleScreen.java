@@ -191,8 +191,6 @@ public class AddVehicleScreen {
 						data.deleteVehicle(rowData.getPlate());
 					}
 					data.addVehicle(new Vehicle(plate, type, brand, model, purchaseDate,true));
-					System.out.println("size of arrayList: " + data.getStaffList().size());
-				
 				frame.dispose();
 				Vehicles_Screen restScreen = new Vehicles_Screen(data);
 				try {

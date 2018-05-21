@@ -105,9 +105,6 @@ public class Vehicles_Screen {
 		JTable table = new JTable(model);
 		
 		for(int i = 0 ; i < vehiclesList.size(); i++) {
-			//System.out.println(vehiclesList.get(i).getPlate());
-			//System.out.println(vehiclesList.get(i).getType());
-			//System.out.println(i);
 			model.addRow(new Object[]{vehiclesList.get(i).getPlate(),vehiclesList.get(i).getType(),vehiclesList.get(i).getBrand(),
 					vehiclesList.get(i).getModel(),vehiclesList.get(i).getPurchaseDate(),vehiclesList.get(i).getStatus()});
 		}
@@ -143,8 +140,9 @@ public class Vehicles_Screen {
 						selectedRow = (String) table.getModel().getValueAt(row, column);
 						if(!data.deleteVehicle(selectedRow)) { //IF this staff member is unavailable
 							JOptionPane.showMessageDialog(frame, "Sorry, this Vehicle is currently on the road.");
+						}else {
+							((DefaultTableModel)table.getModel()).removeRow(row);
 						}
-						((DefaultTableModel)table.getModel()).removeRow(row);
 					}
 				}
 			}

@@ -88,7 +88,7 @@ public class MainMenu {
 		frameFoodRiders.setBackground(SystemColor.textHighlight);
 		frameFoodRiders.setResizable(false);
 		frameFoodRiders.setTitle("Food Riders");
-		frameFoodRiders.setBounds(100, 100, 690, 461);
+		frameFoodRiders.setBounds(100, 100, 425, 494);
 		
 	    WindowListener exitListener = new WindowAdapter() {
 
@@ -104,27 +104,16 @@ public class MainMenu {
         };
         frameFoodRiders.addWindowListener(exitListener);
         frameFoodRiders.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
-		
-		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{432, 0};
-		gridBagLayout.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		frameFoodRiders.getContentPane().setLayout(gridBagLayout);
+		frameFoodRiders.getContentPane().setLayout(null);
 		
 		JLabel label = new JLabel("Main Menu");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label.setBounds(157, 11, 120, 64);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.fill = GridBagConstraints.VERTICAL;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 0;
-		frameFoodRiders.getContentPane().add(label, gbc_label);
+		frameFoodRiders.getContentPane().add(label);
 		
 		JButton btnTrexousa = new JButton("Current Status");
+		btnTrexousa.setBounds(39, 92, 126, 47);
 		btnTrexousa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frameFoodRiders.dispose();
@@ -141,19 +130,12 @@ public class MainMenu {
 		});
 		
 		JSeparator separator = new JSeparator();
-		GridBagConstraints gbc_separator = new GridBagConstraints();
-		gbc_separator.insets = new Insets(0, 0, 5, 5);
-		gbc_separator.gridx = 0;
-		gbc_separator.gridy = 1;
-		frameFoodRiders.getContentPane().add(separator, gbc_separator);
-		GridBagConstraints gbc_btnTrexousa = new GridBagConstraints();
-		gbc_btnTrexousa.insets = new Insets(0, 0, 5, 5);
-		gbc_btnTrexousa.fill = GridBagConstraints.BOTH;
-		gbc_btnTrexousa.gridx = 0;
-		gbc_btnTrexousa.gridy = 2;
-		frameFoodRiders.getContentPane().add(btnTrexousa, gbc_btnTrexousa);
+		separator.setBounds(0, 0, 0, 0);
+		frameFoodRiders.getContentPane().add(separator);
+		frameFoodRiders.getContentPane().add(btnTrexousa);
 		
 		JButton btnEstiatoria = new JButton("Restaurants");
+		btnEstiatoria.setBounds(250, 92, 126, 47);
 		btnEstiatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frameFoodRiders.dispose();
@@ -170,22 +152,14 @@ public class MainMenu {
 				
 			}
 		});
-		GridBagConstraints gbc_btnEstiatoria = new GridBagConstraints();
-		gbc_btnEstiatoria.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEstiatoria.fill = GridBagConstraints.BOTH;
-		gbc_btnEstiatoria.gridx = 0;
-		gbc_btnEstiatoria.gridy = 3;
-		frameFoodRiders.getContentPane().add(btnEstiatoria, gbc_btnEstiatoria);
+		frameFoodRiders.getContentPane().add(btnEstiatoria);
 		
 		JButton btnParaggelies = new JButton("Orders");
-		GridBagConstraints gbc_btnParaggelies = new GridBagConstraints();
-		gbc_btnParaggelies.insets = new Insets(0, 0, 5, 5);
-		gbc_btnParaggelies.fill = GridBagConstraints.BOTH;
-		gbc_btnParaggelies.gridx = 0;
-		gbc_btnParaggelies.gridy = 4;
-		frameFoodRiders.getContentPane().add(btnParaggelies, gbc_btnParaggelies);
+		btnParaggelies.setBounds(39, 204, 126, 47);
+		frameFoodRiders.getContentPane().add(btnParaggelies);
 		
 		JButton btnYpalliloi = new JButton("Staff");
+		btnYpalliloi.setBounds(250, 204, 126, 47);
 		btnYpalliloi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameFoodRiders.dispose();
@@ -199,18 +173,10 @@ public class MainMenu {
 				}
 			}
 		});
-		GridBagConstraints gbc_btnYpalliloi = new GridBagConstraints();
-		gbc_btnYpalliloi.insets = new Insets(0, 0, 5, 5);
-		gbc_btnYpalliloi.fill = GridBagConstraints.BOTH;
-		gbc_btnYpalliloi.gridx = 0;
-		gbc_btnYpalliloi.gridy = 5;
-		frameFoodRiders.getContentPane().add(btnYpalliloi, gbc_btnYpalliloi);
-		gbc_btnYpalliloi.insets = new Insets(0, 0, 5, 0);
-		gbc_btnYpalliloi.fill = GridBagConstraints.BOTH;
-		gbc_btnYpalliloi.gridx = 0;
-		gbc_btnYpalliloi.gridy = 6;
+		frameFoodRiders.getContentPane().add(btnYpalliloi);
 		
 		JButton btnVehicles = new JButton("Vehicles");
+		btnVehicles.setBounds(250, 305, 126, 47);
 		btnVehicles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameFoodRiders.dispose();
@@ -224,20 +190,11 @@ public class MainMenu {
 				}
 			}
 		});
-		GridBagConstraints gbc_btnVehicles = new GridBagConstraints();
-		gbc_btnVehicles.fill = GridBagConstraints.BOTH;
-		gbc_btnVehicles.insets = new Insets(0, 0, 5, 5);
-		gbc_btnVehicles.gridx = 0;
-		gbc_btnVehicles.gridy = 6;
-		frameFoodRiders.getContentPane().add(btnVehicles, gbc_btnVehicles);
+		frameFoodRiders.getContentPane().add(btnVehicles);
 		
 		JButton btnStatistika = new JButton("Statistics");
-		GridBagConstraints gbc_btnStatistika = new GridBagConstraints();
-		gbc_btnStatistika.insets = new Insets(0, 0, 5, 5);
-		gbc_btnStatistika.fill = GridBagConstraints.BOTH;
-		gbc_btnStatistika.gridx = 0;
-		gbc_btnStatistika.gridy = 7;
-		frameFoodRiders.getContentPane().add(btnStatistika, gbc_btnStatistika);
+		btnStatistika.setBounds(39, 305, 126, 47);
+		frameFoodRiders.getContentPane().add(btnStatistika);
 		btnStatistika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -253,13 +210,11 @@ public class MainMenu {
 		});   
 		
 		JSeparator separator_1 = new JSeparator();
-		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
-		gbc_separator_1.insets = new Insets(5, 0, 5, 5);
-		gbc_separator_1.gridx = 0;
-		gbc_separator_1.gridy = 8;
-		frameFoodRiders.getContentPane().add(separator_1, gbc_separator_1);
+		separator_1.setBounds(0, 0, 0, 0);
+		frameFoodRiders.getContentPane().add(separator_1);
 		
 		JButton btnAposindesi = new JButton("Log out");
+		btnAposindesi.setBounds(157, 411, 106, 44);
 		btnAposindesi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frameFoodRiders.dispose();
@@ -285,12 +240,7 @@ public class MainMenu {
 				
 			}
 		});
-		GridBagConstraints gbc_btnAposindesi = new GridBagConstraints();
-		gbc_btnAposindesi.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAposindesi.fill = GridBagConstraints.VERTICAL;
-		gbc_btnAposindesi.gridx = 0;
-		gbc_btnAposindesi.gridy = 9;
-		frameFoodRiders.getContentPane().add(btnAposindesi, gbc_btnAposindesi);
+		frameFoodRiders.getContentPane().add(btnAposindesi);
 	}
 
 	public Current_Status getLockedWindow() {

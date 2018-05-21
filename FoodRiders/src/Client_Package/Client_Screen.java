@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
@@ -81,7 +82,7 @@ public class Client_Screen {
 		
 		prepTimeTextField = new JTextField();
 		prepTimeTextField.setText("Time/Seconds");
-		prepTimeTextField.setBounds(238, 86, 86, 20);
+		prepTimeTextField.setBounds(270, 86, 86, 20);
 		frame.getContentPane().add(prepTimeTextField);
 		prepTimeTextField.setColumns(10);
 		
@@ -108,31 +109,31 @@ public class Client_Screen {
 				}
 			}
 		});
-		logOutBtn.setBounds(203, 298, 89, 23);
+		logOutBtn.setBounds(213, 298, 89, 23);
 		frame.getContentPane().add(logOutBtn);
 		
 		JLabel readyLbl = new JLabel("Ready in:");
 		readyLbl.setForeground(SystemColor.text);
 		readyLbl.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		readyLbl.setBounds(148, 84, 100, 20);
+		readyLbl.setBounds(160, 84, 100, 20);
 		frame.getContentPane().add(readyLbl);
 		
 		JLabel titleLbl = new JLabel("Order submission");
 		titleLbl.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
-		titleLbl.setBounds(162, 37, 178, 14);
+		titleLbl.setBounds(178, 38, 178, 14);
 		
 		JLabel messageLbl = new JLabel("");
-		messageLbl.setBounds(10, 164, 470, 14);
+		messageLbl.setBounds(10, 133, 507, 14);
 		
 		
 		URL url = this.getClass().getResource("smileyFace.png");
         Icon icon = new ImageIcon(url);
 		JLabel smileyFaceLbl = new JLabel(icon);
-		smileyFaceLbl.setBounds(400, 137, 110, 68);
+		smileyFaceLbl.setBounds(203, 158, 110, 68);
 		smileyFaceLbl.setVisible(false);
 		
 		JButton sendBtn = new JButton("Send");
-		sendBtn.setBounds(203, 237, 89, 23);
+		sendBtn.setBounds(213, 237, 89, 23);
 		frame.getContentPane().add(sendBtn);
 		sendBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -146,9 +147,17 @@ public class Client_Screen {
 							Order order = new Order(restaurant, prepareTime, orderCode);
 							aData.orderStart(order);
 							messageLbl.setForeground(Color.yellow);
-							messageLbl.setText(" Thank you! Order has been sent! A Food Rider will be there just on time!");
-							smileyFaceLbl.setVisible(true);
-							prepTimeTextField.setText("");
+							
+							if(!(aData.getStaffAvailable().isEmpty() || aData.getVehiclesAvailable().isEmpty())) {
+								messageLbl.setText(" Thank you! Order has been sent! A Food Rider will be there just on time!");
+								smileyFaceLbl.setVisible(true);
+								prepTimeTextField.setText("");
+							}else {
+								messageLbl.setText(" Thank you! There is a high demand right now but we will be there as soon as possible!");
+								smileyFaceLbl.setVisible(true);
+								prepTimeTextField.setText("");	
+							}
+							
 						}else{
 							messageLbl.setForeground(Color.red);
 							messageLbl.setText("Something went wrong!");
@@ -159,6 +168,7 @@ public class Client_Screen {
 				}
 				
 			}else{
+					smileyFaceLbl.setVisible(false);
 					messageLbl.setForeground(Color.red);
 					messageLbl.setText("You must fill the blank with a number in order to proceed! ");
 					
@@ -166,26 +176,14 @@ public class Client_Screen {
 			}
 		});
 		
-		prepTimeTextField.addMouseListener(new MouseListener() {
-	
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				messageLbl.setText("");
-				smileyFaceLbl.setVisible(false);
-				
-				
-			}
-
-			public void mouseEntered(MouseEvent e) {	
-			}
-			public void mouseExited(MouseEvent e) {	
-			}
-			public void mousePressed(MouseEvent e) {	
-			}
-			public void mouseReleased(MouseEvent e) {	
-			}
-		});
+		prepTimeTextField.addMouseListener(new MouseAdapter() {
+			  @Override
+			  public void mouseClicked(MouseEvent e) {
+			    	prepTimeTextField.setText("");
+			    	messageLbl.setText("");
+			    	smileyFaceLbl.setVisible(false);
+			  }
+			});
 		
 		
 		frame.getContentPane().add(titleLbl);
@@ -193,7 +191,7 @@ public class Client_Screen {
 		
 		
 		frame.getContentPane().add(smileyFaceLbl);
-		frame.setBounds(100, 100, 506, 388);
+		frame.setBounds(100, 100, 533, 423);
 		WindowListener exitListener = new WindowAdapter() {
 
             @Override

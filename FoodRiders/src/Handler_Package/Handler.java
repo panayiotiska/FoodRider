@@ -156,11 +156,11 @@ public class Handler {
 	
 	public boolean deleteVehicle(String aPlate) {
 		boolean found = false;
-		for(Vehicle v : vehiclesAvailable){
-			if (v.getPlate() == aPlate) {
+		for(Vehicle aVehicle : vehiclesAvailable){
+			if (aVehicle.getPlate() == aPlate) {
 				found = true;
-				vehiclesAvailable.remove(v);
-				vehiclesList.remove(v);
+				vehiclesAvailable.remove(aVehicle);
+				vehiclesList.remove(aVehicle);
 			}
 		}
 		return found;
