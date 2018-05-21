@@ -10,6 +10,9 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import org.apache.commons.lang.StringUtils;
+
 import Handler_Package.Handler;
 import Handler_Package.Restaurant;
 import Login_Screen_Package.Client;
@@ -162,7 +165,7 @@ public class AddRestaurantScreen {
 			textFieldClientPassword = new JTextField();
 			textFieldClientPassword.setColumns(10);
 			textFieldClientPassword.setBounds(441, 245, 151, 20);
-			frame.add(textFieldClientPassword);
+			frame.getContentPane().add(textFieldClientPassword);
 			
 			JLabel lblPassword = new JLabel("Password :");
 			lblPassword.setForeground(Color.WHITE);
@@ -184,12 +187,15 @@ public class AddRestaurantScreen {
 		frame.getContentPane().add(timeDistanceLabel);
 		
 		timeDistanceTextField = new JTextField();
+		timeDistanceTextField.setForeground(Color.LIGHT_GRAY);
+		timeDistanceTextField.setText("0");
 		timeDistanceTextField.setBounds(509, 82, 30, 20);
 		frame.getContentPane().add(timeDistanceTextField);
 		timeDistanceTextField.setColumns(10);
-		if (rowData != null) {
+		/*if (rowData != null) {
 			timeDistanceTextField.setText(rowData.getTimeDistance());
-		}
+			
+		}*/
 		
 		JTextArea otherCommentsTextArea = new JTextArea();
 		otherCommentsTextArea.setBounds(35, 315, 557, 59);
@@ -211,7 +217,7 @@ public class AddRestaurantScreen {
 					ID = rowData.getId();
 				}
 				String name = nameTextField.getText().trim();
-				String timeDistance = timeDistanceTextField.getText().trim();
+				int timeDistance = Integer.valueOf(timeDistanceTextField.getText().trim());
 				String telephoneNum = telephoneNumTextField.getText().trim();
 				String email = emailTextField.getText().trim();
 				String address = addressTextField.getText().trim();
@@ -233,12 +239,12 @@ public class AddRestaurantScreen {
 					subscriptionDate = dtf.format(localDate).toString();
 				}
 				
-				if(name.isEmpty() || timeDistance.isEmpty() || telephoneNum.isEmpty() || email.isEmpty() || address.isEmpty()) {
+				if(name.isEmpty() || timeDistance == 0 || telephoneNum.isEmpty() || email.isEmpty() || address.isEmpty()) {
 					messageLabel.setForeground(Color.red);
 					messageLabel.setText("You must fill all the blanks in order to proceed! ");
 					if(name.isEmpty())
 						nameTextField.setBackground(Color.red);
-					if(timeDistance.isEmpty())
+					if(timeDistance == 0)
 						timeDistanceTextField.setBackground(Color.red);
 					if(telephoneNum.isEmpty())
 						telephoneNumTextField.setBackground(Color.red);
@@ -255,7 +261,10 @@ public class AddRestaurantScreen {
 					if(clientPassword.isEmpty())
 						textFieldClientPassword.setBackground(Color.red);
 				}
-
+				}else if(!(StringUtils.isNumeric(timeDistanceTextField.getText().trim()))){
+					timeDistanceTextField.setBackground(Color.red);
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("Unexpected entry in Time Distance. Entry must be numeric ");
 				}else {
 					if (rowData != null) { //If it is an edit !
 						data.deleteRestaurant(ID);

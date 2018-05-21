@@ -185,8 +185,8 @@ public class Restaurants_Screen {
 											(String) table.getModel().getValueAt(row, 2),
 											(String) table.getModel().getValueAt(row, 3),
 											(String) table.getModel().getValueAt(row, 4),
-											(String) table.getModel().getValueAt(row, 5),
-											(String) table.getModel().getValueAt(row, 5));
+											(int) table.getModel().getValueAt(row, 5),
+											(String) table.getModel().getValueAt(row, 6));
 					AddRestaurantScreen addRestaurantScreen  =  new AddRestaurantScreen(data,rowData);
 					frame.dispose();
 					addRestaurantScreen.addRestaurant(data,rowData);

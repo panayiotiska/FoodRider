@@ -19,10 +19,19 @@ import Handler_Package.Restaurant;
 import Login_Screen_Package.Client;
 import Login_Screen_Package.Login_Screen;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.awt.event.ActionEvent;
@@ -72,7 +81,7 @@ public class Client_Screen {
 		
 		prepTimeTextField = new JTextField();
 		prepTimeTextField.setText("Time/Seconds");
-		prepTimeTextField.setBounds(159, 86, 86, 20);
+		prepTimeTextField.setBounds(238, 86, 86, 20);
 		frame.getContentPane().add(prepTimeTextField);
 		prepTimeTextField.setColumns(10);
 		
@@ -99,43 +108,57 @@ public class Client_Screen {
 				}
 			}
 		});
-		logOutBtn.setBounds(159, 227, 89, 23);
+		logOutBtn.setBounds(203, 298, 89, 23);
 		frame.getContentPane().add(logOutBtn);
 		
 		JLabel readyLbl = new JLabel("Ready in:");
 		readyLbl.setForeground(SystemColor.text);
 		readyLbl.setFont(new Font("Lucida Bright", Font.PLAIN, 15));
-		readyLbl.setBounds(24, 84, 100, 20);
+		readyLbl.setBounds(148, 84, 100, 20);
 		frame.getContentPane().add(readyLbl);
 		
 		JLabel titleLbl = new JLabel("Order submission");
 		titleLbl.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
-		titleLbl.setBounds(120, 37, 178, 14);
+		titleLbl.setBounds(162, 37, 178, 14);
 		
 		JLabel messageLbl = new JLabel("");
-		messageLbl.setBounds(10, 138, 362, 14);
+		messageLbl.setBounds(10, 164, 470, 14);
+		
+		
+		URL url = this.getClass().getResource("smileyFace.png");
+        Icon icon = new ImageIcon(url);
+		JLabel smileyFaceLbl = new JLabel(icon);
+		smileyFaceLbl.setBounds(400, 137, 110, 68);
+		smileyFaceLbl.setVisible(false);
 		
 		JButton sendBtn = new JButton("Send");
-		sendBtn.setBounds(159, 178, 89, 23);
+		sendBtn.setBounds(203, 237, 89, 23);
 		frame.getContentPane().add(sendBtn);
 		sendBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Restaurant restaurant = null ;
 				if(!(prepTimeTextField.getText().trim().isEmpty()) && StringUtils.isNumeric(prepTimeTextField.getText().trim())){     
 					int prepareTime = Integer.valueOf(prepTimeTextField.getText().trim());
-					if (aData.findRestaurantFromClient(aClient.getRestaurantID()) != null){
-						restaurant = aData.findRestaurantFromClient(aClient.getRestaurantID());
-						
-						int orderCode = aData.getRunningOrders().size() + aData.getOrderHistory().size() + 1;
-						Order order = new Order(restaurant, prepareTime, orderCode);
-						aData.orderStart(order);
-					}
-					else{
-						messageLbl.setForeground(Color.red);
-						messageLbl.setText("Something went wrong!");
-					}
-					
-				}else{
+					if(prepareTime !=0) {
+						if (aData.findRestaurantFromClient(aClient.getRestaurantID()) != null){
+							restaurant = aData.findRestaurantFromClient(aClient.getRestaurantID());
+							int orderCode = aData.getRunningOrders().size() + aData.getOrderHistory().size() + 1;
+							Order order = new Order(restaurant, prepareTime, orderCode);
+							aData.orderStart(order);
+							messageLbl.setForeground(Color.yellow);
+							messageLbl.setText(" Thank you! Order has been sent! A Food Rider will be there just on time!");
+							smileyFaceLbl.setVisible(true);
+							prepTimeTextField.setText("");
+						}else{
+							messageLbl.setForeground(Color.red);
+							messageLbl.setText("Something went wrong!");
+						}
+				}else {
+					messageLbl.setForeground(Color.red);
+					messageLbl.setText("Preparation time can't be 0. Please fill the blank with a valid number!");
+				}
+				
+			}else{
 					messageLbl.setForeground(Color.red);
 					messageLbl.setText("You must fill the blank with a number in order to proceed! ");
 					
@@ -143,12 +166,47 @@ public class Client_Screen {
 			}
 		});
 		
+		prepTimeTextField.addMouseListener(new MouseListener() {
+	
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				messageLbl.setText("");
+				smileyFaceLbl.setVisible(false);
+				
+				
+			}
+
+			public void mouseEntered(MouseEvent e) {	
+			}
+			public void mouseExited(MouseEvent e) {	
+			}
+			public void mousePressed(MouseEvent e) {	
+			}
+			public void mouseReleased(MouseEvent e) {	
+			}
+		});
+		
 		
 		frame.getContentPane().add(titleLbl);
-		
-		
 		frame.getContentPane().add(messageLbl);
-		frame.setBounds(100, 100, 398, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		frame.getContentPane().add(smileyFaceLbl);
+		frame.setBounds(100, 100, 506, 388);
+		WindowListener exitListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	if (JOptionPane.showConfirmDialog(null, "Are You Sure to Close Application?", "WARNING",
+            	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            	    System.exit(0);
+            	} else {
+            	    // no option
+            	}
+            }
+        };
+        frame.addWindowListener(exitListener);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 }

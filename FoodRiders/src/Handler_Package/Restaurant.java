@@ -11,13 +11,13 @@ public class Restaurant {
 	private int  id;
 	private String address;
 	private String telephoneNum;
-	private String timeDistance;
+	private int timeDistance;
 	private String email;
 	private String comments;
 	private ArrayList<Order>  orderHistory;
 	
 	
-	public Restaurant(int aID, String aName, String aAddress, String aTelephoneNum, String anEmail, String aTimeDistance, String someComments) {
+	public Restaurant(int aID, String aName, String aAddress, String aTelephoneNum, String anEmail, int aTimeDistance, String someComments) {
 		
 		name = aName;
 		id = aID;
@@ -66,11 +66,11 @@ public class Restaurant {
 		this.telephoneNum = telephoneNum;
 	}
 
-	public String getTimeDistance() {
+	public int getTimeDistance() {
 		return timeDistance;
 	}
 
-	public void setTimeDistance(String timeDistance) {
+	public void setTimeDistance(int timeDistance) {
 		this.timeDistance = timeDistance;
 	}
 	
