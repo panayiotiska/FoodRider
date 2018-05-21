@@ -154,16 +154,21 @@ public class Handler {
 		vehiclesAvailable.add(aVehicle);
 	}
 	
-	public boolean deleteVehicle(String aPlate) {
-		boolean found = false;
-		for(Vehicle aVehicle : vehiclesAvailable){
-			if (aVehicle.getPlate() == aPlate) {
-				found = true;
-				vehiclesAvailable.remove(aVehicle);
-				vehiclesList.remove(aVehicle);
+	public boolean isVehicleAvailable(String aPlate) {
+	for(Vehicle aVehicle : vehiclesAvailable){
+		if (aVehicle.getPlate() == aPlate) {
+			return true;
+		}
+	}
+	return false;
+	}
+	
+	public void deleteVehicle(String aPlate) {
+		for(int i = 0; i< vehiclesList.size(); i++){
+			if (vehiclesList.get(i).getPlate() == aPlate) {
+				vehiclesList.remove(i);
 			}
 		}
-		return found;
 	}
 	
 	public Current_Status getLockedWindow() {
