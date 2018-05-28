@@ -1,6 +1,7 @@
 package Handler_Package;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -100,12 +101,18 @@ public class Handler {
 		vehiclesAvailable.add(aVehicle);
 		runningOrders.remove(anOrder);
 		OrderHistory.add(anOrder);
-		
+		if(!(ordersInQueue.isEmpty())) {
+			System.out.println("not empty");
+			Order anotherOrder = ordersInQueue.peek();
+			System.out.println("order Start");
+			Thread order = new Thread(new runOrder(this,anotherOrder,2));
+			order.start();
+		}
 	}
 	
 	
 	public void orderStart(Order anOrder) {
-		Thread order = new Thread(new runOrder(this,anOrder));
+		Thread order = new Thread(new runOrder(this,anOrder,1));
 		order.start();
 	}
 	
@@ -135,6 +142,13 @@ public class Handler {
 	public void addStaff(Staff aStaff) {
 		staffList.add(aStaff);
 		staffAvailable.add(aStaff);
+		if(!(ordersInQueue.isEmpty())) {
+			System.out.println("not empty");
+			Order anOrder = ordersInQueue.peek();
+			System.out.println("order Start");
+			Thread order = new Thread(new runOrder(this,anOrder,2));
+			order.start();
+		}
 	}
 	
 	public boolean deleteStaff(int anID) {
@@ -152,23 +166,35 @@ public class Handler {
 	public void addVehicle(Vehicle aVehicle) {
 		vehiclesList.add(aVehicle);
 		vehiclesAvailable.add(aVehicle);
-	}
-	
-	public boolean isVehicleAvailable(String aPlate) {
-	for(Vehicle aVehicle : vehiclesAvailable){
-		if (aVehicle.getPlate() == aPlate) {
-			return true;
+		if(!(ordersInQueue.isEmpty())) {
+			System.out.println("not empty");
+			Order anOrder = ordersInQueue.peek();
+			System.out.println("order start");
+			Thread order = new Thread(new runOrder(this,anOrder,2));
+			order.start();
 		}
 	}
-	return false;
-	}
 	
-	public void deleteVehicle(String aPlate) {
-		for(int i = 0; i< vehiclesList.size(); i++){
-			if (vehiclesList.get(i).getPlate() == aPlate) {
-				vehiclesList.remove(i);
+	public boolean deleteVehicle(String aPlate) {
+		boolean found = false;
+		Iterator<Vehicle> it = vehiclesAvailable.iterator();
+		while(it.hasNext()) {
+			Vehicle aVeh = it.next();
+			if(aVeh.getPlate().equals(aPlate)) {
+				found = true;
+				vehiclesAvailable.remove(aVeh);
 			}
 		}
+		return found;
+		/*boolean found = false;
+		for(Vehicle aVehicle : vehiclesAvailable){
+			if (aVehicle.getPlate() == aPlate) {
+				found = true;
+				vehiclesAvailable.remove(aVehicle);
+				vehiclesList.remove(aVehicle);
+			}
+		}
+		return found;*/
 	}
 	
 	public Current_Status getLockedWindow() {

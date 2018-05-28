@@ -125,7 +125,7 @@ public class Vehicles_Screen {
 		});
 		
 		JButton btnDiagrafi = new JButton("Delete");
-		btnDiagrafi.setBounds(199, 250, 153, 25);
+		btnDiagrafi.setBounds(377, 250, 153, 25);
 		frame.getContentPane().add(btnDiagrafi);
 		btnDiagrafi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -138,11 +138,10 @@ public class Vehicles_Screen {
 					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + selectedPlate , "Delete?",  JOptionPane.YES_NO_OPTION);
 					if (reply == JOptionPane.YES_OPTION) {
 						selectedRow = (String) table.getModel().getValueAt(row, column);
-						if(!data.isVehicleAvailable(selectedRow)) { //IF this staff member is unavailable
+						if(!data.deleteVehicle(selectedRow)) { //IF this staff member is unavailable
 							JOptionPane.showMessageDialog(frame, "Sorry, this Vehicle is currently on the road.");
 						}else {
 							((DefaultTableModel)table.getModel()).removeRow(row);
-							data.deleteVehicle(selectedRow);
 						}
 					}
 				}
@@ -150,7 +149,7 @@ public class Vehicles_Screen {
 		});
 		
 		JButton btnEpeksergasia = new JButton("Edit");
-		btnEpeksergasia.setBounds(369, 250, 161, 25);
+		btnEpeksergasia.setBounds(203, 250, 153, 25);
 		frame.getContentPane().add(btnEpeksergasia);
 		btnEpeksergasia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
