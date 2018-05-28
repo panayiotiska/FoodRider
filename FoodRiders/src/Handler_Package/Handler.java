@@ -151,16 +151,23 @@ public class Handler {
 		}
 	}
 	
-	public boolean deleteStaff(int anID) {
+	public boolean deleteStaff(int anID) {	
 		boolean found = false;
-		for(Staff s : staffAvailable){
-			if (s.getId() == anID) {
+		ArrayList<Staff> tempList = new ArrayList<Staff>();
+		
+		while(!staffAvailable.isEmpty()) {
+			tempList.add(0,staffAvailable.poll());
+		}
+		for(int i=0; i<tempList.size();i++) {
+			if(tempList.get(i).getId()==anID) {
 				found = true;
-				staffAvailable.remove(s);
-				staffList.remove(s);
+				tempList.remove(i);
 			}
 		}
-		return found;	
+		for (int i = tempList.size() - 1; i >=0; i--) {
+		    ((LinkedList<Staff>) staffAvailable).addFirst(tempList.get(i));
+		}
+		return found;
 	}
 
 	public void addVehicle(Vehicle aVehicle) {
@@ -176,17 +183,23 @@ public class Handler {
 	}
 	
 	public boolean deleteVehicle(String aPlate) {
-		boolean found = false;
-		Iterator<Vehicle> it = vehiclesAvailable.iterator();
-		while(it.hasNext()) {
-			Vehicle aVeh = it.next();
-			if(aVeh.getPlate().equals(aPlate)) {
-				found = true;
-				vehiclesAvailable.remove(aVeh);
+		boolean found = true;	
+		ArrayList<Vehicle> tempList = new ArrayList<Vehicle>();
+		while(!staffAvailable.isEmpty()) {
+			tempList.add(0,vehiclesAvailable.poll());
+		}
+		for(int i=0; i<tempList.size();i++) {
+			if(tempList.get(i).getPlate().equals(aPlate)) {
+				found = false;
+				tempList.remove(i);
 			}
 		}
+		for (int i = tempList.size() - 1; i >=0; i--) {
+		    ((LinkedList<Vehicle>) vehiclesAvailable).addFirst(tempList.get(i));
+		}
 		return found;
-		/*boolean found = false;
+		//How it was written before - Same for the delete Staff 
+		/*boolean found = false;  
 		for(Vehicle aVehicle : vehiclesAvailable){
 			if (aVehicle.getPlate() == aPlate) {
 				found = true;
