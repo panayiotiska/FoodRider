@@ -212,6 +212,7 @@ public class AddRestaurantScreen {
 		JButton btnApply = new JButton("Apply");
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				boolean clientUsernameTaken = false;
 				int ID = Restaurant.getIDsetter();
 				if (rowData != null) {
 					ID = rowData.getId();
@@ -229,6 +230,9 @@ public class AddRestaurantScreen {
 				if(rowData == null) {
 					clientUsername = textFieldClientUsername.getText().trim();
 					clientPassword = textFieldClientPassword.getText().trim();
+					if (Database.findClientByUsername(clientUsername) != null) {
+						clientUsernameTaken = true;
+					}
 				}
 				String subscriptionDate = "Error Occurred";
 			
@@ -265,6 +269,8 @@ public class AddRestaurantScreen {
 					timeDistanceTextField.setBackground(Color.red);
 					messageLabel.setForeground(Color.red);
 					messageLabel.setText("Unexpected entry in Time Distance. Entry must be numeric ");
+				}else if (clientUsernameTaken) {
+					messageLabel.setText("A client with this Username already exists.");
 				}else {
 					if (rowData != null) { //If it is an edit !
 						data.deleteRestaurant(ID);

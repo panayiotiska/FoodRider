@@ -138,10 +138,11 @@ public class Vehicles_Screen {
 					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + selectedPlate , "Delete?",  JOptionPane.YES_NO_OPTION);
 					if (reply == JOptionPane.YES_OPTION) {
 						selectedRow = (String) table.getModel().getValueAt(row, column);
-						if(!data.deleteVehicle(selectedRow)) { //IF this staff member is unavailable
+						if(!data.isVehicleAvailable(selectedRow)) { //IF this staff member is unavailable
 							JOptionPane.showMessageDialog(frame, "Sorry, this Vehicle is currently on the road.");
 						}else {
 							((DefaultTableModel)table.getModel()).removeRow(row);
+							data.deleteVehicle(selectedRow);
 						}
 					}
 				}

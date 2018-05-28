@@ -72,4 +72,13 @@ public class Database {
 		}
 		return null;
 	}
+
+	public static void deleteClientByRestaurantID(int restaurantID) {
+		for(int i = 0; i < clients.size(); i++){
+			if(clients.get(i).getRestaurantID() == restaurantID) {
+				clients.remove(i);
+			}
+		}
+		
+	}
 }

@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import Login_Screen_Package.Database;
+
 public class Handler {
 
 	private ArrayList<Restaurant> restaurantsList;
@@ -75,12 +77,10 @@ public class Handler {
 			System.out.println(aveh.getModel() + aveh.getBrand());
 		}
 		//AT THE START OF THE PROGRAM, THE STAFF ARE ALL ADDED TO AVAILABLE LIST 
-		staffAvailable.addAll(staffList);
-		
-		
-		
+		staffAvailable.addAll(staffList);	
 	}
-	public void assignStaffAndVehicleAndManageOrder(Order anOrder,boolean immidiateStart) {
+	
+	public void assignStaffAndVehicleAndManageOrder(Order anOrder,boolean immidiateStart) { //updates availability of staff and vehicle after an order is done
 		if(immidiateStart){
 			Staff aStaff = staffAvailable.peek();
 			staffAvailable.remove();
@@ -94,7 +94,7 @@ public class Handler {
 		}
 	}
 	
-	public void unassignStaffAndVehicleAndAddOrderToHistory(Staff aStaff, Vehicle aVehicle, Order anOrder) {
+	public void unassignStaffAndVehicleAndAddOrderToHistory(Staff aStaff, Vehicle aVehicle, Order anOrder) { //updates availability of staff and vehicle after an order has started
 		staffUnavailable.remove(aStaff);
 		staffAvailable.add(aStaff);
 		vehiclesUnavailable.remove(aVehicle);
@@ -110,13 +110,10 @@ public class Handler {
 		}
 	}
 	
-	
 	public void orderStart(Order anOrder) {
 		Thread order = new Thread(new runOrder(this,anOrder,1));
 		order.start();
 	}
-	
-	
 	
 	public void addRestaurant(Restaurant aRestaurant) {
 		restaurantsList.add(aRestaurant);
@@ -126,6 +123,7 @@ public class Handler {
 		for(int i = 0; i < restaurantsList.size(); i++){
 			if(restaurantsList.get(i).getId() == anID) {
 				restaurantsList.remove(i);
+				Database.deleteClientByRestaurantID(anID); //also delete the restaurant's client
 			}
 		}
 	}
@@ -182,32 +180,21 @@ public class Handler {
 		}
 	}
 	
-	public boolean deleteVehicle(String aPlate) {
-		boolean found = true;	
-		ArrayList<Vehicle> tempList = new ArrayList<Vehicle>();
-		while(!staffAvailable.isEmpty()) {
-			tempList.add(0,vehiclesAvailable.poll());
-		}
-		for(int i=0; i<tempList.size();i++) {
-			if(tempList.get(i).getPlate().equals(aPlate)) {
-				found = false;
-				tempList.remove(i);
-			}
-		}
-		for (int i = tempList.size() - 1; i >=0; i--) {
-		    ((LinkedList<Vehicle>) vehiclesAvailable).addFirst(tempList.get(i));
-		}
-		return found;
-		//How it was written before - Same for the delete Staff 
-		/*boolean found = false;  
+	public boolean isVehicleAvailable(String aPlate) {
 		for(Vehicle aVehicle : vehiclesAvailable){
 			if (aVehicle.getPlate() == aPlate) {
-				found = true;
-				vehiclesAvailable.remove(aVehicle);
-				vehiclesList.remove(aVehicle);
+				return true;
 			}
 		}
-		return found;*/
+		return false;
+	}
+			
+	public void deleteVehicle(String aPlate) {
+		for(int i = 0; i< vehiclesList.size(); i++){
+			if (vehiclesList.get(i).getPlate() == aPlate) {
+				vehiclesList.remove(i);
+			}
+		 }
 	}
 	
 	public Current_Status getLockedWindow() {
