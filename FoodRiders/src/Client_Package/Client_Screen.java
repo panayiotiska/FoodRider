@@ -35,6 +35,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class Client_Screen {
@@ -142,9 +145,16 @@ public class Client_Screen {
 					int prepareTime = Integer.valueOf(prepTimeTextField.getText().trim());
 					if(prepareTime !=0) {
 						if (aData.findRestaurantFromClient(aClient.getRestaurantID()) != null){
+							String sentTime = "00:00"; //initialization
+							
+							//Get current time
+							DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+							Date date = new Date();
+							sentTime = dateFormat.format(date);
+							
 							restaurant = aData.findRestaurantFromClient(aClient.getRestaurantID());
 							int orderCode = aData.getRunningOrders().size() + aData.getOrderHistory().size() + 1;
-							Order order = new Order(restaurant, prepareTime, orderCode);
+							Order order = new Order(restaurant, prepareTime, orderCode, sentTime);
 							aData.orderStart(order);
 							messageLbl.setForeground(Color.yellow);
 							

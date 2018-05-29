@@ -14,6 +14,7 @@ import Handler_Package.Current_Status;
 import Handler_Package.Handler;
 import Login_Screen_Package.Database;
 import Login_Screen_Package.Login_Screen;
+import Orders_Screen_Package.Orders_Screen;
 import Restaurants_Screen_Package.Restaurants_Screen;
 import Staff_Screen_Package.Staff_Screen;
 // import Statistics.StatisticsGUI;
@@ -154,8 +155,21 @@ public class MainMenu {
 		});
 		frameFoodRiders.getContentPane().add(btnEstiatoria);
 		
-		JButton btnParaggelies = new JButton("Orders");
+		JButton btnParaggelies = new JButton("Orders History");
 		btnParaggelies.setBounds(39, 204, 126, 47);
+		btnParaggelies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameFoodRiders.dispose();
+				Orders_Screen ordersSreen = new Orders_Screen(data);
+				try {
+					ordersSreen.toOrderScreen(data);
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		frameFoodRiders.getContentPane().add(btnParaggelies);
 		
 		JButton btnYpalliloi = new JButton("Staff");

@@ -2,11 +2,17 @@ package Orders_Screen_Package;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -18,6 +24,7 @@ import Handler_Package.Order;
 import Handler_Package.Restaurant;
 import Login_Screen_Package.Client;
 import Login_Screen_Package.Database;
+import MainMenu_Screen_Package.MainMenu;
 
 public class Orders_Screen {
 
@@ -62,14 +69,18 @@ public class Orders_Screen {
 		lblOrdersHistory.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		lblOrdersHistory.setBounds(12, 13, 717, 40);
 		frame.getContentPane().add(lblOrdersHistory);
-		frame.setBounds(100, 100, 759, 448);
+		frame.setBounds(100, 100, 759, 527);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 66, 717, 322);
+		frame.getContentPane().add(scrollPane);
 		
 		//Filling up the JTable
 			ArrayList<Order> orderHistory = new ArrayList<>();
 			orderHistory = data.getOrderHistory();
 				
-			String col[] = {"ID", "Restaurant", "Time", "Driver"};
+			String col[] = {"Order ID", "Restaurant", "Request Time"};
 				
 			DefaultTableModel model = new DefaultTableModel(col, 0) {
 			    @Override
@@ -79,11 +90,26 @@ public class Orders_Screen {
 			    }
 			};
 			JTable table = new JTable(model);
-			table.setBounds(12, 66, 717, 322);
-			frame.getContentPane().add(table);
 			
 			for(int i = 0 ; i < orderHistory.size(); i++) {
-				model.addRow(new Object[]{orderHistory.get(i).getOrderCode(),orderHistory.get(i).getRestaurant().getName(),"00:00","Sotirakis"});
+				model.addRow(new Object[]{orderHistory.get(i).getOrderCode(),orderHistory.get(i).getRestaurant().getName(),orderHistory.get(i).getSentTime()});
 			}
+			
+			scrollPane.setViewportView(table);
+			
+			JButton button = new JButton("");
+			ImageIcon menuImg = new ImageIcon(this.getClass().getResource("/home.png"));
+			button.setIcon(menuImg);
+			frame.getContentPane().add(button);
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frame.dispose();
+					MainMenu mainMenu = new MainMenu(data);
+					mainMenu.setLockedWindow(data.getLockedWindow());
+					mainMenu.showMainMenu(data);
+					
+				}
+			});
+			button.setBounds(338, 407, 64, 60);
 	}
 }
