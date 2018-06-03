@@ -6,9 +6,13 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import javax.swing.ImageIcon;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import com.github.rcaller.rstuff.RCaller;
 import com.github.rcaller.rstuff.RCode;
+
+import Handler_Package.Handler;
+import Handler_Package.Order;
 
 public class Statistics {
 	
@@ -24,21 +28,35 @@ public class Statistics {
 	
 	private ArrayList<Integer> interv; // Temp, argument in class
 	
+	private ArrayList<Order> orderHistory;
+	
 	private int[] frequency;
 	
 	private int[] interval;
 	
-	public Statistics() throws IOException, ExceptionInInitializerError {
+	public Statistics(Handler data) throws IOException, ExceptionInInitializerError,ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
-		this.interv = new ArrayList<>(Arrays.asList(24,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23));
+		this.interv = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23));
 		
-		this.freq = new ArrayList<>(Arrays.asList(4,5,10,30,10,20,23,25,27,21,3,45,78,23,12,45,23,12,34,23,1,2,34));
-			
+		this.freq = new ArrayList<Integer>();
+		
+		for (int i = 0; i < this.interv.size()-1; ++i)
+			this.freq.add(0);
+		
+		orderHistory = new ArrayList<>();
+		
+		orderHistory = data.getOrderHistory();
+		
 		// Convert from ArrayList to a table, so we can pass the data to R
 		this.frequency = convertListToArray(freq);
 		
 		// Convert from ArrayList to a table, so we can pass the data to R
 		this.interval = convertListToArray(interv);
+		
+		for(int i = 0 ; i < orderHistory.size(); ++i) {
+			int freqPosition = Integer.parseInt(orderHistory.get(i).getSentTime().substring(0, 2));
+			this.frequency[freqPosition]++;
+		}	
 		
 		// Calculation of n (sum of all frequencies)
 		this.n = calcN();
@@ -166,18 +184,18 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		// names table will be recognized as names in R
 		code.addStringArray("names", names);
 		
-		// Getting max of frequency table, in order barplot to extend every time frequency max is increasing
+		// Getting max of frequency table, in order bar-plot to extend every time frequency max is increasing
 		code.addDouble("max", Collections.max(freq));
 		
-		// Barplot saved in File object
+		// Bar-plot saved in File object
 		File plotFile = code.startPlot();
 		
-		// Executing barplot command in R
+		// Executing bar-plot command in R
 		code.addRCode("par(mar=c(3, 7, 5, 1))");
-		// xlim = c(0, max+10) -> every time barplot is extending x upper limit to frequency max plus 10
+		// xlim = c(0, max+10) -> every time bar-plot is extending x upper limit to frequency max plus 10
 		code.addRCode("barplot(freq, main=\"Order Frequency\", horiz = T, names=names, las=1, col=\"brown\", cex.names=0.8, ylim = c(0, 27), xlim = c(0, max+20))");
 		
-		// Stop creating the barplot
+		// Stop creating the bar-plot
 		code.endPlot();
 		
 		// Parsing R code
@@ -186,7 +204,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 		// Executing code
 		caller.runOnly();
 		// code.showPlot(plotFile); /* Ignore this */
-		// Barplot in ImageIcon object (to appear in GUI)
+		// Bar-plot in ImageIcon object (to appear in GUI)
 		ImageIcon plot = code.getPlot(plotFile);
 
 		return plot;
@@ -216,7 +234,7 @@ private int[] convertListToArray(ArrayList<Integer> list) {
 	
 	private String[] getNames(ArrayList<Integer> interv){
 		
-		/* This method gets interval as arraylist and returns it as string array for barplot's labels. */
+		/* This method gets interval as array list and returns it as string array for barplot's labels. */
 		
 		String[] names = new String[interv.size()-1];
 		

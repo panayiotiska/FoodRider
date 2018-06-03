@@ -148,7 +148,7 @@ public class Client_Screen {
 							String sentTime = "00:00"; //initialization
 							
 							//Get current time
-							DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+							DateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 							Date date = new Date();
 							sentTime = dateFormat.format(date);
 							

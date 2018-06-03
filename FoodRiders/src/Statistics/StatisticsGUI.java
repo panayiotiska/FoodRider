@@ -32,11 +32,6 @@ public class StatisticsGUI extends JFrame {
 	private JFrame frame;
 	private JButton mainMenuBtn;
 	private JPanel panel;
-	private JButton btnToday;
-	private JButton btnThisWeek;
-	private JButton btnThisMonth;
-	private JButton btnTotal;
-	private JButton btnThisYear;
 	private JPanel northPanel;
 	private JPanel southPanel;
 	private JPanel centerPanel;
@@ -90,7 +85,25 @@ public class StatisticsGUI extends JFrame {
 		frame.setTitle("Statistics");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		Statistics stats = new Statistics();
+		Statistics stats = null;
+		try {
+			stats = new Statistics(data);
+		} catch (ExceptionInInitializerError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 		JLabel statisticsTitle = new JLabel("Statistics");
 		statisticsTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -114,21 +127,6 @@ public class StatisticsGUI extends JFrame {
 		
 		panel = new JPanel();
 		southPanel.add(panel, BorderLayout.NORTH);
-		
-		btnTotal = new JButton("Total");
-		panel.add(btnTotal);
-		
-		btnToday = new JButton("Today");
-		panel.add(btnToday);
-		
-		btnThisWeek = new JButton("This Week");
-		panel.add(btnThisWeek);
-		
-		btnThisMonth = new JButton("This Month");
-		panel.add(btnThisMonth);
-		
-		btnThisYear = new JButton("This Year");
-		panel.add(btnThisYear);
 		
 		underSouthPanel = new JPanel();
 		southPanel.add(underSouthPanel, BorderLayout.SOUTH);

@@ -56,6 +56,7 @@ public class Handler {
 		staffList.add(dummyStaff1);
 		staffList.add(dummyStaff2);
 		staffList.add(dummyStaff3);
+		
 		//DUMMY VEHICLES
 		Vehicle dummyVehicle1 = new Vehicle("YX-6574","Street/Standar","Ducati","Monster 821","18/10/17",true);
 		Vehicle dummyVehicle2 = new Vehicle("AT-4521","Street/Cruiser","Harley Davidson","Street 750","15/10/17",true);
@@ -65,6 +66,49 @@ public class Handler {
 		vehiclesList.add(dummyVehicle2);
 		vehiclesList.add(dummyVehicle3);
 		
+		//DUMMY ORDERS
+		Order dummyOrder1 = new Order(dummyRestaurant3, 10, 1, "10:12 03/06/2018");
+		Order dummyOrder2 = new Order(dummyRestaurant3, 10, 2, "10:12 03/06/2018");
+		Order dummyOrder3 = new Order(dummyRestaurant1, 10, 3, "10:12 03/06/2018");
+		Order dummyOrder4 = new Order(dummyRestaurant2, 10, 4, "09:12 03/06/2018");
+		Order dummyOrder5 = new Order(dummyRestaurant1, 10, 5, "09:12 03/06/2018");
+		Order dummyOrder6 = new Order(dummyRestaurant2, 10, 6, "03:12 03/06/2018");
+		Order dummyOrder7 = new Order(dummyRestaurant1, 10, 7, "03:12 03/06/2018");
+		Order dummyOrder8 = new Order(dummyRestaurant3, 10, 8, "10:12 03/06/2018");
+		Order dummyOrder9 = new Order(dummyRestaurant2, 10, 9, "10:12 03/06/2018");
+		Order dummyOrder10 = new Order(dummyRestaurant3, 10, 10, "10:12 03/06/2018");
+		Order dummyOrder11 = new Order(dummyRestaurant3, 10, 12, "08:12 03/06/2018");
+		Order dummyOrder12 = new Order(dummyRestaurant2, 10, 13, "08:12 03/06/2018");
+		Order dummyOrder13 = new Order(dummyRestaurant1, 10, 14, "03:12 03/06/2018");
+		Order dummyOrder14 = new Order(dummyRestaurant3, 10, 15, "03:12 03/06/2018");
+		Order dummyOrder15 = new Order(dummyRestaurant3, 10, 16, "10:12 03/06/2018");
+		Order dummyOrder16 = new Order(dummyRestaurant2, 10, 17, "12:12 03/06/2018");
+		Order dummyOrder17 = new Order(dummyRestaurant2, 10, 18, "12:12 03/06/2018");
+		Order dummyOrder18 = new Order(dummyRestaurant3, 10, 19, "12:12 03/06/2018");
+		Order dummyOrder19 = new Order(dummyRestaurant3, 10, 20, "03:12 03/06/2018");
+		Order dummyOrder20 = new Order(dummyRestaurant1, 10, 21, "03:12 03/06/2018");
+		
+		OrderHistory.add(dummyOrder1);
+		OrderHistory.add(dummyOrder2);
+		OrderHistory.add(dummyOrder3);
+		OrderHistory.add(dummyOrder4);
+		OrderHistory.add(dummyOrder5);
+		OrderHistory.add(dummyOrder6);
+		OrderHistory.add(dummyOrder7);
+		OrderHistory.add(dummyOrder8);
+		OrderHistory.add(dummyOrder9);
+		OrderHistory.add(dummyOrder10);
+		OrderHistory.add(dummyOrder11);
+		OrderHistory.add(dummyOrder12);
+		OrderHistory.add(dummyOrder13);
+		OrderHistory.add(dummyOrder14);
+		OrderHistory.add(dummyOrder15);
+		OrderHistory.add(dummyOrder16);
+		OrderHistory.add(dummyOrder17);
+		OrderHistory.add(dummyOrder18);
+		OrderHistory.add(dummyOrder19);
+		OrderHistory.add(dummyOrder20);
+		
 		//AT THE START OF THE PROGRAM, THE VEHICLES ARE ADDED TO AVAILABLE OR UNAVAILABLE LIST, DEPENDING ON THEIR TRUE OR FALSE STATUS
 		for(Vehicle aVehicle : vehiclesList) {
 			if(aVehicle.getStatus() == true) {
@@ -73,9 +117,7 @@ public class Handler {
 				vehiclesUnavailable.add(aVehicle);
 			}
 		}
-		for(Vehicle aveh : vehiclesAvailable) {
-			System.out.println(aveh.getModel() + aveh.getBrand());
-		}
+		
 		//AT THE START OF THE PROGRAM, THE STAFF ARE ALL ADDED TO AVAILABLE LIST 
 		staffAvailable.addAll(staffList);	
 	}
